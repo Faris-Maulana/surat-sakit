@@ -23,6 +23,42 @@ function seededRandom(seed: string): () => number {
   }
 }
 
+type SigMode = 'realistic' | 'text'
+
+function drawTextSignature(ctx: CanvasRenderingContext2D, name: string) {
+  const w = ctx.canvas.width
+  const h = ctx.canvas.height
+  ctx.clearRect(0, 0, w, h)
+
+  // Baseline
+  ctx.beginPath()
+  ctx.moveTo(20, h - 18)
+  ctx.lineTo(w - 20, h - 18)
+  ctx.strokeStyle = '#bbb'
+  ctx.lineWidth = 0.5
+  ctx.stroke()
+
+  const displayName = name || 'dr. Andi Pratama'
+  const fontSize = displayName.length > 20 ? 26 : 30
+
+  ctx.font = `italic ${fontSize}px "Brush Script MT", "Snell Roundhand", "Apple Chancery", cursive`
+  ctx.fillStyle = '#1a3a6b'
+  ctx.textAlign = 'center'
+  ctx.textBaseline = 'middle'
+  ctx.fillText(displayName, w / 2 + (Math.random() - 0.5) * 6, h / 2 + 4)
+
+  // Small decorative underline sweep
+  ctx.beginPath()
+  const tw = ctx.measureText(displayName).width
+  const sx = w / 2 - tw / 2 - 10
+  const ex = w / 2 + tw / 2 + 10
+  ctx.moveTo(sx, h / 2 + 16)
+  ctx.quadraticCurveTo((sx + ex) / 2, h / 2 + 24, ex, h / 2 + 16)
+  ctx.strokeStyle = '#1a3a6b'
+  ctx.lineWidth = 0.8
+  ctx.stroke()
+}
+
 function drawSignature(ctx: CanvasRenderingContext2D, name: string) {
   const w = ctx.canvas.width
   const h = ctx.canvas.height
@@ -201,6 +237,7 @@ function drawSignature(ctx: CanvasRenderingContext2D, name: string) {
 
 export default function SignaturePad({ doctorName, sip, onDoctorNameChange, onSipChange, onSignatureChange }: Props) {
   const [signatureDataUrl, setSignatureDataUrl] = useState<string | null>(null)
+  const [mode, setMode] = useState<SigMode>('realistic')
 
   const generateSignature = useCallback(() => {
     const canvas = document.createElement('canvas')
@@ -209,11 +246,15 @@ export default function SignaturePad({ doctorName, sip, onDoctorNameChange, onSi
     const ctx = canvas.getContext('2d')
     if (!ctx) return
 
-    drawSignature(ctx, doctorName || 'dr. Andi Pratama')
+    if (mode === 'text') {
+      drawTextSignature(ctx, doctorName || 'dr. Andi Pratama')
+    } else {
+      drawSignature(ctx, doctorName || 'dr. Andi Pratama')
+    }
     const url = canvas.toDataURL('image/png')
     setSignatureDataUrl(url)
     onSignatureChange?.(url)
-  }, [doctorName, onSignatureChange])
+  }, [doctorName, onSignatureChange, mode])
 
   return (
     <div className="space-y-4">
@@ -245,6 +286,25 @@ export default function SignaturePad({ doctorName, sip, onDoctorNameChange, onSi
         </div>
       </div>
 
+      <div className="flex items-center gap-2 bg-gray-100 rounded-xl p-1 w-fit">
+        <button
+          onClick={() => { setMode('realistic'); setSignatureDataUrl(null) }}
+          className={`px-4 py-1.5 rounded-lg text-sm font-medium transition-all ${
+            mode === 'realistic' ? 'bg-white shadow-sm text-blue-700' : 'text-gray-500 hover:text-gray-700'
+          }`}
+        >
+          Goresan Tangan
+        </button>
+        <button
+          onClick={() => { setMode('text'); setSignatureDataUrl(null) }}
+          className={`px-4 py-1.5 rounded-lg text-sm font-medium transition-all ${
+            mode === 'text' ? 'bg-white shadow-sm text-blue-700' : 'text-gray-500 hover:text-gray-700'
+          }`}
+        >
+          Teks Nama
+        </button>
+      </div>
+
       <button
         onClick={generateSignature}
         className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-xl text-sm font-medium hover:bg-blue-700 transition-colors"
@@ -266,7 +326,7 @@ export default function SignaturePad({ doctorName, sip, onDoctorNameChange, onSi
             onClick={generateSignature}
             className="mt-2 w-full text-xs text-blue-600 hover:text-blue-800"
           >
-            ↻ Generate ulang (gaya berbeda)
+            ↻ Generate ulang{mode === 'realistic' ? ' (gaya berbeda)' : ''}
           </button>
         </div>
       )}
