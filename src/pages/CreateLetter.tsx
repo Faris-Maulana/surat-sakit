@@ -38,6 +38,8 @@ export default function CreateLetter() {
   const [endDate, setEndDate] = useState('')
   const [doctorName, setDoctorName] = useState('')
   const [sip, setSip] = useState('')
+  const [signatureUrl, setSignatureUrl] = useState('')
+  const [stampUrl, setStampUrl] = useState('')
 
   const canProceed = () => {
     switch (step) {
@@ -60,7 +62,7 @@ export default function CreateLetter() {
       letterNumber: generateLetterNumber(),
       createdAt: new Date().toISOString(),
     }
-    navigate('/preview', { state: { letterData } })
+    navigate('/preview', { state: { letterData, signatureUrl, stampUrl } })
   }
 
   return (
@@ -117,8 +119,14 @@ export default function CreateLetter() {
                 sip={sip}
                 onDoctorNameChange={setDoctorName}
                 onSipChange={setSip}
+                onSignatureChange={setSignatureUrl}
               />
-              {institution && <StampGenerator institutionName={institution.name} />}
+              {institution && (
+                <StampGenerator
+                  institutionName={institution.name}
+                  onStampChange={setStampUrl}
+                />
+              )}
             </div>
           )}
         </div>

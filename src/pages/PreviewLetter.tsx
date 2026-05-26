@@ -1,17 +1,22 @@
-import { useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { ArrowLeft, Printer } from 'lucide-react'
 import SuratSakit from '@/templates/SuratSakit'
 import ExportButtons from '@/components/ExportButtons'
 import type { LetterData } from '@/types'
 
+interface PreviewState {
+  letterData: LetterData
+  signatureUrl?: string
+  stampUrl?: string
+}
+
 export default function PreviewLetter() {
   const location = useLocation()
   const navigate = useNavigate()
-  const letterData = (location.state as { letterData: LetterData })?.letterData
-
-  const [signatureUrl] = useState<string | null>(null)
-  const [stampUrl] = useState<string | null>(null)
+  const state = location.state as PreviewState | null
+  const letterData = state?.letterData
+  const signatureUrl = state?.signatureUrl
+  const stampUrl = state?.stampUrl
 
   if (!letterData || !letterData.institution) {
     return (
@@ -59,8 +64,8 @@ export default function PreviewLetter() {
         <div className="flex justify-center">
           <SuratSakit
             data={letterData}
-            signatureUrl={signatureUrl || undefined}
-            stampUrl={stampUrl || undefined}
+            signatureUrl={signatureUrl}
+            stampUrl={stampUrl}
           />
         </div>
 
