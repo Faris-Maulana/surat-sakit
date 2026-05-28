@@ -11,22 +11,63 @@
     @apply bg-white shadow-lg mx-auto;
     width: 210mm;
     min-height: 297mm;
-    padding: 20mm 25mm;
+    padding: 15mm 20mm;
   }
 
   .surat-line {
-    @apply border-t-2 border-black my-4;
+    @apply border-t-2 border-black my-3 sm:my-4;
   }
 
   .surat-header {
-    @apply text-center mb-6;
+    @apply text-center mb-4 sm:mb-6;
   }
 
   .surat-header h1 {
-    @apply text-xl font-bold uppercase;
+    @apply text-base sm:text-xl font-bold uppercase;
   }
 
   .surat-header p {
-    @apply text-sm;
+    @apply text-[10px] sm:text-sm;
+  }
+
+  /* Responsive scaling: on small viewports, shrink the A4 preview proportionally */
+  @media screen and (max-width: 800px) {
+    .surat-container {
+      width: 100%;
+      min-height: auto;
+      padding: 12px 16px;
+      font-size: 12px;
+    }
+
+    .surat-container table {
+      font-size: 12px;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    .surat-container {
+      padding: 10px 12px;
+    }
+  }
+}
+
+/* Print styles - maintain A4 exactly */
+@page {
+  size: A4;
+  margin: 0;
+}
+
+@media print {
+  html, body {
+    width: 210mm;
+    height: 297mm;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .surat-container {
+    padding: 20mm 25mm;
+    box-shadow: none;
+    margin: 0;
   }
 }

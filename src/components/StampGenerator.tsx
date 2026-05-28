@@ -3,6 +3,7 @@ import { useState } from 'react'
 
 interface Props {
   institutionName: string
+  sip?: string
   onStampChange?: (url: string) => void
 }
 
@@ -121,12 +122,11 @@ function generateStampCanvas(name: string, sip: string): string {
   return canvas.toDataURL('image/png')
 }
 
-export default function StampGenerator({ institutionName, onStampChange }: Props) {
+export default function StampGenerator({ institutionName, sip: propSip = '', onStampChange }: Props) {
   const [stampDataUrl, setStampDataUrl] = useState<string | null>(null)
-  const [sip, setSip] = useState('')
 
   const handleGenerate = () => {
-    const url = generateStampCanvas(institutionName, sip)
+    const url = generateStampCanvas(institutionName, propSip)
     setStampDataUrl(url)
     onStampChange?.(url)
   }
@@ -138,16 +138,7 @@ export default function StampGenerator({ institutionName, onStampChange }: Props
         <h3 className="font-semibold">Cap / Stempel</h3>
       </div>
 
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">Nomor SIP (untuk cap)</label>
-        <input
-          type="text"
-          value={sip}
-          onChange={(e) => setSip(e.target.value)}
-          className="w-full rounded-xl border-gray-300 border p-3 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-          placeholder="SIP. 12345/2026"
-        />
-      </div>
+      <p className="text-xs text-gray-500 italic">Nomor SIP akan otomatis mengikuti dari data dokter di atas.</p>
 
       <button
         onClick={handleGenerate}

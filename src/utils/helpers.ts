@@ -31,6 +31,8 @@ const cityNames: Record<string, string> = {
   'depok': 'Depok',
   'tangerang': 'Tangerang',
   'bekasi': 'Bekasi',
+  'surabaya': 'Surabaya',
+  'semarang': 'Semarang',
 }
 
 export function getCityName(cityId: string): string {
