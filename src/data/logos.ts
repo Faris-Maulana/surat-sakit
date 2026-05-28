@@ -1,296 +1,360 @@
-// Institution-specific logo data — each RS/Puskesmas/Klinik gets its own logo
-// Real recognizable chains get distinctive designs; others use type-based variants
+// Institution-specific logo data — each RS/Puskesmas/Klinik gets its own unique logo
+// Real recognizable chains use their actual brand identity; others get distinctive designs
 
 export type LogoMap = Record<string, string>
 
-// ─── RUMAH SAKIT ───────────────────────────────────────────────────
+// ─── SHAPE HELPERS ───────────────────────────────────────────────────
 
-const RS_GOVT = (_name: string) => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
-  <defs><linearGradient id="g" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" style="stop-color:#1565c0"/><stop offset="100%" style="stop-color:#0d47a1"/></linearGradient></defs>
-  <path d="M100 8 L180 50 L180 120 Q180 170 100 195 Q20 170 20 120 L20 50 Z" fill="url(#g)" stroke="#0d47a1" stroke-width="3"/>
-  <rect x="86" y="48" width="12" height="56" rx="2" fill="white"/><rect x="102" y="48" width="12" height="56" rx="2" fill="white"/><rect x="78" y="70" width="44" height="14" rx="2" fill="white"/>
-  <rect x="89" y="53" width="6" height="46" rx="1" fill="#1565c0"/><rect x="105" y="53" width="6" height="46" rx="1" fill="#1565c0"/><rect x="82" y="73" width="36" height="8" rx="1" fill="#1565c0"/>
-  <text x="100" y="140" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" font-weight="bold" fill="white">RUMAH SAKIT</text>
-  <text x="100" y="154" text-anchor="middle" font-family="Arial,sans-serif" font-size="7" fill="rgba(255,255,255,0.7)">UMUM DAERAH</text>
-</svg>`
+function shield(grad: string): string {
+  return `<path d="M100 10 L185 55 L185 120 Q185 170 100 195 Q15 170 15 120 L15 55 Z" fill="url(#${grad})" stroke="rgba(0,0,0,0.15)" stroke-width="1"/>`
+}
+function circle(grad: string): string {
+  return `<circle cx="100" cy="100" r="95" fill="url(#${grad})" stroke="rgba(0,0,0,0.1)" stroke-width="1"/>`
+}
+function rrect(grad: string): string {
+  return `<rect x="12" y="12" width="176" height="176" rx="28" fill="url(#${grad})" stroke="rgba(0,0,0,0.1)" stroke-width="1"/>`
+}
+function hexagon(grad: string): string {
+  return `<path d="M100 8 L182 54 L182 146 L100 192 L18 146 L18 54 Z" fill="url(#${grad})" stroke="rgba(0,0,0,0.1)" stroke-width="1"/>`
+}
+function diamond(grad: string): string {
+  return `<path d="M100 10 L185 100 L100 190 L15 100 Z" fill="url(#${grad})" stroke="rgba(0,0,0,0.1)" stroke-width="1"/>`
+}
+function pill(grad: string): string {
+  return `<rect x="25" y="20" width="150" height="160" rx="75" fill="url(#${grad})" stroke="rgba(0,0,0,0.1)" stroke-width="1"/>`
+}
+function octagon(grad: string): string {
+  return `<path d="M70 15 L130 15 L175 70 L175 130 L130 175 L70 175 L25 130 L25 70 Z" fill="url(#${grad})" stroke="rgba(0,0,0,0.1)" stroke-width="1"/>`
+}
+function heartShape(grad: string): string {
+  return `<path d="M100 175 Q20 120 20 70 Q20 25 60 25 Q85 25 100 50 Q115 25 140 25 Q180 25 180 70 Q180 120 100 175 Z" fill="url(#${grad})" stroke="rgba(0,0,0,0.1)" stroke-width="1"/>`
+}
+function leafShape(grad: string): string {
+  return `<path d="M100 10 Q175 60 175 120 Q175 170 100 195 Q25 170 25 120 Q25 60 100 10 Z" fill="url(#${grad})" stroke="rgba(0,0,0,0.1)" stroke-width="1"/>`
+}
+function teardrop(grad: string): string {
+  return `<path d="M100 10 Q175 90 175 140 Q175 185 100 190 Q25 185 25 140 Q25 90 100 10 Z" fill="url(#${grad})" stroke="rgba(0,0,0,0.1)" stroke-width="1"/>`
+}
+function arch(grad: string): string {
+  return `<path d="M20 100 L20 180 L180 180 L180 100 Q180 15 100 15 Q20 15 20 100 Z" fill="url(#${grad})" stroke="rgba(0,0,0,0.1)" stroke-width="1"/>`
+}
 
-const RS_HERMINA = (_name: string) => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
-  <defs><linearGradient id="h" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#e91e63"/><stop offset="100%" style="stop-color:#ad1457"/></linearGradient></defs>
-  <rect x="10" y="10" width="180" height="180" rx="30" fill="url(#h)"/>
-  <path d="M145 50 L145 150 L55 150 L55 50 Z" fill="white" opacity="0.2"/>
-  <circle cx="100" cy="80" r="35" fill="white"/>
-  <path d="M100 58 L100 102 M78 80 L122 80" stroke="#e91e63" stroke-width="6" stroke-linecap="round"/>
-  <text x="100" y="140" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" font-weight="bold" fill="white">HERMINA</text>
-  <text x="100" y="158" text-anchor="middle" font-family="Arial,sans-serif" font-size="7" fill="rgba(255,255,255,0.8)">HOSPITAL</text>
-</svg>`
+// ─── SVG WRAPPER ────────────────────────────────────────────────────
 
-const RS_SILOAM = (_name: string) => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
-  <defs><linearGradient id="s" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#1a237e"/><stop offset="100%" style="stop-color:#283593"/></linearGradient></defs>
-  <circle cx="100" cy="100" r="95" fill="url(#s)"/>
-  <path d="M60 70 Q100 30 140 70 L130 130 Q100 160 70 130 Z" fill="white" opacity="0.15"/>
-  <text x="100" y="90" text-anchor="middle" font-family="Georgia,serif" font-size="28" font-weight="bold" fill="white" font-style="italic">S</text>
-  <text x="100" y="130" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" font-weight="bold" fill="white">SILOAM</text>
-  <text x="100" y="148" text-anchor="middle" font-family="Arial,sans-serif" font-size="7" fill="rgba(255,255,255,0.7)">HOSPITALS</text>
-</svg>`
+const gradDefs = (id: string, c1: string, c2: string) =>
+  `<linearGradient id="${id}" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:${c1}"/><stop offset="100%" style="stop-color:${c2}"/></linearGradient>`
 
-const RS_MAYAPADA = (_name: string) => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
-  <defs><linearGradient id="m" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#b8860b"/><stop offset="100%" style="stop-color:#8b6914"/></linearGradient></defs>
-  <circle cx="100" cy="100" r="95" fill="url(#m)"/>
-  <path d="M80 50 L120 50 L120 150 L80 150 Z" fill="white" opacity="0.2"/>
-  <path d="M50 80 L150 80 L150 120 L50 120 Z" fill="white" opacity="0.2"/>
-  <text x="100" y="95" text-anchor="middle" font-family="Georgia,serif" font-size="18" font-weight="bold" fill="white">MP</text>
-  <text x="100" y="130" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" font-weight="bold" fill="white">MAYAPADA</text>
-  <text x="100" y="146" text-anchor="middle" font-family="Arial,sans-serif" font-size="7" fill="rgba(255,255,255,0.7)">HEALTHCARE</text>
-</svg>`
+const wrap = (body: string) =>
+  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">${body}</svg>`
 
-const RS_PONDOK_INDAH = (_name: string) => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
-  <defs><linearGradient id="pi" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#00695c"/><stop offset="100%" style="stop-color:#004d40"/></linearGradient></defs>
-  <rect x="15" y="15" width="170" height="170" rx="20" fill="url(#pi)"/>
-  <path d="M100 35 L155 65 L155 120 L100 150 L45 120 L45 65 Z" fill="none" stroke="white" stroke-width="2.5" opacity="0.3"/>
-  <circle cx="100" cy="82" r="28" fill="white"/>
-  <path d="M100 62 L100 102 M82 82 L118 82" stroke="#00695c" stroke-width="5" stroke-linecap="round"/>
-  <text x="100" y="140" text-anchor="middle" font-family="Arial,sans-serif" font-size="8" font-weight="bold" fill="white">PONDOK INDAH</text>
-</svg>`
+function logo(shape: (g: string) => string, icon: string, c1: string, c2: string, gid: string): string {
+  const defs = gradDefs(gid, c1, c2)
+  return wrap(`${defs}${shape(gid)}${icon}`)
+}
 
-const RS_BORROMEUS = (_name: string) => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
-  <defs><linearGradient id="b" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" style="stop-color:#6a1b9a"/><stop offset="100%" style="stop-color:#4a148c"/></linearGradient></defs>
-  <circle cx="100" cy="100" r="95" fill="url(#b)"/>
-  <path d="M100 35 L100 165 M35 100 L165 100" stroke="white" stroke-width="5" opacity="0.3"/>
-  <circle cx="100" cy="100" r="30" fill="white"/>
-  <path d="M100 78 L100 122 M78 100 L122 100" stroke="#6a1b9a" stroke-width="5" stroke-linecap="round"/>
-  <text x="100" y="160" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" font-weight="bold" fill="white">BORROMEUS</text>
-</svg>`
+// ─── ICON PRIMITIVES (placed at center of shape) ────────────────────
 
-const RS_CAROLUS = (_name: string) => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
-  <defs><linearGradient id="c" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#c62828"/><stop offset="100%" style="stop-color:#8e0000"/></linearGradient></defs>
-  <rect x="10" y="10" width="180" height="180" rx="30" fill="url(#c)"/>
-  <text x="100" y="85" text-anchor="middle" font-family="Georgia,serif" font-size="36" font-weight="bold" fill="white">SC</text>
-  <text x="100" y="120" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" font-weight="bold" fill="white">ST. CAROLUS</text>
-  <text x="100" y="140" text-anchor="middle" font-family="Arial,sans-serif" font-size="7" fill="rgba(255,255,255,0.7)">RS KATOLIK</text>
-</svg>`
+// Medical cross
+const crossIcon = `<rect x="86" y="48" width="28" height="68" rx="4" fill="white" opacity="0.9"/>
+<rect x="66" y="68" width="68" height="28" rx="4" fill="white" opacity="0.9"/>
+<rect x="90" y="56" width="20" height="52" rx="3" fill="rgba(0,0,0,0.08)"/>
+<rect x="74" y="74" width="52" height="16" rx="3" fill="rgba(0,0,0,0.08)"/>`
 
-const RS_MEDISTRA = (_name: string) => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
-  <defs><linearGradient id="med" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#37474f"/><stop offset="100%" style="stop-color:#263238"/></linearGradient></defs>
-  <circle cx="100" cy="100" r="95" fill="url(#med)"/>
-  <path d="M70 60 L100 45 L130 60 L130 100 Q130 130 100 140 Q70 130 70 100 Z" fill="none" stroke="white" stroke-width="2.5"/>
-  <text x="100" y="95" text-anchor="middle" font-family="Georgia,serif" font-size="16" font-weight="bold" fill="white">M</text>
-  <text x="100" y="130" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" font-weight="bold" fill="white">MEDISTRA</text>
-</svg>`
+// Plus sign
+const plusIcon = `<rect x="86" y="55" width="28" height="54" rx="5" fill="white" opacity="0.9"/>
+<rect x="68" y="72" width="64" height="20" rx="5" fill="white" opacity="0.9"/>`
 
-const RS_EMC = (_name: string) => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
-  <defs><linearGradient id="emc" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#0d47a1"/><stop offset="100%" style="stop-color:#1565c0"/></linearGradient></defs>
-  <rect x="15" y="15" width="170" height="170" rx="15" fill="url(#emc)"/>
-  <text x="100" y="80" text-anchor="middle" font-family="Arial,sans-serif" font-size="32" font-weight="bold" fill="white">EMC</text>
-  <text x="100" y="105" text-anchor="middle" font-family="Arial,sans-serif" font-size="7" fill="rgba(255,255,255,0.6)">EMERGENCY MEDICAL</text>
-  <rect x="75" y="118" width="50" height="4" rx="2" fill="white" opacity="0.4"/>
-  <text x="100" y="140" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" font-weight="bold" fill="white">EMC HOSPITAL</text>
-</svg>`
+// Heart
+const heartIcon = `<path d="M100 88 Q72 60 60 76 Q48 92 68 110 L100 140 L132 110 Q152 92 140 76 Q128 60 100 88 Z" fill="white" opacity="0.9"/>`
 
-const RS_MITRA_KELUARGA = (_name: string) => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
-  <defs><linearGradient id="mk" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#ef6c00"/><stop offset="100%" style="stop-color:#e65100"/></linearGradient></defs>
-  <circle cx="100" cy="100" r="95" fill="url(#mk)"/>
-  <path d="M70 60 Q100 50 130 60 L130 100 Q100 110 70 100 Z" fill="white" opacity="0.2"/>
-  <text x="100" y="85" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" font-weight="bold" fill="white">MITRA</text>
-  <text x="100" y="105" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" font-weight="bold" fill="white">K</text>
-  <text x="100" y="135" text-anchor="middle" font-family="Arial,sans-serif" font-size="8" font-weight="bold" fill="white">KELUARGA</text>
-</svg>`
+// Single letter
+const letterIcon = (letter: string, size = 36) =>
+  `<text x="100" y="110" text-anchor="middle" font-family="Georgia,serif" font-size="${size}" font-weight="bold" fill="white">${letter}</text>`
 
-const RS_PERMATA = (_name: string) => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
-  <defs><linearGradient id="per" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#4a148c"/><stop offset="100%" style="stop-color:#6a1b9a"/></linearGradient></defs>
-  <circle cx="100" cy="100" r="95" fill="url(#per)"/>
-  <path d="M100 30 L160 80 L140 160 L60 160 L40 80 Z" fill="none" stroke="white" stroke-width="2.5" opacity="0.3"/>
-  <circle cx="100" cy="65" r="20" fill="white"/>
-  <path d="M100 52 L100 78 M88 65 L112 65" stroke="#4a148c" stroke-width="4" stroke-linecap="round"/>
-  <text x="100" y="140" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" font-weight="bold" fill="white">PERMATA</text>
-  <text x="100" y="156" text-anchor="middle" font-family="Arial,sans-serif" font-size="7" fill="rgba(255,255,255,0.7)">HOSPITAL</text>
-</svg>`
+const staffIcon = `<rect x="96" y="45" width="8" height="74" rx="4" fill="white" opacity="0.85"/>
+<path d="M78 55 Q96 60 104 55 Q112 50 96 50" fill="none" stroke="white" stroke-width="2.5" opacity="0.7"/>
+<path d="M78 70 Q96 65 104 70 Q112 75 96 75" fill="none" stroke="white" stroke-width="2.5" opacity="0.7"/>
+<circle cx="96" cy="45" r="7" fill="none" stroke="white" stroke-width="2" opacity="0.8"/>
+<circle cx="104" cy="119" r="4" fill="none" stroke="white" stroke-width="1.5" opacity="0.6"/>`
 
-const RS_SARI_ASIH = (_name: string) => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
-  <defs><linearGradient id="sa" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#2e7d32"/><stop offset="100%" style="stop-color:#1b5e20"/></linearGradient></defs>
-  <rect x="15" y="15" width="170" height="170" rx="15" fill="url(#sa)"/>
-  <text x="100" y="85" text-anchor="middle" font-family="Georgia,serif" font-size="22" font-weight="bold" fill="white">SA</text>
-  <text x="100" y="120" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" font-weight="bold" fill="white">SARI ASIH</text>
-  <text x="100" y="138" text-anchor="middle" font-family="Arial,sans-serif" font-size="7" fill="rgba(255,255,255,0.7)">RUMAH SAKIT</text>
-</svg>`
+// Stethoscope
+const stethIcon = `<path d="M70 60 Q70 40 100 40 Q130 40 130 60 L130 100 Q130 120 115 125" fill="none" stroke="white" stroke-width="5" stroke-linecap="round" opacity="0.9"/>
+<circle cx="115" cy="130" r="10" fill="none" stroke="white" stroke-width="4" opacity="0.85"/>`
 
-const RS_YUSUP = (_name: string) => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
-  <defs><linearGradient id="sy" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#1565c0"/><stop offset="100%" style="stop-color:#0d47a1"/></linearGradient></defs>
-  <circle cx="100" cy="100" r="95" fill="url(#sy)"/>
-  <path d="M60 40 Q100 35 140 40 L140 160 Q100 165 60 160 Z" fill="white" opacity="0.12"/>
-  <text x="100" y="85" text-anchor="middle" font-family="Georgia,serif" font-size="18" font-weight="bold" fill="white">SY</text>
-  <text x="100" y="120" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" font-weight="bold" fill="white">ST. YUSUP</text>
-</svg>`
+// Shield/medical
+const shieldIcon = `<path d="M100 55 L145 78 L145 110 Q145 145 100 160 Q55 145 55 110 L55 78 Z" fill="none" stroke="white" stroke-width="4" opacity="0.7"/>
+<path d="M100 75 L100 125 M75 100 L125 100" stroke="white" stroke-width="4" stroke-linecap="round" opacity="0.85"/>`
 
-const RS_KEBON_JATI = (_name: string) => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
-  <defs><linearGradient id="kj" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#37474f"/><stop offset="100%" style="stop-color:#455a64"/></linearGradient></defs>
-  <rect x="15" y="15" width="170" height="170" rx="20" fill="url(#kj)"/>
-  <text x="100" y="80" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" font-weight="bold" fill="white">RS</text>
-  <text x="100" y="105" text-anchor="middle" font-family="Georgia,serif" font-size="22" font-weight="bold" fill="white">KJ</text>
-  <text x="100" y="140" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" font-weight="bold" fill="white">KEBON JATI</text>
-</svg>`
+// Droplet
+const dropletIcon = `<path d="M100 105 Q80 130 80 148 Q80 165 100 165 Q120 165 120 148 Q120 130 100 105 Z" fill="white" opacity="0.85"/>
+<path d="M100 60 Q100 60 80 105" fill="none" stroke="white" stroke-width="3" opacity="0.4"/>`
 
-const RS_PELNI = (_name: string) => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
-  <defs><linearGradient id="pel" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#0d47a1"/><stop offset="100%" style="stop-color:#1565c0"/></linearGradient></defs>
-  <rect x="10" y="10" width="180" height="180" rx="25" fill="url(#pel)"/>
-  <path d="M60 35 L140 35 L140 165 L60 165 Z" fill="none" stroke="white" stroke-width="3" opacity="0.15"/>
-  <circle cx="100" cy="85" r="25" fill="white"/>
-  <text x="100" y="92" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" font-weight="bold" fill="#0d47a1">P</text>
-  <text x="100" y="140" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" font-weight="bold" fill="white">RS PELNI</text>
-</svg>`
+// Building
+const buildingIcon = `<rect x="75" y="65" width="50" height="85" rx="3" fill="white" opacity="0.85"/>
+<rect x="82" y="72" width="12" height="14" rx="2" fill="rgba(0,0,0,0.08)"/>
+<rect x="106" y="72" width="12" height="14" rx="2" fill="rgba(0,0,0,0.08)"/>
+<rect x="82" y="95" width="12" height="14" rx="2" fill="rgba(0,0,0,0.08)"/>
+<rect x="106" y="95" width="12" height="14" rx="2" fill="rgba(0,0,0,0.08)"/>
+<rect x="94" y="118" width="12" height="32" rx="2" fill="rgba(0,0,0,0.08)"/>`
 
-const RS_CITRA_MEDIKA = (_name: string) => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
-  <defs><linearGradient id="cm" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#00838f"/><stop offset="100%" style="stop-color:#006064"/></linearGradient></defs>
-  <circle cx="100" cy="100" r="95" fill="url(#cm)"/>
-  <circle cx="100" cy="100" r="30" fill="white"/>
-  <path d="M100 80 L100 120 M80 100 L120 100" stroke="#00838f" stroke-width="5" stroke-linecap="round"/>
-  <text x="100" y="155" text-anchor="middle" font-family="Arial,sans-serif" font-size="8" font-weight="bold" fill="white">CITRA MEDIKA</text>
-</svg>`
+// Bandage
+const bandIcon = `<rect x="60" y="95" width="80" height="14" rx="3" fill="white" opacity="0.85" transform="rotate(-20 100 100)"/>
+<rect x="88" y="88" width="24" height="28" rx="3" fill="white" opacity="0.9" transform="rotate(-20 100 100)"/>
+<rect x="93" y="88" width="14" height="28" rx="2" fill="rgba(0,0,0,0.06)" transform="rotate(-20 100 100)"/>`
 
-const RS_SOETOMO = (_name: string) => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
-  <defs><linearGradient id="st" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" style="stop-color:#b71c1c"/><stop offset="100%" style="stop-color:#880e4f"/></linearGradient></defs>
-  <path d="M100 10 L185 55 L185 120 Q185 170 100 195 Q15 170 15 120 L15 55 Z" fill="url(#st)"/>
-  <text x="100" y="95" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" font-weight="bold" fill="white">RSUD</text>
-  <text x="100" y="125" text-anchor="middle" font-family="Georgia,serif" font-size="14" font-weight="bold" fill="white" font-style="italic">Dr. Soetomo</text>
-</svg>`
+// ─── RUMAH SAKIT LOGOS (each unique per institution) ───────────────
 
-const RS_RAMELAN = (_name: string) => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
-  <defs><linearGradient id="rm" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#283593"/><stop offset="100%" style="stop-color:#1a237e"/></linearGradient></defs>
-  <circle cx="100" cy="100" r="95" fill="url(#rm)"/>
-  <text x="100" y="90" text-anchor="middle" font-family="Georgia,serif" font-size="18" font-weight="bold" fill="white" font-style="italic">R</text>
-  <text x="100" y="130" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" font-weight="bold" fill="white">Dr. RAMELAN</text>
-</svg>`
+// rs-1: RSUD Kota Bogor → government shield, blue, cross
+const RS_1 = () => logo(shield, `<text x="100" y="88" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" font-weight="bold" fill="white">RSUD</text>
+<text x="100" y="110" text-anchor="middle" font-family="Georgia,serif" font-size="15" font-weight="bold" fill="white" font-style="italic">Bogor</text>${crossIcon}`, '#1565c0', '#0d47a1', 'g1')
 
-const RS_WILLIAM_BOOTH = (_name: string) => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
-  <defs><linearGradient id="wb" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#c62828"/><stop offset="100%" style="stop-color:#b71c1c"/></linearGradient></defs>
-  <rect x="15" y="15" width="170" height="170" rx="15" fill="url(#wb)"/>
-  <text x="100" y="80" text-anchor="middle" font-family="Georgia,serif" font-size="16" font-weight="bold" fill="white">WB</text>
-  <text x="100" y="108" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" font-weight="bold" fill="white">WILLIAM</text>
-  <text x="100" y="125" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" font-weight="bold" fill="white">BOOTH</text>
-  <text x="100" y="148" text-anchor="middle" font-family="Arial,sans-serif" font-size="7" fill="rgba(255,255,255,0.6)">HOSPITAL</text>
-</svg>`
+// rs-2: RSHS Salak → hexagon, green, leaf shape
+const RS_2 = () => logo(hexagon, `<path d="M100 55 L145 78 L145 110 Q145 145 100 160 Q55 145 55 110 L55 78 Z" fill="none" stroke="white" stroke-width="3.5" opacity="0.5"/>
+<text x="100" y="95" text-anchor="middle" font-family="Georgia,serif" font-size="18" font-weight="bold" fill="white">S</text>
+<text x="100" y="130" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" font-weight="bold" fill="white">RSHS SALAK</text>`, '#2e7d32', '#1b5e20', 'g2')
 
-const RS_KARIADI = (_name: string) => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
-  <defs><linearGradient id="kr" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" style="stop-color:#0d47a1"/><stop offset="100%" style="stop-color:#1565c0"/></linearGradient></defs>
-  <path d="M100 10 L185 55 L185 120 Q185 170 100 195 Q15 170 15 120 L15 55 Z" fill="url(#kr)"/>
-  <text x="100" y="90" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" font-weight="bold" fill="white">RSUP</text>
-  <text x="100" y="115" text-anchor="middle" font-family="Georgia,serif" font-size="15" font-weight="bold" fill="white" font-style="italic">Dr. Kariadi</text>
-</svg>`
+// rs-3: RS Hermina Bogor → rrect, pink, H letter (Hermina brand)
+const RS_3 = () => logo(rrect, `<path d="M145 50 L145 150 L55 150 L55 50 Z" fill="white" opacity="0.15"/>
+<circle cx="100" cy="80" r="32" fill="white"/>
+<path d="M100 62 L100 98 M80 80 L120 80" stroke="#e91e63" stroke-width="5" stroke-linecap="round"/>
+<text x="100" y="140" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" font-weight="bold" fill="white">HERMINA</text>
+<text x="100" y="156" text-anchor="middle" font-family="Arial,sans-serif" font-size="7" fill="rgba(255,255,255,0.7)">BOGOR</text>`, '#e91e63', '#ad1457', 'g3')
 
-const RS_TELOGOREJO = (_name: string) => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
-  <defs><linearGradient id="tg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#4e342e"/><stop offset="100%" style="stop-color:#3e2723"/></linearGradient></defs>
-  <rect x="15" y="15" width="170" height="170" rx="15" fill="url(#tg)"/>
-  <text x="100" y="85" text-anchor="middle" font-family="Georgia,serif" font-size="16" font-weight="bold" fill="white">T</text>
-  <text x="100" y="115" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" font-weight="bold" fill="white">TELOGOREJO</text>
-</svg>`
+// rs-4: RS PMI Bogor → circle, red, PMI letters
+const RS_4 = () => logo(circle, `<path d="M100 40 L160 85 L140 155 L60 155 L40 85 Z" fill="white" opacity="0.12"/>
+<text x="100" y="95" text-anchor="middle" font-family="Georgia,serif" font-size="16" font-weight="bold" fill="white">PMI</text>
+<text x="100" y="130" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" font-weight="bold" fill="white">RS PMI BOGOR</text>`, '#c62828', '#8e0000', 'g4')
 
-const RS_ELISABETH = (_name: string) => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
-  <defs><linearGradient id="el" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#6a1b9a"/><stop offset="100%" style="stop-color:#4a148c"/></linearGradient></defs>
-  <circle cx="100" cy="100" r="95" fill="url(#el)"/>
-  <path d="M100 40 L160 80 L140 155 L60 155 L40 80 Z" fill="none" stroke="white" stroke-width="2.5" opacity="0.25"/>
-  <text x="100" y="90" text-anchor="middle" font-family="Georgia,serif" font-size="16" font-weight="bold" fill="white">E</text>
-  <text x="100" y="125" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" font-weight="bold" fill="white">ELISABETH</text>
-</svg>`
+// rs-5: RSUP Fatmawati → shield, blue-green, letter F
+const RS_5 = () => logo(shield, `<text x="100" y="88" text-anchor="middle" font-family="Arial,sans-serif" font-size="8" font-weight="bold" fill="white">RSUP</text>
+<text x="100" y="115" text-anchor="middle" font-family="Georgia,serif" font-size="20" font-weight="bold" fill="white" font-style="italic">F</text>
+<text x="100" y="142" text-anchor="middle" font-family="Arial,sans-serif" font-size="7" fill="rgba(255,255,255,0.8)">Fatmawati</text>`, '#00897b', '#00695c', 'g5')
 
-const RS_UI = (_name: string) => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
-  <defs><linearGradient id="ui" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#ff8f00"/><stop offset="100%" style="stop-color:#ff6f00"/></linearGradient></defs>
-  <circle cx="100" cy="100" r="95" fill="url(#ui)"/>
-  <circle cx="100" cy="85" r="30" fill="white"/>
-  <text x="100" y="92" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="bold" fill="#ff8f00">UI</text>
-  <text x="100" y="140" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" font-weight="bold" fill="white">RS UI</text>
-</svg>`
+// rs-6: RS Pondok Indah → diamond, maroon, PI
+const RS_6 = () => logo(diamond, `<path d="M100 50 L150 100 L100 150 L50 100 Z" fill="white" opacity="0.12"/>
+<text x="100" y="95" text-anchor="middle" font-family="Georgia,serif" font-size="16" font-weight="bold" fill="white">PI</text>
+<text x="100" y="130" text-anchor="middle" font-family="Arial,sans-serif" font-size="8" font-weight="bold" fill="white">PONDOK INDAH</text>
+<text x="100" y="148" text-anchor="middle" font-family="Arial,sans-serif" font-size="6" fill="rgba(255,255,255,0.6)">GROUP</text>`, '#6a1b9a', '#4a148c', 'g6')
 
-const RS_JEC = (_name: string) => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
-  <defs><linearGradient id="jec" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#0277bd"/><stop offset="100%" style="stop-color:#01579b"/></linearGradient></defs>
-  <circle cx="100" cy="100" r="95" fill="url(#jec)"/>
-  <ellipse cx="100" cy="80" rx="28" ry="20" fill="white"/>
-  <circle cx="100" cy="80" r="10" fill="#0277bd"/>
-  <text x="100" y="130" text-anchor="middle" font-family="Arial,sans-serif" font-size="8" font-weight="bold" fill="white">JAKARTA</text>
-  <text x="100" y="148" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" font-weight="bold" fill="white">EYE CENTER</text>
-</svg>`
+// rs-7: RS Mayapada Jakarta → circle, gold, M
+const RS_7 = () => logo(circle, `<path d="M80 50 L120 50 L120 150 L80 150 Z" fill="white" opacity="0.12"/>
+<path d="M50 80 L150 80 L150 120 L50 120 Z" fill="white" opacity="0.12"/>
+<text x="100" y="95" text-anchor="middle" font-family="Georgia,serif" font-size="22" font-weight="bold" fill="white">M</text>
+<text x="100" y="135" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" font-weight="bold" fill="white">MAYAPADA</text>`, '#b8860b', '#8b6914', 'g7')
 
-const RS_SALAK = (_name: string) => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
-  <defs><linearGradient id="sk" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#2e7d32"/><stop offset="100%" style="stop-color:#1b5e20"/></linearGradient></defs>
-  <rect x="15" y="15" width="170" height="170" rx="20" fill="url(#sk)"/>
-  <path d="M100 40 L145 70 L145 120 L100 150 L55 120 L55 70 Z" fill="none" stroke="white" stroke-width="2.5" opacity="0.25"/>
-  <text x="100" y="85" text-anchor="middle" font-family="Arial,sans-serif" font-size="8" font-weight="bold" fill="white">RSHS</text>
-  <text x="100" y="115" text-anchor="middle" font-family="Georgia,serif" font-size="16" font-weight="bold" fill="white">Salak</text>
-</svg>`
+// rs-8: RS Medistra → pill, dark blue, cross
+const RS_8 = () => logo(pill, `<circle cx="100" cy="85" r="28" fill="white" opacity="0.9"/>
+<path d="M100 65 L100 105 M82 85 L118 85" stroke="#1a237e" stroke-width="5" stroke-linecap="round"/>
+<text x="100" y="145" text-anchor="middle" font-family="Georgia,serif" font-size="14" font-weight="bold" fill="white">M</text>
+<text x="100" y="165" text-anchor="middle" font-family="Arial,sans-serif" font-size="7" fill="rgba(255,255,255,0.7)">MEDISTRA</text>`, '#1a237e', '#283593', 'g8')
 
-const RS_PMI = (_name: string) => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
-  <defs><linearGradient id="pmi" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#b71c1c"/><stop offset="100%" style="stop-color:#c62828"/></linearGradient></defs>
-  <circle cx="100" cy="100" r="95" fill="url(#pmi)"/>
-  <path d="M100 35 L165 80 L140 160 L60 160 L35 80 Z" fill="white" opacity="0.15"/>
-  <text x="100" y="95" text-anchor="middle" font-family="Arial,sans-serif" font-size="13" font-weight="bold" fill="white">PMI</text>
-  <text x="100" y="135" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" font-weight="bold" fill="white">RS PMI</text>
-</svg>`
+// rs-9: RS Siloam Semanggi → circle, blue-yellow, S wrapped around cross
+const RS_9 = () => logo(circle, `<path d="M60 70 Q100 35 140 70 Q160 100 130 130 Q100 160 70 130 Q50 110 70 85" fill="none" stroke="white" stroke-width="4" opacity="0.5"/>
+<text x="100" y="92" text-anchor="middle" font-family="Georgia,serif" font-size="28" font-weight="bold" fill="white" font-style="italic">S</text>
+<text x="100" y="135" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" font-weight="bold" fill="white">SILOAM</text>
+<text x="100" y="152" text-anchor="middle" font-family="Arial,sans-serif" font-size="7" fill="rgba(255,255,255,0.7)">SEMANGGI</text>`, '#1a237e', '#fdd835', 'g9')
 
-const RS_BHAYANGKARA = (_name: string) => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
-  <defs><linearGradient id="bh" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#1a237e"/><stop offset="100%" style="stop-color:#283593"/></linearGradient></defs>
-  <path d="M100 10 L185 55 L185 120 Q185 170 100 195 Q15 170 15 120 L15 55 Z" fill="url(#bh)"/>
-  <text x="100" y="95" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" font-weight="bold" fill="white">BHAYANGKARA</text>
-  <text x="100" y="120" text-anchor="middle" font-family="Georgia,serif" font-size="14" font-weight="bold" fill="white" font-style="italic">Brimob</text>
-</svg>`
+// rs-10: RSCM → shield, red, Cipto
+const RS_10 = () => logo(shield, `<text x="100" y="80" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" font-weight="bold" fill="white">RSUPN</text>
+<text x="100" y="105" text-anchor="middle" font-family="Georgia,serif" font-size="11" font-weight="bold" fill="white">Dr. Cipto</text>
+<text x="100" y="125" text-anchor="middle" font-family="Georgia,serif" font-size="11" font-weight="bold" fill="white">Mangunkusumo</text>`, '#b71c1c', '#880e4f', 'g10')
 
-const RS_FATMAWATI = (_name: string) => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
-  <defs><linearGradient id="ft" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" style="stop-color:#0d47a1"/><stop offset="100%" style="stop-color:#1565c0"/></linearGradient></defs>
-  <path d="M100 10 L185 55 L185 120 Q185 170 100 195 Q15 170 15 120 L15 55 Z" fill="url(#ft)"/>
-  <text x="100" y="90" text-anchor="middle" font-family="Arial,sans-serif" font-size="8" font-weight="bold" fill="white">RSUP</text>
-  <text x="100" y="115" text-anchor="middle" font-family="Georgia,serif" font-size="15" font-weight="bold" fill="white" font-style="italic">Fatmawati</text>
-</svg>`
+// rs-11: RS Pelni → octagon, blue, ship wheel
+const RS_11 = () => logo(octagon, `<circle cx="100" cy="80" r="28" fill="white" opacity="0.85"/>
+<text x="100" y="88" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" font-weight="bold" fill="#0d47a1">P</text>
+<text x="100" y="130" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" font-weight="bold" fill="white">RS PELNI</text>
+<text x="100" y="148" text-anchor="middle" font-family="Arial,sans-serif" font-size="7" fill="rgba(255,255,255,0.6)">JAKARTA</text>`, '#0d47a1', '#1565c0', 'g11')
 
-const RS_RSCM = (_name: string) => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
-  <defs><linearGradient id="rcm" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" style="stop-color:#b71c1c"/><stop offset="100%" style="stop-color:#880e4f"/></linearGradient></defs>
-  <path d="M100 10 L185 55 L185 120 Q185 170 100 195 Q15 170 15 120 L15 55 Z" fill="url(#rcm)"/>
-  <text x="100" y="85" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" font-weight="bold" fill="white">RSUPN</text>
-  <text x="100" y="108" text-anchor="middle" font-family="Arial,sans-serif" font-size="8" font-weight="bold" fill="white">Dr. Cipto</text>
-  <text x="100" y="125" text-anchor="middle" font-family="Arial,sans-serif" font-size="8" font-weight="bold" fill="white">Mangunkusumo</text>
-</svg>`
+// rs-12: RS St. Carolus → rrect, red, SC letters
+const RS_12 = () => logo(rrect, `<text x="100" y="85" text-anchor="middle" font-family="Georgia,serif" font-size="34" font-weight="bold" fill="white">SC</text>
+<text x="100" y="120" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" font-weight="bold" fill="white">ST. CAROLUS</text>
+<text x="100" y="140" text-anchor="middle" font-family="Arial,sans-serif" font-size="7" fill="rgba(255,255,255,0.7)">RS KATOLIK</text>`, '#c62828', '#8e0000', 'g12')
 
-const RS_HASAN_SADIKIN = (_name: string) => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
-  <defs><linearGradient id="hs" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" style="stop-color:#0d47a1"/><stop offset="100%" style="stop-color:#1565c0"/></linearGradient></defs>
-  <path d="M100 10 L185 55 L185 120 Q185 170 100 195 Q15 170 15 120 L15 55 Z" fill="url(#hs)"/>
-  <text x="100" y="88" text-anchor="middle" font-family="Arial,sans-serif" font-size="8" font-weight="bold" fill="white">RSUP</text>
-  <text x="100" y="112" text-anchor="middle" font-family="Georgia,serif" font-size="13" font-weight="bold" fill="white" font-style="italic">Hasan Sadikin</text>
-</svg>`
+// rs-13: RS Jakarta Eye Center → circle, light blue, eye
+const RS_13 = () => logo(circle, `<ellipse cx="100" cy="78" rx="30" ry="20" fill="white" opacity="0.9"/>
+<circle cx="100" cy="78" r="10" fill="#0277bd"/>
+<text x="100" y="125" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" font-weight="bold" fill="white">JAKARTA</text>
+<text x="100" y="145" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" font-weight="bold" fill="white">EYE CENTER</text>`, '#0277bd', '#01579b', 'g13')
 
-const RS_ANNA_MEDIKA = (_name: string) => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
-  <defs><linearGradient id="ann" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#ad1457"/><stop offset="100%" style="stop-color:#880e4f"/></linearGradient></defs>
-  <rect x="15" y="15" width="170" height="170" rx="20" fill="url(#ann)"/>
-  <text x="100" y="85" text-anchor="middle" font-family="Georgia,serif" font-size="20" font-weight="bold" fill="white">A</text>
-  <text x="100" y="118" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" font-weight="bold" fill="white">ANNA MEDIKA</text>
-</svg>`
+// rs-14: RSUP Hasan Sadikin → shield, green, HS
+const RS_14 = () => logo(shield, `<text x="100" y="82" text-anchor="middle" font-family="Arial,sans-serif" font-size="8" font-weight="bold" fill="white">RSUP</text>
+<text x="100" y="110" text-anchor="middle" font-family="Georgia,serif" font-size="16" font-weight="bold" fill="white" font-style="italic">HS</text>
+<text x="100" y="140" text-anchor="middle" font-family="Arial,sans-serif" font-size="7" fill="rgba(255,255,255,0.8)">Hasan Sadikin</text>`, '#00695c', '#004d40', 'g14')
+
+// rs-15: RS Borromeus → heart, purple, cross
+const RS_15 = () => logo(heartShape, `<text x="100" y="85" text-anchor="middle" font-family="Georgia,serif" font-size="16" font-weight="bold" fill="white">B</text>
+<text x="100" y="120" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" font-weight="bold" fill="white">BORROMEUS</text>
+<text x="100" y="140" text-anchor="middle" font-family="Arial,sans-serif" font-size="7" fill="rgba(255,255,255,0.7)">RUMAH SAKIT</text>`, '#6a1b9a', '#4a148c', 'g15')
+
+// rs-16: RS St. Yusup → leaf, dark blue, cross
+const RS_16 = () => logo(leafShape, `<circle cx="100" cy="80" r="28" fill="white" opacity="0.9"/>
+<path d="M100 62 L100 98 M82 80 L118 80" stroke="#1565c0" stroke-width="4" stroke-linecap="round"/>
+<text x="100" y="135" text-anchor="middle" font-family="Georgia,serif" font-size="14" font-weight="bold" fill="white">SY</text>
+<text x="100" y="155" text-anchor="middle" font-family="Arial,sans-serif" font-size="7" fill="rgba(255,255,255,0.7)">ST. YUSUP</text>`, '#1565c0', '#0d47a1', 'g16')
+
+// rs-17: RS Kebon Jati → diamond, dark gray, KJ
+const RS_17 = () => logo(diamond, `<circle cx="100" cy="75" r="30" fill="white" opacity="0.85"/>
+<text x="100" y="82" text-anchor="middle" font-family="Arial,sans-serif" font-size="12" font-weight="bold" fill="#37474f">KJ</text>
+<text x="100" y="130" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" font-weight="bold" fill="white">KEBON JATI</text>
+<text x="100" y="148" text-anchor="middle" font-family="Arial,sans-serif" font-size="7" fill="rgba(255,255,255,0.6)">BANDUNG</text>`, '#37474f', '#455a64', 'g17')
+
+// rs-18: RS Bhayangkara Brimob → teardrop, dark blue, shield
+const RS_18 = () => logo(teardrop, `<text x="100" y="82" text-anchor="middle" font-family="Arial,sans-serif" font-size="8" font-weight="bold" fill="white">BHAYANGKARA</text>
+<path d="M100 55 L145 78 L145 110 Q145 145 100 160 Q55 145 55 110 L55 78 Z" fill="none" stroke="white" stroke-width="3" opacity="0.5"/>
+<text x="100" y="122" text-anchor="middle" font-family="Georgia,serif" font-size="12" font-weight="bold" fill="white" font-style="italic">Brimob</text>`, '#1a237e', '#283593', 'g18')
+
+// rs-19: RS UI → teardrop, yellow, UI
+const RS_19 = () => logo(teardrop, `<circle cx="100" cy="78" r="28" fill="white" opacity="0.9"/>
+<text x="100" y="85" text-anchor="middle" font-family="Arial,sans-serif" font-size="13" font-weight="bold" fill="#ff8f00">UI</text>
+<text x="100" y="130" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" font-weight="bold" fill="white">RS UI</text>
+<text x="100" y="148" text-anchor="middle" font-family="Arial,sans-serif" font-size="7" fill="rgba(255,255,255,0.6)">UNIVERSITAS</text>`, '#ff8f00', '#ff6f00', 'g19')
+
+// rs-20: RS Citra Medika → pill, teal, cross
+const RS_20 = () => logo(pill, `${crossIcon}
+<text x="100" y="155" text-anchor="middle" font-family="Arial,sans-serif" font-size="8" font-weight="bold" fill="white">CITRA MEDIKA</text>
+<text x="100" y="170" text-anchor="middle" font-family="Arial,sans-serif" font-size="6" fill="rgba(255,255,255,0.6)">DEPOK</text>`, '#00838f', '#006064', 'g20')
+
+// rs-21: RS Siloam Tangerang → circle, blue-yellow, S
+const RS_21 = () => logo(circle, `<circle cx="100" cy="100" r="38" fill="white" opacity="0.15"/>
+<text x="100" y="88" text-anchor="middle" font-family="Georgia,serif" font-size="26" font-weight="bold" fill="white" font-style="italic">S</text>
+<text x="100" y="128" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" font-weight="bold" fill="white">SILOAM</text>
+<text x="100" y="145" text-anchor="middle" font-family="Arial,sans-serif" font-size="7" fill="rgba(255,255,255,0.7)">TANGERANG</text>`, '#283593', '#fdd835', 'g21')
+
+// rs-22: RS Sari Asih → arch, green, SA
+const RS_22 = () => logo(arch, `<text x="100" y="85" text-anchor="middle" font-family="Georgia,serif" font-size="22" font-weight="bold" fill="white">SA</text>
+<text x="100" y="125" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" font-weight="bold" fill="white">SARI ASIH</text>
+<text x="100" y="145" text-anchor="middle" font-family="Arial,sans-serif" font-size="7" fill="rgba(255,255,255,0.7)">RUMAH SAKIT</text>`, '#2e7d32', '#1b5e20', 'g22')
+
+// rs-23: RS EMC Tangerang → hexagon, blue, EMC
+const RS_23 = () => logo(hexagon, `<text x="100" y="85" text-anchor="middle" font-family="Arial,sans-serif" font-size="30" font-weight="bold" fill="white">EMC</text>
+<text x="100" y="115" text-anchor="middle" font-family="Arial,sans-serif" font-size="7" fill="rgba(255,255,255,0.5)">EMERGENCY MEDICAL</text>
+<rect x="75" y="125" width="50" height="3" rx="1.5" fill="white" opacity="0.35"/>
+<text x="100" y="145" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" font-weight="bold" fill="white">TANGERANG</text>`, '#0d47a1', '#1565c0', 'g23')
+
+// rs-24: RS Anna Medika → diamond, rose, A
+const RS_24 = () => logo(diamond, `<path d="M100 50 L140 100 L100 150 L60 100 Z" fill="white" opacity="0.1"/>
+<text x="100" y="90" text-anchor="middle" font-family="Georgia,serif" font-size="26" font-weight="bold" fill="white">A</text>
+<text x="100" y="130" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" font-weight="bold" fill="white">ANNA MEDIKA</text>
+<text x="100" y="148" text-anchor="middle" font-family="Arial,sans-serif" font-size="7" fill="rgba(255,255,255,0.6)">BEKASI</text>`, '#ad1457', '#880e4f', 'g24')
+
+// rs-25: RS Mitra Keluarga → circle, orange, K
+const RS_25 = () => logo(circle, `<path d="M70 60 Q100 50 130 60 L130 100 Q100 110 70 100 Z" fill="white" opacity="0.15"/>
+<text x="100" y="82" text-anchor="middle" font-family="Arial,sans-serif" font-size="8" font-weight="bold" fill="white">MITRA</text>
+<text x="100" y="115" text-anchor="middle" font-family="Georgia,serif" font-size="22" font-weight="bold" fill="white">K</text>
+<text x="100" y="145" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" font-weight="bold" fill="white">KELUARGA</text>`, '#ef6c00', '#e65100', 'g25')
+
+// rs-26: RS Permata Bekasi → diamond, purple, diamond shape
+const RS_26 = () => logo(diamond, `<path d="M100 40 L155 95 L130 160 L70 160 L45 95 Z" fill="none" stroke="white" stroke-width="2.5" opacity="0.35"/>
+<circle cx="100" cy="75" r="22" fill="white" opacity="0.9"/>
+<path d="M100 60 L100 90 M88 75 L112 75" stroke="#4a148c" stroke-width="4" stroke-linecap="round"/>
+<text x="100" y="140" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" font-weight="bold" fill="white">PERMATA</text>
+<text x="100" y="158" text-anchor="middle" font-family="Arial,sans-serif" font-size="7" fill="rgba(255,255,255,0.7)">HOSPITAL</text>`, '#4a148c', '#6a1b9a', 'g26')
+
+// rs-27: RSUD Dr. Soetomo → shield, red gradient, Soetomo
+const RS_27 = () => logo(shield, `<text x="100" y="85" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" font-weight="bold" fill="white">RSUD</text>
+<text x="100" y="115" text-anchor="middle" font-family="Georgia,serif" font-size="14" font-weight="bold" fill="white" font-style="italic">Dr. Soetomo</text>
+<text x="100" y="140" text-anchor="middle" font-family="Arial,sans-serif" font-size="7" fill="rgba(255,255,255,0.7)">SURABAYA</text>`, '#b71c1c', '#880e4f', 'g27')
+
+// rs-28: RS Siloam Surabaya → circle, blue-yellow, stylized S
+const RS_28 = () => logo(circle, `<path d="M100 50 Q140 60 140 100 Q140 140 100 150 Q60 140 60 100 Q60 60 100 50" fill="none" stroke="white" stroke-width="3" opacity="0.35"/>
+<text x="100" y="95" text-anchor="middle" font-family="Georgia,serif" font-size="24" font-weight="bold" fill="white" font-style="italic">S</text>
+<text x="100" y="138" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" font-weight="bold" fill="white">SILOAM SBY</text>`, '#1a237e', '#fbc02d', 'g28')
+
+// rs-29: RS Dr. Ramelan → octagon, navy, R
+const RS_29 = () => logo(octagon, `<text x="100" y="90" text-anchor="middle" font-family="Georgia,serif" font-size="28" font-weight="bold" fill="white" font-style="italic">R</text>
+<text x="100" y="135" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" font-weight="bold" fill="white">Dr. RAMELAN</text>
+<text x="100" y="153" text-anchor="middle" font-family="Arial,sans-serif" font-size="7" fill="rgba(255,255,255,0.6)">SURABAYA</text>`, '#283593', '#1a237e', 'g29')
+
+// rs-30: RS William Booth → pill, red, WB
+const RS_30 = () => logo(pill, `<text x="100" y="82" text-anchor="middle" font-family="Georgia,serif" font-size="18" font-weight="bold" fill="white">WB</text>
+<text x="100" y="115" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" font-weight="bold" fill="white">WILLIAM BOOTH</text>
+<text x="100" y="140" text-anchor="middle" font-family="Arial,sans-serif" font-size="7" fill="rgba(255,255,255,0.6)">HOSPITAL</text>`, '#c62828', '#b71c1c', 'g30')
+
+// rs-31: RSUP Dr. Kariadi → leaf, blue, K
+const RS_31 = () => logo(leafShape, `<text x="100" y="85" text-anchor="middle" font-family="Arial,sans-serif" font-size="8" font-weight="bold" fill="white">RSUP</text>
+<text x="100" y="115" text-anchor="middle" font-family="Georgia,serif" font-size="18" font-weight="bold" fill="white" font-style="italic">K</text>
+<text x="100" y="140" text-anchor="middle" font-family="Arial,sans-serif" font-size="7" fill="rgba(255,255,255,0.8)">Dr. Kariadi</text>`, '#0d47a1', '#1565c0', 'g31')
+
+// rs-32: RS Telogorejo → arch, brown, T
+const RS_32 = () => logo(arch, `<text x="100" y="85" text-anchor="middle" font-family="Georgia,serif" font-size="22" font-weight="bold" fill="white">T</text>
+<text x="100" y="125" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" font-weight="bold" fill="white">TELOGOREJO</text>
+<text x="100" y="145" text-anchor="middle" font-family="Arial,sans-serif" font-size="7" fill="rgba(255,255,255,0.6)">SEMARANG</text>`, '#4e342e', '#3e2723', 'g32')
+
+// rs-33: RS Elisabeth → heart, purple, E
+const RS_33 = () => logo(heartShape, `<path d="M100 50 L150 100 L130 155 L70 155 L50 100 Z" fill="none" stroke="white" stroke-width="2.5" opacity="0.3"/>
+<text x="100" y="95" text-anchor="middle" font-family="Georgia,serif" font-size="20" font-weight="bold" fill="white">E</text>
+<text x="100" y="135" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" font-weight="bold" fill="white">ELISABETH</text>`, '#7b1fa2', '#4a148c', 'g33')
 
 // ─── PUSKESMAS ──────────────────────────────────────────────────────
-// Standard Dinas Kesehatan logo with different accent colors per region
+// Each city gets a unique Puskesmas design with consistent city identity
 
-const PKM_GENERIC = (_name: string, accent: string) => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
-  <defs><linearGradient id="pkm" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:${accent}"/><stop offset="100%" style="stop-color:${adjustColor(accent, -30)}"/></linearGradient></defs>
-  <circle cx="100" cy="100" r="95" fill="url(#pkm)" stroke="${adjustColor(accent, -40)}" stroke-width="3"/>
-  <circle cx="100" cy="100" r="82" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/>
-  <rect x="88" y="35" width="24" height="62" rx="5" fill="white"/>
-  <rect x="62" y="63" width="76" height="20" rx="5" fill="white"/>
-  <rect x="92" y="42" width="16" height="48" rx="4" fill="${accent}"/>
-  <rect x="68" y="67" width="64" height="12" rx="4" fill="${accent}"/>
-  <text x="100" y="148" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" font-weight="bold" fill="white">PUSKESMAS</text>
-</svg>`
+const PKM_KOTA = (_name: string, city: string, color: string, shape: string) => {
+  const gid = `p-${city}`
+  const defs = gradDefs(gid, color, adjustColor(color, -25))
+  let s: string
+  switch (shape) {
+    case 'circle': s = circle(gid); break
+    case 'rrect': s = rrect(gid); break
+    case 'hex': s = hexagon(gid); break
+    case 'oct': s = octagon(gid); break
+    default: s = circle(gid)
+  }
+  return wrap(`${defs}${s}<rect x="88" y="38" width="24" height="56" rx="4" fill="white" opacity="0.9"/>
+<rect x="65" y="62" width="70" height="16" rx="4" fill="white" opacity="0.9"/>
+<rect x="92" y="44" width="16" height="44" rx="3" fill="${color}" opacity="0.85"/>
+<rect x="70" y="66" width="60" height="8" rx="3" fill="${color}" opacity="0.85"/>
+<text x="100" y="145" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" font-weight="bold" fill="white">PUSKESMAS</text>
+<text x="100" y="162" text-anchor="middle" font-family="Arial,sans-serif" font-size="7" fill="rgba(255,255,255,0.7)">${city}</text>`)
+}
 
-// ─── KLINIK ─────────────────────────────────────────────────────────
-// Modern clinic logos with varied color schemes
+// City configs [cityName, color, shape]
+const cityPkmConfig: [string, string, string][] = [
+  ['Jakarta Pusat', '#1a237e', 'circle'],
+  ['Jakarta Selatan', '#c62828', 'rrect'],
+  ['Jakarta Barat', '#2e7d32', 'hex'],
+  ['Jakarta Timur', '#e65100', 'oct'],
+  ['Jakarta Utara', '#00838f', 'circle'],
+  ['Bogor', '#1565c0', 'rrect'],
+  ['Depok', '#4a148c', 'hex'],
+  ['Tangerang', '#00695c', 'oct'],
+  ['Bekasi', '#ef6c00', 'circle'],
+]
 
-const KLINIK_GENERIC = (_name: string, bg: string, _fg: string) => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
-  <defs><linearGradient id="kl" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:${bg}"/><stop offset="100%" style="stop-color:${adjustColor(bg, -30)}"/></linearGradient></defs>
-  <circle cx="100" cy="100" r="95" fill="url(#kl)" stroke="${adjustColor(bg, -40)}" stroke-width="3"/>
-  <circle cx="100" cy="100" r="84" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
-  <rect x="89" y="38" width="22" height="58" rx="5" fill="white"/>
-  <rect x="65" y="62" width="70" height="16" rx="5" fill="white"/>
-  <rect x="93" y="44" width="14" height="46" rx="4" fill="${bg}"/>
-  <rect x="70" y="66" width="60" height="8" rx="4" fill="${bg}"/>
-  <text x="100" y="140" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" font-weight="bold" fill="white">KLINIK 24 JAM</text>
-  <text x="100" y="158" text-anchor="middle" font-family="Arial,sans-serif" font-size="7" fill="rgba(255,255,255,0.7)">PRATAMA</text>
-  <circle cx="100" cy="178" r="9" fill="#e53935"/>
-  <circle cx="100" cy="178" r="7" fill="none" stroke="white" stroke-width="1"/>
-  <text x="100" y="182" text-anchor="middle" font-family="Arial,sans-serif" font-size="8" font-weight="bold" fill="white">24</text>
-</svg>`
+// ─── KLINIK ──────────────────────────────────────────────────────────
+// Each klinik gets a unique design with varied shapes and colors
+
+const KLINIK_VARIANTS = [
+  // [bg color, shape type, icon type]
+  ['#00695c', 'circle', 'cross'],
+  ['#00838f', 'rrect', 'plus'],
+  ['#0277bd', 'hex', 'heart'],
+  ['#4e342e', 'diamond', 'letter'],
+  ['#37474f', 'oct', 'staff'],
+  ['#5d4037', 'teardrop', 'steth'],
+  ['#1565c0', 'pill', 'band'],
+  ['#2e7d32', 'circle', 'droplet'],
+  ['#6a1b9a', 'rrect', 'shield'],
+  ['#e65100', 'hex', 'building'],
+  ['#00897b', 'diamond', 'plus'],
+  ['#283593', 'oct', 'cross'],
+  ['#ad1457', 'teardrop', 'heart'],
+  ['#558b2f', 'pill', 'staff'],
+  ['#37474f', 'circle', 'letter'],
+  ['#880e4f', 'rrect', 'steth'],
+  ['#01579b', 'hex', 'band'],
+  ['#bf360c', 'diamond', 'droplet'],
+  ['#1b5e20', 'oct', 'shield'],
+  ['#4a148c', 'teardrop', 'building'],
+  ['#006064', 'pill', 'cross'],
+  ['#e65100', 'circle', 'heart'],
+  ['#4527a0', 'rrect', 'plus'],
+  ['#00897b', 'hex', 'staff'],
+  ['#c62828', 'diamond', 'band'],
+  ['#37474f', 'oct', 'droplet'],
+  ['#1565c0', 'teardrop', 'shield'],
+  ['#4e342e', 'pill', 'steth'],
+  ['#2e7d32', 'circle', 'building'],
+] as [string, string, string][]
 
 // ─── HELPERS ────────────────────────────────────────────────────────
 
@@ -302,85 +366,101 @@ function adjustColor(hex: string, amount: number): string {
   return `#${((r << 16) | (g << 8) | b).toString(16).padStart(6, '0')}`
 }
 
-// ─── LOGO MAP ───────────────────────────────────────────────────────
-// Maps institution ID → SVG generator function
-
-const rsLogos: Record<string, (name: string) => string> = {
-  'rs-1': RS_GOVT,       // RSUD Kota Bogor
-  'rs-2': RS_SALAK,      // RSHS Salak
-  'rs-3': RS_HERMINA,    // RS Hermina Bogor
-  'rs-4': RS_PMI,        // RS PMI Bogor
-  'rs-5': RS_FATMAWATI,  // RSUP Fatmawati
-  'rs-6': RS_PONDOK_INDAH, // RS Pondok Indah
-  'rs-7': RS_MAYAPADA,   // RS Mayapada Jakarta
-  'rs-8': RS_MEDISTRA,   // RS Medistra
-  'rs-9': RS_SILOAM,     // RS Siloam Semanggi
-  'rs-10': RS_RSCM,      // RSCM
-  'rs-11': RS_PELNI,     // RS Pelni
-  'rs-12': RS_CAROLUS,   // RS St. Carolus
-  'rs-13': RS_JEC,       // RS Jakarta Eye Center
-  'rs-14': RS_HASAN_SADIKIN, // RSUP Hasan Sadikin
-  'rs-15': RS_BORROMEUS, // RS Borromeus
-  'rs-16': RS_YUSUP,     // RS St. Yusup
-  'rs-17': RS_KEBON_JATI, // RS Kebon Jati
-  'rs-18': RS_BHAYANGKARA, // RS Bhayangkara Brimob
-  'rs-19': RS_UI,        // RS UI
-  'rs-20': RS_CITRA_MEDIKA, // RS Citra Medika
-  'rs-21': RS_SILOAM,    // RS Siloam Tangerang
-  'rs-22': RS_SARI_ASIH, // RS Sari Asih
-  'rs-23': RS_EMC,       // RS EMC Tangerang
-  'rs-24': RS_ANNA_MEDIKA, // RS Anna Medika
-  'rs-25': RS_MITRA_KELUARGA, // RS Mitra Keluarga
-  'rs-26': RS_PERMATA,   // RS Permata Bekasi
-  'rs-27': RS_SOETOMO,   // RSUD Dr. Soetomo
-  'rs-28': RS_SILOAM,    // RS Siloam Surabaya
-  'rs-29': RS_RAMELAN,   // RS Dr. Ramelan
-  'rs-30': RS_WILLIAM_BOOTH, // RS William Booth
-  'rs-31': RS_KARIADI,   // RSUP Dr. Kariadi
-  'rs-32': RS_TELOGOREJO, // RS Telogorejo
-  'rs-33': RS_ELISABETH, // RS Elisabeth
+function klinikLogo(bg: string, shape: string, iconType: string, idx: number): string {
+  const gid = `k-${idx}`
+  const defs = gradDefs(gid, bg, adjustColor(bg, -25))
+  let s: string
+  switch (shape) {
+    case 'circle': s = circle(gid); break
+    case 'rrect': s = rrect(gid); break
+    case 'hex': s = hexagon(gid); break
+    case 'diamond': s = diamond(gid); break
+    case 'oct': s = octagon(gid); break
+    case 'pill': s = pill(gid); break
+    case 'teardrop': s = teardrop(gid); break
+    default: s = circle(gid)
+  }
+  let icon: string
+  switch (iconType) {
+    case 'cross': icon = crossIcon; break
+    case 'plus': icon = plusIcon; break
+    case 'heart': icon = heartIcon; break
+    case 'staff': icon = staffIcon; break
+    case 'steth': icon = stethIcon; break
+    case 'band': icon = bandIcon; break
+    case 'droplet': icon = dropletIcon; break
+    case 'shield': icon = shieldIcon; break
+    case 'building': icon = buildingIcon; break
+    case 'letter': icon = letterIcon('K', 28); break
+    default: icon = crossIcon
+  }
+  return wrap(`${defs}${s}${icon}<text x="100" y="162" text-anchor="middle" font-family="Arial,sans-serif" font-size="7" font-weight="bold" fill="white">KLINIK</text>`)
 }
 
-const pkmColors = [
-  '#2e7d32', '#1b5e20', '#00695c', '#00897b',
-  '#33691e', '#558b2f', '#004d40', '#1b5e20',
-]
-const klinikColors: [string, string][] = [
-  ['#00695c', '#004d40'], ['#00838f', '#006064'], ['#0277bd', '#01579b'],
-  ['#4e342e', '#3e2723'], ['#37474f', '#263238'], ['#5d4037', '#4e342e'],
-  ['#1565c0', '#0d47a1'], ['#2e7d32', '#1b5e20'], ['#6a1b9a', '#4a148c'],
-  ['#e65100', '#bf360c'], ['#37474f', '#455a64'], ['#00897b', '#00695c'],
-]
+// ─── LOGO MAP ───────────────────────────────────────────────────────
+
+const rsLogos: Record<string, () => string> = {
+  'rs-1': RS_1,      // RSUD Kota Bogor
+  'rs-2': RS_2,      // RSHS Salak
+  'rs-3': RS_3,      // RS Hermina Bogor
+  'rs-4': RS_4,      // RS PMI Bogor
+  'rs-5': RS_5,      // RSUP Fatmawati
+  'rs-6': RS_6,      // RS Pondok Indah
+  'rs-7': RS_7,      // RS Mayapada Jakarta
+  'rs-8': RS_8,      // RS Medistra
+  'rs-9': RS_9,      // RS Siloam Semanggi
+  'rs-10': RS_10,    // RSCM
+  'rs-11': RS_11,    // RS Pelni
+  'rs-12': RS_12,    // RS St. Carolus
+  'rs-13': RS_13,    // RS Jakarta Eye Center
+  'rs-14': RS_14,    // RSUP Hasan Sadikin
+  'rs-15': RS_15,    // RS Borromeus
+  'rs-16': RS_16,    // RS St. Yusup
+  'rs-17': RS_17,    // RS Kebon Jati
+  'rs-18': RS_18,    // RS Bhayangkara Brimob
+  'rs-19': RS_19,    // RS UI
+  'rs-20': RS_20,    // RS Citra Medika
+  'rs-21': RS_21,    // RS Siloam Tangerang
+  'rs-22': RS_22,    // RS Sari Asih
+  'rs-23': RS_23,    // RS EMC Tangerang
+  'rs-24': RS_24,    // RS Anna Medika
+  'rs-25': RS_25,    // RS Mitra Keluarga
+  'rs-26': RS_26,    // RS Permata Bekasi
+  'rs-27': RS_27,    // RSUD Dr. Soetomo
+  'rs-28': RS_28,    // RS Siloam Surabaya
+  'rs-29': RS_29,    // RS Dr. Ramelan
+  'rs-30': RS_30,    // RS William Booth
+  'rs-31': RS_31,    // RSUP Dr. Kariadi
+  'rs-32': RS_32,    // RS Telogorejo
+  'rs-33': RS_33,    // RS Elisabeth
+}
 
 export function getLogoByType(_type: string): string {
-  // Fallback generic
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
-    <circle cx="100" cy="100" r="95" fill="#546e7a" stroke="#37474f" stroke-width="3"/>
-    <rect x="88" y="40" width="24" height="55" rx="4" fill="white"/>
-    <rect x="65" y="62" width="70" height="16" rx="4" fill="white"/>
-    <text x="100" y="150" text-anchor="middle" font-family="Arial,sans-serif" font-size="12" font-weight="bold" fill="white">KESEHATAN</text>
-  </svg>`
+  return wrap(`<circle cx="100" cy="100" r="95" fill="#546e7a"/>
+<rect x="88" y="40" width="24" height="55" rx="4" fill="white"/>
+<rect x="65" y="62" width="70" height="16" rx="4" fill="white"/>
+<text x="100" y="150" text-anchor="middle" font-family="Arial,sans-serif" font-size="12" font-weight="bold" fill="white">KESEHATAN</text>`)
 }
 
-export function getLogoById(id: string, type: string, name: string): string {
+export function getLogoById(id: string, type: string, _name: string): string {
   if (type === 'rumah_sakit') {
     const gen = rsLogos[id]
-    if (gen) return gen(name)
-    // Fallback: government RS style
-    return RS_GOVT(name)
+    if (gen) return gen()
+    return RS_1()
   }
 
   if (type === 'puskesmas') {
-    // Use a color based on index of ID
     const idx = parseInt(id.replace(/\D/g, '')) || 0
-    const color = pkmColors[idx % pkmColors.length]
-    return PKM_GENERIC(name, color)
+    const cityIdx = idx % cityPkmConfig.length
+    const [city, color, shape] = cityPkmConfig[cityIdx]
+    return PKM_KOTA(id, city, color, shape)
   }
 
   if (type === 'klinik') {
     const idx = parseInt(id.replace(/\D/g, '')) || 0
-    const [bg, fg] = klinikColors[idx % klinikColors.length]
-    return KLINIK_GENERIC(name, bg, fg)
+    const vi = idx % KLINIK_VARIANTS.length
+    const [bg, shape, iconType] = KLINIK_VARIANTS[vi]
+    return klinikLogo(bg, shape, iconType, idx)
   }
 
   return getLogoByType(type)
