@@ -81,19 +81,23 @@ export default function SuratSakit({ data, signatureUrl, stampUrl }: Props) {
         Demikian surat keterangan sakit ini dibuat untuk dipergunakan sebagaimana mestinya.
       </p>
 
-      {/* TTD */}
+      {/* TTD + Stempel — stamp OVERLAPS signature (real Indonesian style) */}
       <div className="flex justify-end mt-6 sm:mt-8">
         <div className="text-center min-w-[160px] sm:min-w-[220px]">
           <p className="text-[11px] sm:text-sm mb-1 sm:mb-2">{getCityName(institution.city)}, {formatDate(createdAt)}</p>
-          <p className="text-[11px] sm:text-sm mb-6 sm:mb-8">Dokter Pemeriksa,</p>
+          <p className="text-[11px] sm:text-sm mb-4 sm:mb-6">Dokter Pemeriksa,</p>
 
-          <div className="flex items-end justify-center gap-2 sm:gap-4 mb-1">
+          <div className="relative inline-flex items-end justify-center mb-1">
+            {/* Signature */}
             {signatureUrl && (
-              <img src={signatureUrl} alt="TTD" className="h-10 sm:h-14 object-contain" />
+              <div className="relative z-0">
+                <img src={signatureUrl} alt="TTD" className="h-10 sm:h-14 object-contain" />
+              </div>
             )}
+            {/* Stamp — positioned overlapping the right portion of signature */}
             {stampUrl && (
-              <div className="relative">
-                <img src={stampUrl} alt="Cap" className="w-14 h-14 sm:w-[72px] sm:h-[72px] object-contain" />
+              <div className="relative z-10 -ml-6 sm:-ml-8 -mb-2 sm:-mb-3">
+                <img src={stampUrl} alt="Stempel" className="w-16 h-16 sm:w-[72px] sm:h-[72px] object-contain" />
               </div>
             )}
           </div>

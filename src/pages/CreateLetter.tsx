@@ -203,6 +203,7 @@ export default function CreateLetter() {
                 {institution && (
                   <StampGenerator
                     institutionName={institution.name}
+                    institutionType={institutionType as InstitutionType}
                     sip={sip}
                     onStampChange={setStampUrl}
                   />
