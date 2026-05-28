@@ -56,7 +56,7 @@ export default function PreviewLetter() {
             >
               <Printer className="w-4 h-4" /> Print
             </button>
-            <ExportButtons data={letterData} letterNumber={letterData.letterNumber} />
+            <ExportButtons data={letterData} letterNumber={letterData.letterNumber} signatureUrl={signatureUrl} stampUrl={stampUrl} />
           </div>
         </div>
 

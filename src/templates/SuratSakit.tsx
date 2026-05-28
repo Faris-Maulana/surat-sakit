@@ -1,6 +1,6 @@
 import type { LetterData } from '@/types'
 import { getLogoByType } from '@/data/logos'
-import { formatDate, getDayDifference } from '@/utils/helpers'
+import { formatDate, getDayDifference, getCityName } from '@/utils/helpers'
 
 interface Props {
   data: LetterData
@@ -83,19 +83,20 @@ export default function SuratSakit({ data, signatureUrl, stampUrl }: Props) {
 
       {/* TTD */}
       <div className="flex justify-end mt-8">
-        <div className="text-center">
-          <p className="text-sm mb-2">{institution.city === 'bogor' ? 'Bogor' : institution.city}, {formatDate(createdAt)}</p>
+        <div className="text-center min-w-[200px]">
+          <p className="text-sm mb-2">{getCityName(institution.city)}, {formatDate(createdAt)}</p>
           <p className="text-sm mb-8">Dokter Pemeriksa,</p>
 
-          {signatureUrl && (
-            <img src={signatureUrl} alt="TTD" className="h-14 mx-auto object-contain mb-1" />
-          )}
-
-          {stampUrl && (
-            <div className="relative inline-block">
-              <img src={stampUrl} alt="Cap" className="w-20 h-20 mx-auto object-contain mb-1" />
-            </div>
-          )}
+          <div className="flex items-end justify-center gap-4 mb-1">
+            {signatureUrl && (
+              <img src={signatureUrl} alt="TTD" className="h-14 object-contain" />
+            )}
+            {stampUrl && (
+              <div className="relative">
+                <img src={stampUrl} alt="Cap" className="w-[72px] h-[72px] object-contain" />
+              </div>
+            )}
+          </div>
 
           <p className="text-sm font-semibold mt-1">({doctor.name})</p>
           <p className="text-xs text-gray-500">SIP. {doctor.sip}</p>

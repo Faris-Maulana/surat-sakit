@@ -5,14 +5,18 @@ export async function exportToPDF(elementId: string, filename: string = 'surat-s
   if (!element) throw new Error('Element not found')
 
   const opt = {
-    margin: [10, 10, 10, 10] as [number, number, number, number],
+    margin: [0, 0, 0, 0] as [number, number, number, number],
     filename,
     image: { type: 'jpeg' as const, quality: 0.98 },
     html2canvas: {
       scale: 2,
       useCORS: true,
       logging: false,
+      width: element.scrollWidth,
+      height: element.scrollHeight,
+      windowWidth: element.scrollWidth,
     },
+    pagebreak: { mode: 'avoid-all' as const },
     jsPDF: {
       unit: 'mm',
       format: 'a4',

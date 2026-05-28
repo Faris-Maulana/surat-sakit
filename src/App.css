@@ -1,5 +1,12 @@
+@page {
+  size: A4;
+  margin: 0;
+}
+
 @media print {
-  body {
+  html, body {
+    width: 210mm;
+    height: 297mm;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }

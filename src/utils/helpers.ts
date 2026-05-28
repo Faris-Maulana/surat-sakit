@@ -22,3 +22,17 @@ export function getDayDifference(start: string, end: string): number {
   const diff = Math.ceil((e.getTime() - s.getTime()) / (1000 * 60 * 60 * 24))
   return diff + 1
 }
+
+const cityNames: Record<string, string> = {
+  'bogor': 'Bogor',
+  'jakarta-selatan': 'Jakarta Selatan',
+  'jakarta-pusat': 'Jakarta Pusat',
+  'bandung': 'Bandung',
+  'depok': 'Depok',
+  'tangerang': 'Tangerang',
+  'bekasi': 'Bekasi',
+}
+
+export function getCityName(cityId: string): string {
+  return cityNames[cityId] || cityId
+}

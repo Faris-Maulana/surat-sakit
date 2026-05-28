@@ -1,10 +1,10 @@
 import {
   Document, Packer, Paragraph, TextRun, Table, TableRow, TableCell,
-  AlignmentType, WidthType, BorderStyle, Header,
+  AlignmentType, WidthType, BorderStyle, ImageRun,
 } from 'docx'
 import { saveAs } from 'file-saver'
 import type { LetterData } from '@/types'
-import { formatDate, getDayDifference } from './helpers'
+import { formatDate, getDayDifference, getCityName } from './helpers'
 
 function createLabelCell(label: string): TableCell {
   return new TableCell({
@@ -42,7 +42,19 @@ function createValueCell(text: string): TableCell {
   })
 }
 
-export async function exportToDOCX(data: LetterData, filename: string = 'surat-sakit.docx'): Promise<void> {
+async function dataUrlToBuffer(dataUrl: string): Promise<Uint8Array> {
+  const res = await fetch(dataUrl)
+  const blob = await res.blob()
+  const buf = await blob.arrayBuffer()
+  return new Uint8Array(buf)
+}
+
+export async function exportToDOCX(
+  data: LetterData,
+  filename: string = 'surat-sakit.docx',
+  signatureUrl?: string,
+  stampUrl?: string,
+): Promise<void> {
   if (!data.institution) return
 
   const days = getDayDifference(data.restPeriod.startDate, data.restPeriod.endDate)
@@ -56,11 +68,193 @@ export async function exportToDOCX(data: LetterData, filename: string = 'surat-s
     ['Alamat', data.patient.address],
   ]
 
+  const docPartChildren: (Paragraph | Table)[] = [
+    // Kop surat
+    new Paragraph({
+      alignment: AlignmentType.CENTER,
+      children: [
+        new TextRun({ text: data.institution.name, bold: true, size: 28, font: 'Times New Roman' }),
+      ],
+      spacing: { after: 60 },
+    }),
+    new Paragraph({
+      alignment: AlignmentType.CENTER,
+      children: [
+        new TextRun({ text: data.institution.address, size: 20, font: 'Times New Roman' }),
+      ],
+      spacing: { after: 40 },
+    }),
+    new Paragraph({
+      alignment: AlignmentType.CENTER,
+      children: [
+        new TextRun({ text: `Telp: ${data.institution.phone}`, size: 20, font: 'Times New Roman' }),
+      ],
+      spacing: { after: 120 },
+    }),
+    new Paragraph({
+      alignment: AlignmentType.CENTER,
+      border: {
+        bottom: { style: BorderStyle.SINGLE, size: 6 },
+      },
+      spacing: { after: 200 },
+    }),
+
+    // Title
+    new Paragraph({
+      alignment: AlignmentType.CENTER,
+      spacing: { after: 200 },
+      children: [
+        new TextRun({ text: 'SURAT KETERANGAN SAKIT', bold: true, size: 28, font: 'Times New Roman', underline: { type: 'single' } }),
+      ],
+    }),
+
+    // Letter number
+    new Paragraph({
+      spacing: { after: 200 },
+      children: [new TextRun({ text: `Nomor: ${data.letterNumber}`, size: 22, font: 'Times New Roman' })],
+    }),
+
+    // Opening
+    new Paragraph({
+      spacing: { after: 200 },
+      children: [
+        new TextRun({
+          text: `Yang bertanda tangan di bawah ini, Dokter pada ${data.institution.name}, menerangkan bahwa:`,
+          size: 22, font: 'Times New Roman',
+        }),
+      ],
+    }),
+
+    // Patient data table
+    new Table({
+      rows: patientRows.map(([label, value]) =>
+        new TableRow({
+          children: [createLabelCell(label), createValueCell(value)],
+        })
+      ),
+    }),
+
+    new Paragraph({ spacing: { after: 200 }, children: [] }),
+
+    // Hasil Pemeriksaan
+    new Paragraph({
+      spacing: { after: 100 },
+      children: [new TextRun({ text: 'Hasil Pemeriksaan:', bold: true, size: 22, font: 'Times New Roman' })],
+    }),
+
+    new Table({
+      rows: [
+        ['Keluhan', data.diagnosis.keluhan],
+        ['Diagnosis', data.diagnosis.diagnosis],
+        ['Kode ICD-10', data.diagnosis.icdCode],
+      ].map(([label, value]) =>
+        new TableRow({
+          children: [createLabelCell(label), createValueCell(value)],
+        })
+      ),
+    }),
+
+    new Paragraph({ spacing: { after: 200 }, children: [] }),
+
+    // Rekomendasi
+    new Paragraph({
+      spacing: { after: 100 },
+      children: [new TextRun({ text: 'Rekomendasi:', bold: true, size: 22, font: 'Times New Roman' })],
+    }),
+
+    new Paragraph({
+      spacing: { after: 200 },
+      children: [
+        new TextRun({
+          text: `Berdasarkan hasil pemeriksaan, pasien dianjurkan untuk beristirahat selama ${days} hari, terhitung mulai tanggal ${formatDate(data.restPeriod.startDate)} sampai dengan tanggal ${formatDate(data.restPeriod.endDate)}.`,
+          size: 22, font: 'Times New Roman',
+        }),
+      ],
+    }),
+
+    new Paragraph({
+      spacing: { after: 200 },
+      children: [
+        new TextRun({
+          text: 'Demikian surat keterangan sakit ini dibuat untuk dipergunakan sebagaimana mestinya.',
+          size: 22, font: 'Times New Roman',
+        }),
+      ],
+    }),
+
+    // Signature area
+    new Paragraph({
+      alignment: AlignmentType.RIGHT,
+      spacing: { after: 100 },
+      children: [
+        new TextRun({
+          text: `${getCityName(data.institution.city)}, ${formatDate(data.createdAt)}`,
+          size: 22, font: 'Times New Roman',
+        }),
+      ],
+    }),
+
+    new Paragraph({
+      alignment: AlignmentType.RIGHT,
+      spacing: { after: 400 },
+      children: [
+        new TextRun({ text: 'Dokter Pemeriksa,', size: 22, font: 'Times New Roman' }),
+      ],
+    }),
+  ]
+
+  // Add signature and stamp images side by side
+  const sigStampParags: Paragraph[] = []
+
+  if (signatureUrl || stampUrl) {
+    const imageParagraphs: (Paragraph | undefined)[] = []
+
+    if (signatureUrl) {
+      try {
+        const sigBytes = await dataUrlToBuffer(signatureUrl)
+        imageParagraphs.push(
+          new Paragraph({
+            alignment: AlignmentType.CENTER,
+            children: [
+              new ImageRun({
+                data: sigBytes,
+                transformation: { width: 120, height: 40 },
+                type: 'png',
+              }),
+            ],
+            spacing: { after: 40 },
+          }),
+        )
+      } catch { /* skip image */ }
+    }
+
+    if (stampUrl) {
+      try {
+        const stampBytes = await dataUrlToBuffer(stampUrl)
+        imageParagraphs.push(
+          new Paragraph({
+            alignment: AlignmentType.CENTER,
+            children: [
+              new ImageRun({
+                data: stampBytes,
+                transformation: { width: 90, height: 90 },
+                type: 'png',
+              }),
+            ],
+            spacing: { after: 40 },
+          }),
+        )
+      } catch { /* skip image */ }
+    }
+
+    sigStampParags.push(...imageParagraphs.filter((p): p is Paragraph => !!p))
+  }
+
   const doc = new Document({
     styles: {
       default: {
         document: {
-          run: { font: 'Times New Roman', size: 22 },
+          run: { font: 'Times New Roman', size: 24 },
         },
       },
     },
@@ -69,173 +263,27 @@ export async function exportToDOCX(data: LetterData, filename: string = 'surat-s
         properties: {
           page: {
             margin: {
-              top: 1400,
-              right: 1400,
-              bottom: 1400,
-              left: 1400,
+              top: 1500,
+              right: 1500,
+              bottom: 1500,
+              left: 1500,
             },
           },
         },
-        headers: {
-          default: new Header({
-            children: [
-              new Paragraph({
-                alignment: AlignmentType.CENTER,
-                children: [
-                  new TextRun({ text: data.institution.name, bold: true, size: 26, font: 'Times New Roman' }),
-                ],
-                spacing: { after: 60 },
-              }),
-              new Paragraph({
-                alignment: AlignmentType.CENTER,
-                children: [
-                  new TextRun({ text: data.institution.address, size: 18, font: 'Times New Roman' }),
-                ],
-                spacing: { after: 40 },
-              }),
-              new Paragraph({
-                alignment: AlignmentType.CENTER,
-                children: [
-                  new TextRun({ text: `Telp: ${data.institution.phone}`, size: 18, font: 'Times New Roman' }),
-                ],
-                spacing: { after: 120 },
-              }),
-              new Paragraph({
-                alignment: AlignmentType.CENTER,
-                border: {
-                  bottom: { style: BorderStyle.SINGLE, size: 6 },
-                },
-                children: [],
-                spacing: { after: 200 },
-              }),
-            ],
-          }),
-        },
         children: [
-          // Title
-          new Paragraph({
-            alignment: AlignmentType.CENTER,
-            spacing: { after: 200 },
-            children: [
-              new TextRun({ text: 'SURAT KETERANGAN SAKIT', bold: true, size: 26, font: 'Times New Roman', underline: { type: 'single' } }),
-            ],
-          }),
-
-          // Letter number
-          new Paragraph({
-            spacing: { after: 200 },
-            children: [new TextRun({ text: `Nomor: ${data.letterNumber}`, size: 20, font: 'Times New Roman' })],
-          }),
-
-          // Opening
-          new Paragraph({
-            spacing: { after: 200 },
-            children: [
-              new TextRun({
-                text: `Yang bertanda tangan di bawah ini, Dokter pada ${data.institution.name}, menerangkan bahwa:`,
-                size: 20, font: 'Times New Roman',
-              }),
-            ],
-          }),
-
-          // Patient data table
-          new Table({
-            rows: patientRows.map(([label, value]) =>
-              new TableRow({
-                children: [createLabelCell(label), createValueCell(value)],
-              })
-            ),
-          }),
-
-          // Empty paragraph
-          new Paragraph({ spacing: { after: 200 }, children: [] }),
-
-          // Hasil Pemeriksaan
-          new Paragraph({
-            spacing: { after: 100 },
-            children: [new TextRun({ text: 'Hasil Pemeriksaan:', bold: true, size: 20, font: 'Times New Roman' })],
-          }),
-
-          new Table({
-            rows: [
-              ['Keluhan', data.diagnosis.keluhan],
-              ['Diagnosis', data.diagnosis.diagnosis],
-              ['Kode ICD-10', data.diagnosis.icdCode],
-            ].map(([label, value]) =>
-              new TableRow({
-                children: [createLabelCell(label), createValueCell(value)],
-              })
-            ),
-          }),
-
-          new Paragraph({ spacing: { after: 200 }, children: [] }),
-
-          // Rekomendasi
-          new Paragraph({
-            spacing: { after: 100 },
-            children: [new TextRun({ text: 'Rekomendasi:', bold: true, size: 20, font: 'Times New Roman' })],
-          }),
-
-          new Paragraph({
-            spacing: { after: 200 },
-            children: [
-              new TextRun({
-                text: `Berdasarkan hasil pemeriksaan, pasien dianjurkan untuk beristirahat selama ${days} hari, terhitung mulai tanggal ${formatDate(data.restPeriod.startDate)} sampai dengan tanggal ${formatDate(data.restPeriod.endDate)}.`,
-                size: 20, font: 'Times New Roman',
-              }),
-            ],
-          }),
-
-          new Paragraph({
-            spacing: { after: 200 },
-            children: [
-              new TextRun({
-                text: 'Demikian surat keterangan sakit ini dibuat untuk dipergunakan sebagaimana mestinya.',
-                size: 20, font: 'Times New Roman',
-              }),
-            ],
-          }),
-
-          // Signature area
-          new Paragraph({
-            alignment: AlignmentType.RIGHT,
-            spacing: { after: 100 },
-            children: [
-              new TextRun({
-                text: `${data.institution.city === 'bogor' ? 'Bogor' : data.institution.city}, ${formatDate(data.createdAt)}`,
-                size: 20, font: 'Times New Roman',
-              }),
-            ],
-          }),
-
-          new Paragraph({
-            alignment: AlignmentType.RIGHT,
-            spacing: { after: 400 },
-            children: [
-              new TextRun({ text: 'Dokter Pemeriksa,', size: 20, font: 'Times New Roman' }),
-            ],
-          }),
-
-          new Paragraph({
-            alignment: AlignmentType.RIGHT,
-            spacing: { after: 100 },
-            children: [
-              new TextRun({ text: '', size: 20, font: 'Times New Roman' }),
-            ],
-          }),
-
+          ...docPartChildren,
+          ...sigStampParags,
           new Paragraph({
             alignment: AlignmentType.RIGHT,
             spacing: { after: 60 },
             children: [
-              new TextRun({ text: `(${data.doctor.name})`, bold: true, size: 20, font: 'Times New Roman' }),
+              new TextRun({ text: `(${data.doctor.name})`, bold: true, size: 22, font: 'Times New Roman' }),
             ],
           }),
-
           new Paragraph({
             alignment: AlignmentType.RIGHT,
             children: [
-              new TextRun({ text: `SIP. ${data.doctor.sip}`, size: 18, font: 'Times New Roman', italics: true }),
+              new TextRun({ text: `SIP. ${data.doctor.sip}`, size: 20, font: 'Times New Roman', italics: true }),
             ],
           }),
         ],

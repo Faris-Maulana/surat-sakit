@@ -7,9 +7,11 @@ import type { LetterData } from '@/types'
 interface Props {
   data: LetterData
   letterNumber: string
+  signatureUrl?: string
+  stampUrl?: string
 }
 
-export default function ExportButtons({ data, letterNumber }: Props) {
+export default function ExportButtons({ data, letterNumber, signatureUrl, stampUrl }: Props) {
   const [exporting, setExporting] = useState<'pdf' | 'docx' | null>(null)
 
   const handlePDF = async () => {
@@ -26,7 +28,12 @@ export default function ExportButtons({ data, letterNumber }: Props) {
   const handleDOCX = async () => {
     setExporting('docx')
     try {
-      await exportToDOCX(data, `Surat_Sakit_${letterNumber.replace(/\//g, '-')}.docx`)
+      await exportToDOCX(
+        data,
+        `Surat_Sakit_${letterNumber.replace(/\//g, '-')}.docx`,
+        signatureUrl,
+        stampUrl,
+      )
     } catch (err) {
       console.error('DOCX export failed:', err)
     } finally {

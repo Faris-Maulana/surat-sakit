@@ -246,10 +246,11 @@ export default function SignaturePad({ doctorName, sip, onDoctorNameChange, onSi
     const ctx = canvas.getContext('2d')
     if (!ctx) return
 
+    const dr = doctorName || 'dr. Andi Pratama, Sp.PD'
     if (mode === 'text') {
-      drawTextSignature(ctx, doctorName || 'dr. Andi Pratama')
+      drawTextSignature(ctx, dr)
     } else {
-      drawSignature(ctx, doctorName || 'dr. Andi Pratama')
+      drawSignature(ctx, dr)
     }
     const url = canvas.toDataURL('image/png')
     setSignatureDataUrl(url)
@@ -271,7 +272,7 @@ export default function SignaturePad({ doctorName, sip, onDoctorNameChange, onSi
             value={doctorName}
             onChange={(e) => onDoctorNameChange(e.target.value)}
             className="w-full rounded-xl border-gray-300 border p-3 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-            placeholder="dr. Andi Pratama, Sp.PD"
+            placeholder="dr. Andi Pratama, Sp.PD (misal: dr. Bambang Wijaya)"
           />
         </div>
         <div>
@@ -281,7 +282,7 @@ export default function SignaturePad({ doctorName, sip, onDoctorNameChange, onSi
             value={sip}
             onChange={(e) => onSipChange(e.target.value)}
             className="w-full rounded-xl border-gray-300 border p-3 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-            placeholder="SIP. 12345/2026"
+            placeholder="SIP. 12345/DKK/2026"
           />
         </div>
       </div>
