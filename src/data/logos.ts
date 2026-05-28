@@ -33,9 +33,6 @@ function wmInitial(initial: string, size = 36): string {
 function wmDouble(a: string, b = '', size = 24): string {
   return `<text x="100" y="95" text-anchor="middle" font-family="Georgia,serif" font-size="${size}" font-weight="bold" fill="white">${a}${b}</text>`
 }
-function wmText(text: string, size = 16): string {
-  return `<text x="100" y="95" text-anchor="middle" font-family="Arial,sans-serif" font-size="${size}" font-weight="bold" fill="white">${text}</text>`
-}
 
 // ─── REAL HOSPITAL LOGOS (direct URLs) ─────────────────────────────
 
@@ -87,26 +84,25 @@ const RS_28 = () => realLogo('https://upload.wikimedia.org/wikipedia/commons/5/5
 // ─── WORDMARK HOSPITAL LOGOS ────────────────────────────────────────
 
 // rs-1: RSUD Kota Bogor
-const RS_1 = () => wordmark('RSUD KOTA BOGOR', 'RUMAH SAKIT UMUM DAERAH', '#1565c0', '#0d47a1', wmInitial('B'))
+const RS_1 = () => realLogo('https://rsud.kotabogor.go.id/frontend/assets/images/logo-rsud.png', '#e0f2f1')
 const RS_2 = () => wordmark('RSHS SALAK', 'RUMAH SAKIT', '#2e7d32', '#1b5e20', `<path d="M100 55 L145 78 L145 110 Q145 145 100 160 Q55 145 55 110 L55 78 Z" fill="none" stroke="white" stroke-width="3" opacity="0.4"/>
 <text x="100" y="98" text-anchor="middle" font-family="Georgia,serif" font-size="24" font-weight="bold" fill="white">S</text>`)
-const RS_4 = () => wordmark('RS PMI BOGOR', 'PALANG MERAH INDONESIA', '#c62828', '#8e0000', wmText('PMI', 18))
-const RS_13 = () => wordmark('JAKARTA EYE CENTER', 'RS KHUSUS MATA', '#0277bd', '#01579b', `<ellipse cx="100" cy="78" rx="30" ry="20" fill="white" opacity="0.85"/>
-<circle cx="100" cy="78" r="10" fill="#0277bd"/>`)
+const RS_4 = () => realLogo('https://v2.rspmibogor.or.id/images/logo_pmi.png', '#ffebee')
+const RS_13 = () => realLogo('https://jec.co.id/assets/img/jec-logo.png', '#e3f2fd')
 
 // rs-14: RSUP Hasan Sadikin
 const RS_14 = () => wordmark('RSUP HASAN SADIKIN', 'BANDUNG', '#00695c', '#004d40', wmDouble('HS'))
 const RS_15 = () => wordmark('RS BORROMEUS', 'BANDUNG', '#6a1b9a', '#4a148c', wmInitial('B'))
 const RS_16 = () => wordmark('ST. YUSUP', 'RUMAH SAKIT', '#1565c0', '#0d47a1', wmDouble('S', 'Y', 28))
 const RS_17 = () => wordmark('RS KEBON JATI', 'BANDUNG', '#37474f', '#455a64', wmDouble('KJ'))
-const RS_18 = () => wordmark('BHAYANGKARA', 'BRIMOB', '#1a237e', '#283593', wmDouble('BB'))
-const RS_19 = () => wordmark('RS UI', 'UNIVERSITAS INDONESIA', '#ff8f00', '#ff6f00', wmDouble('U', 'I', 28))
+const RS_18 = () => realLogo('https://static.wikia.nocookie.net/logopedia/images/c/cf/Rumah_Sakit_Bhayangkara_Brimob.png', '#e8eaf6')
+const RS_19 = () => realLogo('https://rs.ui.ac.id/assets/media/logo-full-white.png', '#fff8e1')
 const RS_20 = () => wordmark('RS CITRA MEDIKA', 'DEPOK', '#00838f', '#006064', wmDouble('CM'))
-const RS_26 = () => wordmark('RS PERMATA', 'BEKASI', '#4a148c', '#6a1b9a', wmInitial('P'))
+const RS_26 = () => realLogo('https://www.rspermata.co.id/data/images/new-logo-permata.png', '#f3e5f5')
 const RS_27 = () => wordmark('RSUD DR. SOETOMO', 'SURABAYA', '#b71c1c', '#880e4f', wmInitial('S'))
 const RS_29 = () => wordmark('RS DR. RAMELAN', 'SURABAYA', '#283593', '#1a237e', wmInitial('R', 42))
 const RS_30 = () => wordmark('WILLIAM BOOTH', 'HOSPITAL', '#c62828', '#b71c1c', wmDouble('WB'))
-const RS_31 = () => wordmark('RSUP DR. KARIADI', 'SEMARANG', '#0d47a1', '#1565c0', wmInitial('K'))
+const RS_31 = () => realLogo('https://api-eassets.rskariadi.co.id/public-assets/utama-web/logo_kariadi.png', '#e3f2fd')
 const RS_32 = () => wordmark('RS TELOGOREJO', 'SEMARANG', '#4e342e', '#3e2723', wmInitial('T'))
 const RS_33 = () => wordmark('RS ELISABETH', 'SEMARANG', '#7b1fa2', '#4a148c', wmInitial('E'))
 
