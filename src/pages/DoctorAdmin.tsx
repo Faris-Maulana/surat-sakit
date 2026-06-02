@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { doctorService } from '@/services/doctorService'
 import { generateSip, validateSip, formatSip } from '@/utils/sip'
-import { ArrowLeft, Plus, Edit3, Trash2, Check, X, AlertTriangle, Loader2 } from 'lucide-react'
+import { ArrowLeft, Plus, Edit3, Trash2, Check, X, AlertTriangle, Loader2, ShieldAlert, LogIn } from 'lucide-react'
 import type { DoctorEntry, InstitutionType } from '@/types'
 
 const types: { value: InstitutionType; label: string }[] = [
@@ -20,8 +20,71 @@ interface FormData {
 
 const emptyForm: FormData = { name: '', str: '', specialization: '', institutionType: 'rumah_sakit' }
 
+const AUTHORIZED_EMAILS = [
+  'maulanafaris016@gmail.com',
+  '4519210102@univpancasila.ac.id',
+]
+
+function AuthGate({ onAuthorized }: { onAuthorized: () => void }) {
+  const [email, setEmail] = useState('')
+  const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    setError('')
+    setLoading(true)
+    setTimeout(() => {
+      if (AUTHORIZED_EMAILS.includes(email.trim().toLowerCase())) {
+        sessionStorage.setItem('doctor-admin-auth', email.trim().toLowerCase())
+        onAuthorized()
+      } else {
+        setError('Email tidak terdaftar sebagai admin dokter.')
+      }
+      setLoading(false)
+    }, 600)
+  }
+
+  return (
+    <main className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+      <div className="bg-white rounded-2xl shadow-lg border border-gray-200 p-8 max-w-md w-full text-center">
+        <div className="w-14 h-14 bg-amber-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+          <ShieldAlert className="w-7 h-7 text-amber-600" />
+        </div>
+        <h1 className="text-xl font-bold text-gray-800 mb-1">Akses Terbatas</h1>
+        <p className="text-sm text-gray-500 mb-6">
+          Halaman admin dokter hanya untuk pengguna yang berwenang. Masukkan email developer untuk melanjutkan.
+        </p>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <input
+            type="email"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+            placeholder="email@example.com"
+            required
+            autoFocus
+            className="w-full rounded-xl border border-gray-300 p-3 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          />
+          {error && <p className="text-xs text-red-500 text-left">{error}</p>}
+          <button
+            type="submit"
+            disabled={!email.trim() || loading}
+            className="w-full py-3 bg-blue-600 text-white rounded-xl text-sm font-medium hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center justify-center gap-2"
+          >
+            {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <LogIn className="w-4 h-4" />}
+            <span>{loading ? 'Memverifikasi...' : 'Masuk'}</span>
+          </button>
+        </form>
+      </div>
+    </main>
+  )
+}
+
 export default function DoctorAdmin() {
   const navigate = useNavigate()
+  const [authorized, setAuthorized] = useState(
+    () => !!sessionStorage.getItem('doctor-admin-auth')
+  )
   const [filter, setFilter] = useState<InstitutionType | 'all'>('all')
   const [showForm, setShowForm] = useState(false)
   const [editId, setEditId] = useState<string | null>(null)
@@ -124,6 +187,8 @@ export default function DoctorAdmin() {
     const v = validateSip(sipPreview)
     setSipValid(v)
   }
+
+  if (!authorized) return <AuthGate onAuthorized={() => setAuthorized(true)} />
 
   return (
     <main className="min-h-screen bg-gray-50 py-6 sm:py-10 px-3 sm:px-4">

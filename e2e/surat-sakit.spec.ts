@@ -3,13 +3,24 @@ import { test, expect } from '@playwright/test'
 test.describe('Surat Sakit Generator', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('/')
-    await page.waitForLoadState('networkidle')
+    await page.waitForLoadState('load')
   })
+
+  async function selectCity(page: any) {
+    const input = page.locator('#city-search')
+    await input.click()
+    await page.waitForTimeout(300)
+    await input.fill('Bogor')
+    await page.waitForTimeout(500)
+    await page.locator('#city-option-bogor').click()
+    await page.waitForTimeout(300)
+  }
 
   async function selectInstitution(page: any) {
     await page.getByText('Rumah Sakit').click()
-    await page.locator('select').first().selectOption('bogor')
     await page.waitForTimeout(200)
+    await selectCity(page)
+    await page.waitForTimeout(500)
     await page.getByText('RSUD Kota Bogor').first().click()
   }
 
@@ -73,7 +84,7 @@ test.describe('Surat Sakit Generator', () => {
 
     // Step 1: Institution
     await page.getByText('Puskesmas').click()
-    await page.locator('select').first().selectOption('bogor')
+    await selectCity(page)
     await page.waitForTimeout(200)
     await page.getByText('Puskesmas Bogor').first().click()
     await page.getByText('Selanjutnya').click()
@@ -149,7 +160,7 @@ test.describe('Surat Sakit Generator', () => {
 
   test('letter type switching resets flow', async ({ page }) => {
     await page.getByText('Rumah Sakit').click()
-    await page.locator('select').first().selectOption('bogor')
+    await selectCity(page)
     await page.waitForTimeout(200)
     await page.getByText('RSUD Kota Bogor').first().click()
 

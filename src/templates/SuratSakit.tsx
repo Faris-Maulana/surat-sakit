@@ -102,8 +102,8 @@ export default function SuratSakit({ data, signatureUrl, stampUrl }: Props) {
             )}
             {/* Stamp — positioned overlapping the right portion of signature */}
             {stampUrl && (
-              <div className="relative z-10 -ml-6 sm:-ml-8 -mb-2 sm:-mb-3">
-                <img src={stampUrl} alt="Stempel" className="w-16 h-16 sm:w-[72px] sm:h-[72px] object-contain" />
+              <div className="relative z-10 -ml-8 sm:-ml-10 -mb-3 sm:-mb-4">
+                <img src={stampUrl} alt="Stempel" className="w-20 h-20 sm:w-24 sm:h-24 object-contain" />
               </div>
             )}
           </div>

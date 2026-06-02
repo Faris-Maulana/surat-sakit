@@ -7,7 +7,6 @@ interface Props {
   onSignatureChange?: (url: string) => void
 }
 
-// Seeded pseudo-random for consistency based on doctor name
 function seededRandom(seed: string): () => number {
   let hash = 0
   for (let i = 0; i < seed.length; i++) {
@@ -21,6 +20,31 @@ function seededRandom(seed: string): () => number {
   }
 }
 
+function noise2(x: number, seed: number) {
+  const n = Math.sin(x * 12.9898 + seed * 78.233) * 43758.5453
+  return n - Math.floor(n)
+}
+
+function drawPressureStroke(
+  ctx: CanvasRenderingContext2D,
+  points: [number, number, number][],
+  color: string,
+) {
+  if (points.length < 2) return
+  ctx.lineCap = 'round'
+  ctx.lineJoin = 'round'
+  for (let i = 0; i < points.length - 1; i++) {
+    const [x1, y1, w1] = points[i]
+    const [x2, y2, w2] = points[i + 1]
+    ctx.beginPath()
+    ctx.moveTo(x1, y1)
+    ctx.lineTo(x2, y2)
+    ctx.strokeStyle = color
+    ctx.lineWidth = w1 * 0.5 + w2 * 0.5
+    ctx.stroke()
+  }
+}
+
 type SigMode = 'realistic' | 'text'
 
 function drawTextSignature(ctx: CanvasRenderingContext2D, name: string) {
@@ -31,7 +55,7 @@ function drawTextSignature(ctx: CanvasRenderingContext2D, name: string) {
   ctx.beginPath()
   ctx.moveTo(20, h - 18)
   ctx.lineTo(w - 20, h - 18)
-  ctx.strokeStyle = '#bbb'
+  ctx.strokeStyle = '#ccc'
   ctx.lineWidth = 0.5
   ctx.stroke()
 
@@ -58,151 +82,225 @@ function drawTextSignature(ctx: CanvasRenderingContext2D, name: string) {
 function drawSignature(ctx: CanvasRenderingContext2D, name: string) {
   const w = ctx.canvas.width
   const h = ctx.canvas.height
-  const rand = seededRandom(name || 'default')
-  const r = () => rand()
-
-  const styleIdx = Math.floor(r() * 5)
+  const S = seededRandom(name || 'default')
+  const r = () => S()
 
   ctx.clearRect(0, 0, w, h)
 
   ctx.beginPath()
   ctx.moveTo(20, h - 18)
   ctx.lineTo(w - 20, h - 18)
-  ctx.strokeStyle = '#bbb'
+  ctx.strokeStyle = '#ddd'
   ctx.lineWidth = 0.5
   ctx.stroke()
 
-  ctx.strokeStyle = '#1a3a6b'
-  ctx.lineCap = 'round'
-  ctx.lineJoin = 'round'
-
   const cx = w / 2
   const baseY = h - 26
-  const amp = 7 + r() * 4
+  const color = '#1a3a6b'
+  const seedNum = name.split('').reduce((a, c) => a + c.charCodeAt(0), 0)
 
-  const drawStroke = (points: [number, number][], width: number) => {
-    if (points.length < 2) return
-    ctx.beginPath()
-    ctx.moveTo(points[0][0], points[0][1])
-    for (let i = 1; i < points.length; i++) {
-      const xc = (points[i][0] + points[i - 1][0]) / 2
-      const yc = (points[i][1] + points[i - 1][1]) / 2
-      ctx.quadraticCurveTo(points[i - 1][0], points[i - 1][1], xc, yc)
-    }
-    ctx.lineTo(points[points.length - 1][0], points[points.length - 1][1])
-    ctx.lineWidth = width
-    ctx.stroke()
-  }
+  const styleIdx = Math.floor(r() * 7)
 
   if (styleIdx === 0) {
-    const ox = cx - 50 + r() * 20
-    const points: [number, number][] = []
-    for (let i = 0; i < 40; i++) {
-      const t = i / 40
-      const x = ox + t * 120 + Math.sin(t * 12) * 8
-      const y = baseY - amp * Math.sin(t * 5 + 0.3) + Math.sin(t * 8) * 3 - t * t * 15
-      points.push([x, y])
+    const ox = cx - 55 + r() * 15
+    const pts: [number, number, number][] = []
+    for (let i = 0; i < 70; i++) {
+      const t = i / 70
+      const x = ox + t * 130 + Math.sin(t * 14 + r() * 2) * 6
+      const wobble = Math.sin(t * 25 + seedNum) * 1.2
+      const pressure = 1.5 + Math.sin(t * 3) * 0.8 + 0.5
+      const y = baseY - 8 * Math.sin(t * 5.5 + 0.3) - t * (1 - t) * 18 + wobble
+      pts.push([x, y, pressure])
     }
-    drawStroke(points, 2 + r() * 0.5)
+    drawPressureStroke(ctx, pts, color)
     ctx.beginPath()
-    ctx.moveTo(ox + 120, baseY - amp * Math.sin(5 + 0.3) - 15)
-    ctx.quadraticCurveTo(ox + 140, baseY - 40, ox + 130, baseY - 25)
-    ctx.quadraticCurveTo(ox + 120, baseY - 10, ox + 135, baseY - 20)
-    ctx.quadraticCurveTo(ox + 150, baseY - 35, ox + 140, baseY - 15)
-    ctx.lineWidth = 1.8
-    ctx.stroke()
-    ctx.beginPath()
-    for (let i = 0; i < 20; i++) {
-      const t = i / 20
-      const x = ox + t * 140
-      const y = (baseY - 18) + Math.sin(t * 15) * 2
-      i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y)
-    }
-    ctx.lineWidth = 0.8
-    ctx.stroke()
-  } else if (styleIdx === 1) {
-    const ox = cx - 40 + r() * 20
-    const points: [number, number][] = []
-    for (let i = 0; i < 35; i++) {
-      const t = i / 35
-      const x = ox + t * 100 + (i % 7 === 3 ? 5 : 0)
-      const y = baseY - amp * Math.sin(t * 6 + 1.2) - t * (1 - t) * 20
-      points.push([x, y])
-    }
-    drawStroke(points, 2.5 + r() * 0.5)
-    ctx.beginPath()
-    ctx.moveTo(ox + 100, baseY - 10)
-    ctx.lineTo(ox + 115, baseY - 45)
-    ctx.lineTo(ox + 108, baseY - 38)
-    ctx.lineTo(ox + 120, baseY - 42)
-    ctx.lineWidth = 2
-    ctx.stroke()
-  } else if (styleIdx === 2) {
-    const ox = cx - 60 + r() * 20
-    const points: [number, number][] = []
-    for (let i = 0; i < 50; i++) {
-      const t = i / 50
-      const x = ox + t * 130 + Math.sin(t * 10) * 5
-      const slope = (1 - t) * 8
-      const y = baseY - amp * Math.sin(t * 4.5 + 0.8) + Math.sin(t * 12) * 2 - slope
-      points.push([x, y])
-    }
-    drawStroke(points, 1.8 + r() * 0.3)
-    ctx.beginPath()
-    ctx.moveTo(ox + 130, baseY - amp * Math.sin(4.5 + 0.8) - 8)
-    for (let i = 0; i < 20; i++) {
-      const t = i / 20
-      const a = t * Math.PI * 2.5
-      ctx.lineTo(ox + 130 + Math.cos(a) * 15, baseY - 30 + Math.sin(a) * 10)
-    }
+    ctx.moveTo(ox + 130, baseY - 5)
+    ctx.quadraticCurveTo(ox + 145, baseY - 38, ox + 155, baseY - 20)
+    ctx.quadraticCurveTo(ox + 165, baseY - 5, ox + 150, baseY - 15)
     ctx.lineWidth = 1.5
-    ctx.stroke()
-  } else if (styleIdx === 3) {
-    const ox = cx - 30 + r() * 20
-    for (let s = 0; s < 2; s++) {
-      const offsetX = s * 35 + r() * 8
-      const points: [number, number][] = []
-      for (let i = 0; i < 15; i++) {
-        const t = i / 15
-        const x = ox + offsetX + t * 25 + Math.sin(t * 8) * 3
-        const y = baseY - amp * (1 - t) * Math.sin(t * 3 + s) - t * 3
-        points.push([x, y])
-      }
-      drawStroke(points, 2.2 + r() * 0.3)
-    }
-    ctx.beginPath()
-    ctx.moveTo(ox + 70, baseY - 5)
-    ctx.quadraticCurveTo(ox + 85, baseY - 35, ox + 105, baseY - 20)
-    ctx.quadraticCurveTo(ox + 120, baseY - 5, ox + 140, baseY - 30)
-    ctx.quadraticCurveTo(ox + 155, baseY - 50, ox + 145, baseY - 35)
-    ctx.lineWidth = 2
-    ctx.stroke()
-  } else {
-    const ox = cx - 45 + r() * 20
-    const pts: [number, number][] = []
-    for (let i = 0; i < 30; i++) {
-      const t = i / 30
-      const x = ox + t * 110 + Math.sin(t * 9) * 6
-      const y = baseY - amp * (Math.sin(t * 4 + 0.5) + Math.sin(t * 3) * 0.5) + Math.sin(t * 10) * 2
-      pts.push([x, y])
-    }
-    drawStroke(pts, 2 + r() * 0.4)
-    ctx.beginPath()
-    ctx.arc(ox + 115, baseY - 20, 18 + r() * 5, 0, Math.PI * 1.5 + r() * 0.5)
-    ctx.lineWidth = 1.5
+    ctx.strokeStyle = color
     ctx.stroke()
     for (let i = 0; i < 3; i++) {
       ctx.beginPath()
-      ctx.arc(ox + 20 + i * 40 + r() * 5, baseY - amp - 8 + r() * 4, 1.5 + r() * 1, 0, Math.PI * 2)
-      ctx.fillStyle = '#1a3a6b'
+      ctx.arc(ox + 10 + i * 45 + r() * 8, baseY - 6 + r() * 4, 1.2 + r() * 1, 0, Math.PI * 2)
+      ctx.fillStyle = color
       ctx.fill()
     }
+  } else if (styleIdx === 1) {
+    const ox = cx - 45 + r() * 15
+    const pts: [number, number, number][] = []
+    for (let i = 0; i < 55; i++) {
+      const t = i / 55
+      const seg = Math.floor(t * 4)
+      const segT = (t * 4) - seg
+      let x = ox + t * 110 + noise2(t * 8, seedNum) * 4
+      let y = baseY
+      if (seg === 0) y = baseY - 12 * segT + noise2(t * 10, seedNum + 1) * 2
+      else if (seg === 1) y = baseY - 12 + 14 * segT + noise2(t * 8, seedNum + 2) * 1.5
+      else if (seg === 2) y = baseY + 2 - 16 * segT + noise2(t * 12, seedNum + 3) * 2
+      else y = baseY - 14 + 10 * segT + noise2(t * 9, seedNum + 4) * 1.5
+      const pressure = 2.5 + Math.sin(t * 5 + seg) * 0.6 + 0.3
+      pts.push([x, y, pressure])
+    }
+    drawPressureStroke(ctx, pts, color)
+    ctx.beginPath()
+    const endX = ox + 110
+    ctx.moveTo(endX - 5, baseY - 5)
+    ctx.lineTo(endX + 15, baseY - 42)
+    ctx.lineTo(endX + 10, baseY - 35)
+    ctx.lineWidth = 2.2
+    ctx.strokeStyle = color
+    ctx.stroke()
+  } else if (styleIdx === 2) {
+    const ox = cx - 60 + r() * 15
+    const pts: [number, number, number][] = []
+    for (let i = 0; i < 80; i++) {
+      const t = i / 80
+      const x = ox + t * 125 + Math.sin(t * 12 + r() * 1) * 5
+      const wobble = Math.sin(t * 20 + seedNum * 0.5) * 1.5
+      const dip = t < 0.5
+        ? Math.pow(t * 2, 2) * 10
+        : 10 - Math.pow((t - 0.5) * 2, 2) * 10
+      const y = baseY - 7 * Math.sin(t * 4 + 0.8) + wobble - dip
+      const pressure = 1.8 + Math.sin(t * 3.5) * 0.5 + 0.3
+      pts.push([x, y, pressure])
+    }
+    drawPressureStroke(ctx, pts, color)
+    ctx.beginPath()
+    ctx.moveTo(ox + 125, baseY - 6)
+    for (let i = 0; i < 30; i++) {
+      const t = i / 30
+      const a = t * Math.PI * 3
+      const sx = ox + 125 + Math.cos(a) * (14 + t * 5)
+      const sy = baseY - 28 + Math.sin(a) * (8 + t * 3)
+      i === 0 ? ctx.moveTo(sx, sy) : ctx.lineTo(sx, sy)
+    }
+    ctx.lineWidth = 1.3
+    ctx.strokeStyle = color
+    ctx.stroke()
+    for (let i = 0; i < 6; i++) {
+      ctx.beginPath()
+      ctx.arc(cx - 40 + r() * 80, baseY - 15 + r() * 20 - r() * 20, 0.5 + r() * 0.8, 0, Math.PI * 2)
+      ctx.fillStyle = `rgba(26, 58, 107, ${0.1 + r() * 0.25})`
+      ctx.fill()
+    }
+  } else if (styleIdx === 3) {
+    const ox = cx - 35 + r() * 12
+    for (let s = 0; s < 2; s++) {
+      const offsetX = s * 38 + r() * 6
+      const pts: [number, number, number][] = []
+      for (let i = 0; i < 25; i++) {
+        const t = i / 25
+        const x = ox + offsetX + t * 28 + Math.sin(t * 9) * 3
+        const arch = (1 - t) * (1 - t) * 14
+        const wobble = noise2(t * 15 + s * 7, seedNum) * 2
+        const y = baseY - arch + wobble - t * 2
+        const pressure = 2 + Math.sin(t * 4 + s) * 0.4 + 0.3
+        pts.push([x, y, pressure])
+      }
+      drawPressureStroke(ctx, pts, color)
+    }
+    ctx.beginPath()
+    ctx.moveTo(ox + 72, baseY - 4)
+    ctx.quadraticCurveTo(ox + 88, baseY - 32, ox + 110, baseY - 18)
+    ctx.quadraticCurveTo(ox + 128, baseY - 4, ox + 145, baseY - 28)
+    ctx.quadraticCurveTo(ox + 158, baseY - 48, ox + 148, baseY - 32)
+    ctx.lineWidth = 1.8
+    ctx.strokeStyle = color
+    ctx.stroke()
+  } else if (styleIdx === 4) {
+    const ox = cx - 50 + r() * 12
+    const pts: [number, number, number][] = []
+    for (let i = 0; i < 65; i++) {
+      const t = i / 65
+      const loops = Math.sin(t * 10) * 6
+      const x = ox + t * 120 + loops
+      const loopUp = Math.abs(Math.sin(t * 8)) * 10
+      const wobble = noise2(t * 14, seedNum) * 2.5
+      const y = baseY - 8 * Math.sin(t * 3.5 + 0.5) - loopUp + wobble
+      const pressure = 1.5 + Math.sin(t * 2.5) * 0.6 + 0.4
+      pts.push([x, y, pressure])
+    }
+    drawPressureStroke(ctx, pts, color)
+    ctx.beginPath()
+    ctx.moveTo(ox + 120, baseY - 4)
+    ctx.quadraticCurveTo(ox + 140, baseY - 44, ox + 130, baseY - 28)
+    ctx.lineWidth = 1.5
+    ctx.strokeStyle = color
+    ctx.stroke()
+    ctx.beginPath()
+    for (let i = 0; i < 5; i++) {
+      const dotX = ox + 20 + i * 22 + r() * 4
+      const dotY = baseY + 3 + r() * 3
+      ctx.arc(dotX, dotY, 0.8 + r() * 0.6, 0, Math.PI * 2)
+    }
+    ctx.fillStyle = color
+    ctx.fill()
+  } else if (styleIdx === 5) {
+    const ox = cx - 40 + r() * 12
+    const pts: [number, number, number][] = []
+    for (let i = 0; i < 45; i++) {
+      const t = i / 45
+      const x = ox + t * 95 + Math.sin(t * 11 + r() * 1.5) * 4
+      const burst = Math.sin(t * 20) * (1 - t) * 3
+      const wobble = noise2(t * 18, seedNum + 5) * 2
+      const y = baseY - 9 * Math.sin(t * 5 + 1) + burst + wobble - t * 4
+      const pressure = 2.8 + Math.sin(t * 4 + 1) * 0.5 - t * 0.3
+      pts.push([x, y, Math.max(pressure, 0.5)])
+    }
+    drawPressureStroke(ctx, pts, color)
+    ctx.beginPath()
+    const midX = ox + 48
+    ctx.moveTo(midX - 12, baseY - 16)
+    ctx.lineTo(midX + 12, baseY - 30)
+    ctx.lineWidth = 3.5
+    ctx.strokeStyle = color
+    ctx.stroke()
+    ctx.beginPath()
+    ctx.moveTo(ox + 95, baseY - 10)
+    ctx.lineTo(ox + 110, baseY + 6)
+    ctx.lineWidth = 2
+    ctx.stroke()
+  } else {
+    const ox = cx - 55 + r() * 12
+    const pts: [number, number, number][] = []
+    for (let i = 0; i < 60; i++) {
+      const t = i / 60
+      let x = ox + t * 130
+      let y = baseY
+      const phase = Math.sin(t * 6 + 0.3)
+      const sweep = (1 - Math.abs(t - 0.5) * 2) * 12
+      if (t < 0.3) {
+        x += Math.sin(t * 20) * 4
+        y = baseY - 10 * (t / 0.3) + sweep * 0.5 + noise2(t * 12, seedNum) * 1.5
+      } else if (t < 0.7) {
+        x += Math.sin(t * 8) * 5
+        y = baseY - 10 + 8 * ((t - 0.3) / 0.4) + sweep * 0.3 + noise2(t * 10, seedNum + 2) * 2
+      } else {
+        x += Math.sin(t * 15) * 3
+        y = baseY - 2 - 7 * ((t - 0.7) / 0.3) + phase * 3 + noise2(t * 14, seedNum + 4) * 1
+      }
+      const pressure = 1.8 + Math.sin(t * 3 + 0.5) * 0.5 + 0.3
+      pts.push([x, y, pressure])
+    }
+    drawPressureStroke(ctx, pts, color)
+    ctx.beginPath()
+    const hlx = ox + 135
+    const hly = baseY - 18
+    ctx.arc(hlx, hly, 16 + r() * 4, 0, Math.PI * 1.6 + r() * 0.4)
+    ctx.lineWidth = 1.5
+    ctx.strokeStyle = color
+    ctx.stroke()
+    ctx.beginPath()
+    ctx.arc(hlx - 6, hly - 4, 2, 0, Math.PI * 2)
+    ctx.fillStyle = color
+    ctx.fill()
   }
 
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < 4; i++) {
     ctx.beginPath()
-    ctx.arc(cx - 30 + r() * 80, baseY - 10 + r() * 20 - r() * 20, 0.3 + r() * 0.5, 0, Math.PI * 2)
-    ctx.fillStyle = `rgba(26, 58, 107, ${0.1 + r() * 0.2})`
+    ctx.arc(cx - 25 + r() * 70, baseY - 8 + r() * 16 - r() * 16, 0.3 + r() * 0.4, 0, Math.PI * 2)
+    ctx.fillStyle = `rgba(26, 58, 107, ${0.08 + r() * 0.15})`
     ctx.fill()
   }
 }
