@@ -33,6 +33,40 @@ export const cities = [
   { id: 'solo', name: 'Kota Solo / Surakarta' },
   { id: 'balikpapan', name: 'Kota Balikpapan' },
   { id: 'cirebon', name: 'Kota Cirebon' },
+
+  // ═══════════════════════════════════════════
+  //  KOTA BARU — Putaran 2
+  // ═══════════════════════════════════════════
+  { id: 'banda-aceh', name: 'Kota Banda Aceh' },
+  { id: 'lhokseumawe', name: 'Kota Lhokseumawe' },
+  { id: 'bukittinggi', name: 'Kota Bukittinggi' },
+  { id: 'dumai', name: 'Kota Dumai' },
+  { id: 'tanjung-pinang', name: 'Kota Tanjung Pinang' },
+  { id: 'jambi', name: 'Kota Jambi' },
+  { id: 'bengkulu', name: 'Kota Bengkulu' },
+  { id: 'pangkal-pinang', name: 'Kota Pangkal Pinang' },
+  { id: 'metro', name: 'Kota Metro' },
+  { id: 'serang', name: 'Kota Serang' },
+  { id: 'cilegon', name: 'Kota Cilegon' },
+  { id: 'tangerang-selatan', name: 'Kota Tangerang Selatan' },
+  { id: 'sukabumi', name: 'Kota Sukabumi' },
+  { id: 'tasikmalaya', name: 'Kota Tasikmalaya' },
+  { id: 'pekalongan', name: 'Kota Pekalongan' },
+  { id: 'tegal', name: 'Kota Tegal' },
+  { id: 'purwokerto', name: 'Kota Purwokerto' },
+  { id: 'salatiga', name: 'Kota Salatiga' },
+  { id: 'kediri', name: 'Kota Kediri' },
+  { id: 'madiun', name: 'Kota Madiun' },
+  { id: 'mataram', name: 'Kota Mataram' },
+  { id: 'kupang', name: 'Kota Kupang' },
+  { id: 'palangka-raya', name: 'Kota Palangka Raya' },
+  { id: 'tarakan', name: 'Kota Tarakan' },
+  { id: 'palu', name: 'Kota Palu' },
+  { id: 'kendari', name: 'Kota Kendari' },
+  { id: 'gorontalo', name: 'Kota Gorontalo' },
+  { id: 'ambon', name: 'Kota Ambon' },
+  { id: 'ternate', name: 'Kota Ternate' },
+  { id: 'jayapura', name: 'Kota Jayapura' },
 ]
 
 export const institutionTypes: { value: InstitutionType; label: string; icon: string }[] = [
