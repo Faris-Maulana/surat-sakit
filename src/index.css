@@ -12,6 +12,7 @@
     width: 210mm;
     min-height: 297mm;
     padding: 15mm 20mm;
+    box-sizing: border-box;
   }
 
   .surat-line {
@@ -51,23 +52,53 @@
   }
 }
 
-/* Print styles - maintain A4 exactly */
+/* Print styles — maintain A4 exactly */
 @page {
   size: A4;
-  margin: 0;
+  margin: 12mm 15mm;
 }
 
 @media print {
   html, body {
     width: 210mm;
     height: 297mm;
+    margin: 0;
+    padding: 0;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }
 
+  body {
+    background: white !important;
+  }
+
   .surat-container {
-    padding: 20mm 25mm;
+    width: 210mm;
+    min-height: auto;
+    padding: 0;
     box-shadow: none;
     margin: 0;
+    font-size: 11pt;
+    line-height: 1.4;
+  }
+
+  .surat-container table {
+    font-size: 11pt;
+  }
+
+  .surat-container .surat-header h1 {
+    font-size: 14pt;
+  }
+
+  .surat-container .surat-header p {
+    font-size: 9pt;
+  }
+
+  .surat-line {
+    margin: 6pt 0;
+  }
+
+  @page :first {
+    margin-top: 0;
   }
 }

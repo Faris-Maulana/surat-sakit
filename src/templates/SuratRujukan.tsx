@@ -1,6 +1,6 @@
 import type { LetterData } from '@/types'
 import { getLogoById } from '@/data/logos'
-import { formatDate, getDayDifference, getCityName } from '@/utils/helpers'
+import { formatDate, getCityName } from '@/utils/helpers'
 
 interface Props {
   data: LetterData
@@ -8,15 +8,14 @@ interface Props {
   stampUrl?: string
 }
 
-export default function SuratSakit({ data, signatureUrl, stampUrl }: Props) {
-  const { institution, patient, diagnosis, restPeriod, doctor, letterNumber, createdAt } = data
+export default function SuratRujukan({ data, signatureUrl, stampUrl }: Props) {
+  const { institution, patient, diagnosis, doctor, referral, letterNumber, createdAt } = data
   if (!institution) return null
 
   const logo = getLogoById(institution.id, institution.type, institution.name)
-  const days = getDayDifference(restPeriod.startDate, restPeriod.endDate)
 
   return (
-    <div id="surat-sakit-template" className="surat-container font-serif">
+    <div id="surat-rujukan-template" className="surat-container font-serif">
       {/* Kop Surat */}
       <div className="surat-header">
         <div className="flex items-center justify-center gap-2 sm:gap-4 mb-3">
@@ -36,13 +35,13 @@ export default function SuratSakit({ data, signatureUrl, stampUrl }: Props) {
 
       {/* Judul Surat */}
       <h2 className="text-center font-bold text-sm sm:text-base mb-4 sm:mb-6 underline underline-offset-4">
-        SURAT KETERANGAN SAKIT
+        SURAT RUJUKAN
       </h2>
 
       <p className="text-[11px] sm:text-sm mb-2">Nomor: {letterNumber}</p>
 
       <p className="text-[11px] sm:text-sm mb-4 sm:mb-6 leading-relaxed">
-        Yang bertanda tangan di bawah ini, Dokter pada {institution.name}, menerangkan bahwa:
+        Yang bertanda tangan di bawah ini, Dokter pada {institution.name}, dengan ini merujuk pasien:
       </p>
 
       {/* Data Pasien */}
@@ -52,55 +51,45 @@ export default function SuratSakit({ data, signatureUrl, stampUrl }: Props) {
           <tr><td className="py-0.5 sm:py-1 align-top">NIK</td><td className="py-0.5 sm:py-1">: {patient.nik}</td></tr>
           <tr><td className="py-0.5 sm:py-1 align-top">Tempat / Tgl Lahir</td><td className="py-0.5 sm:py-1">: {patient.birthPlace} / {formatDate(patient.birthDate)}</td></tr>
           <tr><td className="py-0.5 sm:py-1 align-top">Jenis Kelamin</td><td className="py-0.5 sm:py-1">: {patient.gender}</td></tr>
-          <tr><td className="py-0.5 sm:py-1 align-top">Pekerjaan</td><td className="py-0.5 sm:py-1">: {patient.occupation}</td></tr>
           <tr><td className="py-0.5 sm:py-1 align-top">Alamat</td><td className="py-0.5 sm:py-1">: {patient.address}</td></tr>
         </tbody>
       </table>
 
-      {/* Hasil Pemeriksaan */}
-      <p className="text-[11px] sm:text-sm mb-1 sm:mb-2 font-semibold">Hasil Pemeriksaan:</p>
+      {/* Diagnosis */}
+      <p className="text-[11px] sm:text-sm mb-1 sm:mb-2 font-semibold">Diagnosis:</p>
       <table className="w-full text-[11px] sm:text-sm mb-4 sm:mb-6">
         <tbody>
-          <tr><td className="py-0.5 sm:py-1 w-32 sm:w-44 align-top">Keluhan</td><td className="py-0.5 sm:py-1">: {diagnosis.keluhan}</td></tr>
-          <tr><td className="py-0.5 sm:py-1 align-top">Diagnosis Utama</td><td className="py-0.5 sm:py-1">: {diagnosis.diagnosis}</td></tr>
+          <tr><td className="py-0.5 sm:py-1 w-32 sm:w-44 align-top">Diagnosis</td><td className="py-0.5 sm:py-1">: {diagnosis.diagnosis}</td></tr>
           <tr><td className="py-0.5 sm:py-1 align-top">Kode ICD-10</td><td className="py-0.5 sm:py-1">: {diagnosis.icdCode}</td></tr>
-          {diagnosis.secondary?.map((s, i) => (
-            <tr key={i}>
-              <td className="py-0.5 sm:py-1 align-top">Diagnosis #{i + 2}</td>
-              <td className="py-0.5 sm:py-1">: {s.diagnosis} {s.icdCode ? `(${s.icdCode})` : ''}</td>
-            </tr>
-          ))}
         </tbody>
       </table>
 
-      {/* Rekomendasi */}
-      <p className="text-[11px] sm:text-sm mb-1 sm:mb-2 font-semibold">Rekomendasi:</p>
+      {/* Tujuan Rujukan */}
+      <p className="text-[11px] sm:text-sm mb-1 sm:mb-2 font-semibold">Tujuan Rujukan:</p>
+      <table className="w-full text-[11px] sm:text-sm mb-4 sm:mb-6">
+        <tbody>
+          <tr><td className="py-0.5 sm:py-1 w-32 sm:w-44 align-top">Faskes Tujuan</td><td className="py-0.5 sm:py-1">: {referral?.destinationInstitution || '—'}</td></tr>
+          <tr><td className="py-0.5 sm:py-1 align-top">Dokter Tujuan</td><td className="py-0.5 sm:py-1">: {referral?.destinationDoctor || '—'}</td></tr>
+          <tr><td className="py-0.5 sm:py-1 align-top">Alasan Rujukan</td><td className="py-0.5 sm:py-1">: {referral?.reason || '—'}</td></tr>
+        </tbody>
+      </table>
+
       <p className="text-[11px] sm:text-sm mb-4 sm:mb-6 leading-relaxed">
-        Berdasarkan hasil pemeriksaan, pasien dianjurkan untuk beristirahat selama{' '}
-        <strong>{days} hari</strong>, terhitung mulai tanggal{' '}
-        <strong>{formatDate(restPeriod.startDate)}</strong> sampai dengan tanggal{' '}
-        <strong>{formatDate(restPeriod.endDate)}</strong>.
+        Demikian surat rujukan ini dibuat untuk dipergunakan sebagaimana mestinya.
       </p>
 
-      {/* Catatan */}
-      <p className="text-[11px] sm:text-sm mb-4 sm:mb-6 leading-relaxed">
-        Demikian surat keterangan sakit ini dibuat untuk dipergunakan sebagaimana mestinya.
-      </p>
-
-      {/* TTD + Stempel — stamp OVERLAPS signature (real Indonesian style) */}
+      {/* TTD + Stempel */}
       <div className="flex justify-end mt-6 sm:mt-8">
         <div className="text-center min-w-[160px] sm:min-w-[220px]">
           <p className="text-[11px] sm:text-sm mb-1 sm:mb-2">{getCityName(institution.city)}, {formatDate(createdAt)}</p>
-          <p className="text-[11px] sm:text-sm mb-4 sm:mb-6">Dokter Pemeriksa,</p>
+          <p className="text-[11px] sm:text-sm mb-4 sm:mb-6">Dokter Pengirim,</p>
 
           <div className="relative inline-flex items-end justify-center mb-1">
-            {/* Signature */}
             {signatureUrl && (
               <div className="relative z-0">
                 <img src={signatureUrl} alt="TTD" className="h-10 sm:h-14 object-contain" />
               </div>
             )}
-            {/* Stamp — positioned overlapping the right portion of signature */}
             {stampUrl && (
               <div className="relative z-10 -ml-6 sm:-ml-8 -mb-2 sm:-mb-3">
                 <img src={stampUrl} alt="Stempel" className="w-16 h-16 sm:w-[72px] sm:h-[72px] object-contain" />

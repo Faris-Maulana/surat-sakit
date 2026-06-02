@@ -27,9 +27,6 @@ ${icon}
 </svg>`
 }
 
-function wmInitial(initial: string, size = 36): string {
-  return `<text x="100" y="95" text-anchor="middle" font-family="Georgia,serif" font-size="${size}" font-weight="bold" fill="white">${initial}</text>`
-}
 function wmDouble(a: string, b = '', size = 24): string {
   return `<text x="100" y="95" text-anchor="middle" font-family="Georgia,serif" font-size="${size}" font-weight="bold" fill="white">${a}${b}</text>`
 }
@@ -91,20 +88,20 @@ const RS_4 = () => realLogo('https://v2.rspmibogor.or.id/images/logo_pmi.png', '
 const RS_13 = () => realLogo('https://jec.co.id/assets/img/jec-logo.png', '#e3f2fd')
 
 // rs-14: RSUP Hasan Sadikin
-const RS_14 = () => wordmark('RSUP HASAN SADIKIN', 'BANDUNG', '#00695c', '#004d40', wmDouble('HS'))
-const RS_15 = () => wordmark('RS BORROMEUS', 'BANDUNG', '#6a1b9a', '#4a148c', wmInitial('B'))
+const RS_14 = () => realLogo('https://rshs.go.id/assets/favicon.png', '#e0f2f1')
+const RS_15 = () => realLogo('https://rsborromeus.com/wp-content/uploads/2019/09/S_logo3232.png', '#e0e7ff')
 const RS_16 = () => wordmark('ST. YUSUP', 'RUMAH SAKIT', '#1565c0', '#0d47a1', wmDouble('S', 'Y', 28))
-const RS_17 = () => wordmark('RS KEBON JATI', 'BANDUNG', '#37474f', '#455a64', wmDouble('KJ'))
+const RS_17 = () => realLogo('https://rskebonjati.com/images-content/logo_20160401112805.png', '#fff3e0')
 const RS_18 = () => realLogo('https://static.wikia.nocookie.net/logopedia/images/c/cf/Rumah_Sakit_Bhayangkara_Brimob.png', '#e8eaf6')
 const RS_19 = () => realLogo('https://rs.ui.ac.id/assets/media/logo-full-white.png', '#fff8e1')
 const RS_20 = () => wordmark('RS CITRA MEDIKA', 'DEPOK', '#00838f', '#006064', wmDouble('CM'))
 const RS_26 = () => realLogo('https://www.rspermata.co.id/data/images/new-logo-permata.png', '#f3e5f5')
-const RS_27 = () => wordmark('RSUD DR. SOETOMO', 'SURABAYA', '#b71c1c', '#880e4f', wmInitial('S'))
-const RS_29 = () => wordmark('RS DR. RAMELAN', 'SURABAYA', '#283593', '#1a237e', wmInitial('R', 42))
-const RS_30 = () => wordmark('WILLIAM BOOTH', 'HOSPITAL', '#c62828', '#b71c1c', wmDouble('WB'))
+const RS_27 = () => realLogo('https://upload.wikimedia.org/wikipedia/commons/9/92/Logo_RSUD_dr._Soetomo.svg', '#f3ffe5')
+const RS_29 = () => realLogo('https://rspaldrramelan.com/img/logo-rspal.png', '#e3f2fd')
+const RS_30 = () => realLogo('https://development.rswilliamboothsby.com/assets/uploads/about_company/20250929093956_logo_LOGO-Size-Kecil.png', '#fff5f5')
 const RS_31 = () => realLogo('https://api-eassets.rskariadi.co.id/public-assets/utama-web/logo_kariadi.png', '#e3f2fd')
-const RS_32 = () => wordmark('RS TELOGOREJO', 'SEMARANG', '#4e342e', '#3e2723', wmInitial('T'))
-const RS_33 = () => wordmark('RS ELISABETH', 'SEMARANG', '#7b1fa2', '#4a148c', wmInitial('E'))
+const RS_32 = () => realLogo('https://www.smc-hospital.com/img/logo-dark.png', '#f5f5f5')
+const RS_33 = () => realLogo('https://rs-elisabeth.com/img/logo.png', '#f3e5f5')
 
 // ─── PUSKESMAS ──────────────────────────────────────────────────────
 // Professional government-badge style per city

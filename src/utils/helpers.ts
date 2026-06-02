@@ -1,8 +1,23 @@
+const COUNTER_KEY = 'surat-sakit-counter'
+
 export function generateLetterNumber(): string {
-  const month = String(new Date().getMonth() + 1).padStart(2, '0')
-  const year = new Date().getFullYear()
-  const rand = Math.floor(Math.random() * 900) + 100
-  return `440/${rand}/SKS/${month}/${year}`
+  const now = new Date()
+  const month = String(now.getMonth() + 1).padStart(2, '0')
+  const year = now.getFullYear()
+  const key = `${COUNTER_KEY}-${year}-${month}`
+
+  let counter = 1
+  try {
+    const stored = localStorage.getItem(key)
+    if (stored) counter = parseInt(stored, 10) + 1
+  } catch { /* noop */ }
+
+  try {
+    localStorage.setItem(key, String(counter))
+  } catch { /* noop */ }
+
+  const seq = String(counter).padStart(4, '0')
+  return `440/${seq}/SKS/${month}/${year}`
 }
 
 export function formatDate(dateStr: string): string {

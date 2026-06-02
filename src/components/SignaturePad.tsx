@@ -4,8 +4,6 @@ import { useState, useCallback } from 'react'
 interface Props {
   doctorName: string
   sip: string
-  onDoctorNameChange: (v: string) => void
-  onSipChange: (v: string) => void
   onSignatureChange?: (url: string) => void
 }
 
@@ -30,7 +28,6 @@ function drawTextSignature(ctx: CanvasRenderingContext2D, name: string) {
   const h = ctx.canvas.height
   ctx.clearRect(0, 0, w, h)
 
-  // Baseline
   ctx.beginPath()
   ctx.moveTo(20, h - 18)
   ctx.lineTo(w - 20, h - 18)
@@ -47,7 +44,6 @@ function drawTextSignature(ctx: CanvasRenderingContext2D, name: string) {
   ctx.textBaseline = 'middle'
   ctx.fillText(displayName, w / 2 + (Math.random() - 0.5) * 6, h / 2 + 4)
 
-  // Small decorative underline sweep
   ctx.beginPath()
   const tw = ctx.measureText(displayName).width
   const sx = w / 2 - tw / 2 - 10
@@ -65,12 +61,10 @@ function drawSignature(ctx: CanvasRenderingContext2D, name: string) {
   const rand = seededRandom(name || 'default')
   const r = () => rand()
 
-  // Pick a style based on the name hash
   const styleIdx = Math.floor(r() * 5)
 
   ctx.clearRect(0, 0, w, h)
 
-  // Draw baseline
   ctx.beginPath()
   ctx.moveTo(20, h - 18)
   ctx.lineTo(w - 20, h - 18)
@@ -100,10 +94,7 @@ function drawSignature(ctx: CanvasRenderingContext2D, name: string) {
     ctx.stroke()
   }
 
-  // ===== STYLE-BASED SIGNATURE GENERATION =====
-
   if (styleIdx === 0) {
-    // Style 1: Bold looped signature - like a senior doctor
     const ox = cx - 50 + r() * 20
     const points: [number, number][] = []
     for (let i = 0; i < 40; i++) {
@@ -113,8 +104,6 @@ function drawSignature(ctx: CanvasRenderingContext2D, name: string) {
       points.push([x, y])
     }
     drawStroke(points, 2 + r() * 0.5)
-
-    // Paraph (big loop)
     ctx.beginPath()
     ctx.moveTo(ox + 120, baseY - amp * Math.sin(5 + 0.3) - 15)
     ctx.quadraticCurveTo(ox + 140, baseY - 40, ox + 130, baseY - 25)
@@ -122,8 +111,6 @@ function drawSignature(ctx: CanvasRenderingContext2D, name: string) {
     ctx.quadraticCurveTo(ox + 150, baseY - 35, ox + 140, baseY - 15)
     ctx.lineWidth = 1.8
     ctx.stroke()
-
-    // Underline squiggle
     ctx.beginPath()
     for (let i = 0; i < 20; i++) {
       const t = i / 20
@@ -134,7 +121,6 @@ function drawSignature(ctx: CanvasRenderingContext2D, name: string) {
     ctx.lineWidth = 0.8
     ctx.stroke()
   } else if (styleIdx === 1) {
-    // Style 2: Compact tight signature with sharp angles
     const ox = cx - 40 + r() * 20
     const points: [number, number][] = []
     for (let i = 0; i < 35; i++) {
@@ -144,8 +130,6 @@ function drawSignature(ctx: CanvasRenderingContext2D, name: string) {
       points.push([x, y])
     }
     drawStroke(points, 2.5 + r() * 0.5)
-
-    // Sharp paraph
     ctx.beginPath()
     ctx.moveTo(ox + 100, baseY - 10)
     ctx.lineTo(ox + 115, baseY - 45)
@@ -154,7 +138,6 @@ function drawSignature(ctx: CanvasRenderingContext2D, name: string) {
     ctx.lineWidth = 2
     ctx.stroke()
   } else if (styleIdx === 2) {
-    // Style 3: Flowing elegant cursive
     const ox = cx - 60 + r() * 20
     const points: [number, number][] = []
     for (let i = 0; i < 50; i++) {
@@ -165,8 +148,6 @@ function drawSignature(ctx: CanvasRenderingContext2D, name: string) {
       points.push([x, y])
     }
     drawStroke(points, 1.8 + r() * 0.3)
-
-    // Loop paraph
     ctx.beginPath()
     ctx.moveTo(ox + 130, baseY - amp * Math.sin(4.5 + 0.8) - 8)
     for (let i = 0; i < 20; i++) {
@@ -177,7 +158,6 @@ function drawSignature(ctx: CanvasRenderingContext2D, name: string) {
     ctx.lineWidth = 1.5
     ctx.stroke()
   } else if (styleIdx === 3) {
-    // Style 4: Short initials + long tail (very common Indonesian doctor style)
     const ox = cx - 30 + r() * 20
     for (let s = 0; s < 2; s++) {
       const offsetX = s * 35 + r() * 8
@@ -190,8 +170,6 @@ function drawSignature(ctx: CanvasRenderingContext2D, name: string) {
       }
       drawStroke(points, 2.2 + r() * 0.3)
     }
-
-    // Long sweeping tail
     ctx.beginPath()
     ctx.moveTo(ox + 70, baseY - 5)
     ctx.quadraticCurveTo(ox + 85, baseY - 35, ox + 105, baseY - 20)
@@ -200,7 +178,6 @@ function drawSignature(ctx: CanvasRenderingContext2D, name: string) {
     ctx.lineWidth = 2
     ctx.stroke()
   } else {
-    // Style 5: Vertical zigzag doctor-style with large loop
     const ox = cx - 45 + r() * 20
     const pts: [number, number][] = []
     for (let i = 0; i < 30; i++) {
@@ -210,14 +187,10 @@ function drawSignature(ctx: CanvasRenderingContext2D, name: string) {
       pts.push([x, y])
     }
     drawStroke(pts, 2 + r() * 0.4)
-
-    // Big circular paraph
     ctx.beginPath()
     ctx.arc(ox + 115, baseY - 20, 18 + r() * 5, 0, Math.PI * 1.5 + r() * 0.5)
     ctx.lineWidth = 1.5
     ctx.stroke()
-
-    // Extra dots
     for (let i = 0; i < 3; i++) {
       ctx.beginPath()
       ctx.arc(ox + 20 + i * 40 + r() * 5, baseY - amp - 8 + r() * 4, 1.5 + r() * 1, 0, Math.PI * 2)
@@ -226,7 +199,6 @@ function drawSignature(ctx: CanvasRenderingContext2D, name: string) {
     }
   }
 
-  // Add ink splatter/natural variation (tiny dots near the signature)
   for (let i = 0; i < 5; i++) {
     ctx.beginPath()
     ctx.arc(cx - 30 + r() * 80, baseY - 10 + r() * 20 - r() * 20, 0.3 + r() * 0.5, 0, Math.PI * 2)
@@ -235,26 +207,47 @@ function drawSignature(ctx: CanvasRenderingContext2D, name: string) {
   }
 }
 
-export default function SignaturePad({ doctorName, sip, onDoctorNameChange, onSipChange, onSignatureChange }: Props) {
+function textFallbackSignature(name: string): string {
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="300" height="100" viewBox="0 0 300 100">
+    <text x="150" y="60" font-family="serif" font-size="20" fill="#1a3a6b" text-anchor="middle" font-style="italic">${name}</text>
+    <line x1="40" y1="75" x2="260" y2="75" stroke="#bbb" stroke-width="0.5"/>
+    <path d="M 50 78 Q 150 88 250 78" fill="none" stroke="#1a3a6b" stroke-width="0.8"/>
+  </svg>`
+  return `data:image/svg+xml;base64,${btoa(svg)}`
+}
+
+export default function SignaturePad({ doctorName, sip, onSignatureChange }: Props) {
   const [signatureDataUrl, setSignatureDataUrl] = useState<string | null>(null)
   const [mode, setMode] = useState<SigMode>('realistic')
 
   const generateSignature = useCallback(() => {
-    const canvas = document.createElement('canvas')
-    canvas.width = 300
-    canvas.height = 100
-    const ctx = canvas.getContext('2d')
-    if (!ctx) return
-
     const dr = doctorName || 'dr. Andi Pratama, Sp.PD'
-    if (mode === 'text') {
-      drawTextSignature(ctx, dr)
-    } else {
-      drawSignature(ctx, dr)
+
+    try {
+      const canvas = document.createElement('canvas')
+      canvas.width = 300
+      canvas.height = 100
+      const ctx = canvas.getContext('2d')
+      if (!ctx) {
+        const url = textFallbackSignature(dr)
+        setSignatureDataUrl(url)
+        onSignatureChange?.(url)
+        return
+      }
+
+      if (mode === 'text') {
+        drawTextSignature(ctx, dr)
+      } else {
+        drawSignature(ctx, dr)
+      }
+      const url = canvas.toDataURL('image/png')
+      setSignatureDataUrl(url)
+      onSignatureChange?.(url)
+    } catch {
+      const url = textFallbackSignature(dr)
+      setSignatureDataUrl(url)
+      onSignatureChange?.(url)
     }
-    const url = canvas.toDataURL('image/png')
-    setSignatureDataUrl(url)
-    onSignatureChange?.(url)
   }, [doctorName, onSignatureChange, mode])
 
   return (
@@ -264,27 +257,13 @@ export default function SignaturePad({ doctorName, sip, onDoctorNameChange, onSi
         <h3 className="font-semibold">Tanda Tangan Dokter</h3>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Nama Dokter</label>
-          <input
-            type="text"
-            value={doctorName}
-            onChange={(e) => onDoctorNameChange(e.target.value)}
-            className="w-full rounded-xl border-gray-300 border p-3 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-            placeholder="dr. Andi Pratama, Sp.PD (misal: dr. Bambang Wijaya)"
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Nomor SIP</label>
-          <input
-            type="text"
-            value={sip}
-            onChange={(e) => onSipChange(e.target.value)}
-            className="w-full rounded-xl border-gray-300 border p-3 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-            placeholder="SIP. 12345/DKK/2026"
-          />
-        </div>
+      <div className="p-3 bg-gray-50 rounded-xl text-sm">
+        <p className="text-gray-700">
+          <strong>Dokter:</strong> {doctorName || '—'}
+        </p>
+        <p className="text-gray-500 text-xs mt-0.5">
+          <strong>SIP:</strong> {sip || '—'}
+        </p>
       </div>
 
       <div className="flex items-center gap-2 bg-gray-100 rounded-xl p-1 w-fit">

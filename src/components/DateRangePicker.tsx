@@ -29,22 +29,26 @@ export default function DateRangePicker({ startDate, endDate, onStartChange, onE
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Dari Tanggal</label>
+          <label htmlFor="start-date" className="block text-sm font-medium text-gray-700 mb-1">Dari Tanggal</label>
           <input
+            id="start-date"
             type="date"
             value={startDate}
             min={today}
             onChange={(e) => onStartChange(e.target.value)}
+            aria-label="Tanggal mulai istirahat"
             className="w-full rounded-xl border-gray-300 border p-3 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Sampai Tanggal</label>
+          <label htmlFor="end-date" className="block text-sm font-medium text-gray-700 mb-1">Sampai Tanggal</label>
           <input
+            id="end-date"
             type="date"
             value={endDate}
             min={startDate || today}
             onChange={(e) => onEndChange(e.target.value)}
+            aria-label="Tanggal akhir istirahat"
             className="w-full rounded-xl border-gray-300 border p-3 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           />
         </div>

@@ -1,6 +1,6 @@
 import type { LetterData } from '@/types'
 import { getLogoById } from '@/data/logos'
-import { formatDate, getDayDifference, getCityName } from '@/utils/helpers'
+import { formatDate, getCityName } from '@/utils/helpers'
 
 interface Props {
   data: LetterData
@@ -8,15 +8,14 @@ interface Props {
   stampUrl?: string
 }
 
-export default function SuratSakit({ data, signatureUrl, stampUrl }: Props) {
-  const { institution, patient, diagnosis, restPeriod, doctor, letterNumber, createdAt } = data
+export default function SuratSehat({ data, signatureUrl, stampUrl }: Props) {
+  const { institution, patient, doctor, letterNumber, createdAt } = data
   if (!institution) return null
 
   const logo = getLogoById(institution.id, institution.type, institution.name)
-  const days = getDayDifference(restPeriod.startDate, restPeriod.endDate)
 
   return (
-    <div id="surat-sakit-template" className="surat-container font-serif">
+    <div id="surat-sehat-template" className="surat-container font-serif">
       {/* Kop Surat */}
       <div className="surat-header">
         <div className="flex items-center justify-center gap-2 sm:gap-4 mb-3">
@@ -36,7 +35,7 @@ export default function SuratSakit({ data, signatureUrl, stampUrl }: Props) {
 
       {/* Judul Surat */}
       <h2 className="text-center font-bold text-sm sm:text-base mb-4 sm:mb-6 underline underline-offset-4">
-        SURAT KETERANGAN SAKIT
+        SURAT KETERANGAN SEHAT
       </h2>
 
       <p className="text-[11px] sm:text-sm mb-2">Nomor: {letterNumber}</p>
@@ -57,50 +56,27 @@ export default function SuratSakit({ data, signatureUrl, stampUrl }: Props) {
         </tbody>
       </table>
 
-      {/* Hasil Pemeriksaan */}
-      <p className="text-[11px] sm:text-sm mb-1 sm:mb-2 font-semibold">Hasil Pemeriksaan:</p>
-      <table className="w-full text-[11px] sm:text-sm mb-4 sm:mb-6">
-        <tbody>
-          <tr><td className="py-0.5 sm:py-1 w-32 sm:w-44 align-top">Keluhan</td><td className="py-0.5 sm:py-1">: {diagnosis.keluhan}</td></tr>
-          <tr><td className="py-0.5 sm:py-1 align-top">Diagnosis Utama</td><td className="py-0.5 sm:py-1">: {diagnosis.diagnosis}</td></tr>
-          <tr><td className="py-0.5 sm:py-1 align-top">Kode ICD-10</td><td className="py-0.5 sm:py-1">: {diagnosis.icdCode}</td></tr>
-          {diagnosis.secondary?.map((s, i) => (
-            <tr key={i}>
-              <td className="py-0.5 sm:py-1 align-top">Diagnosis #{i + 2}</td>
-              <td className="py-0.5 sm:py-1">: {s.diagnosis} {s.icdCode ? `(${s.icdCode})` : ''}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-
-      {/* Rekomendasi */}
-      <p className="text-[11px] sm:text-sm mb-1 sm:mb-2 font-semibold">Rekomendasi:</p>
+      {/* Keterangan Sehat */}
       <p className="text-[11px] sm:text-sm mb-4 sm:mb-6 leading-relaxed">
-        Berdasarkan hasil pemeriksaan, pasien dianjurkan untuk beristirahat selama{' '}
-        <strong>{days} hari</strong>, terhitung mulai tanggal{' '}
-        <strong>{formatDate(restPeriod.startDate)}</strong> sampai dengan tanggal{' '}
-        <strong>{formatDate(restPeriod.endDate)}</strong>.
+        Berdasarkan hasil pemeriksaan kesehatan yang telah dilakukan, yang bersangkutan dinyatakan dalam keadaan sehat jasmani dan rohani, serta tidak ditemukan kelainan atau penyakit yang berarti.
       </p>
 
-      {/* Catatan */}
       <p className="text-[11px] sm:text-sm mb-4 sm:mb-6 leading-relaxed">
-        Demikian surat keterangan sakit ini dibuat untuk dipergunakan sebagaimana mestinya.
+        Surat keterangan sehat ini diberikan untuk dipergunakan sebagaimana mestinya.
       </p>
 
-      {/* TTD + Stempel — stamp OVERLAPS signature (real Indonesian style) */}
+      {/* TTD + Stempel */}
       <div className="flex justify-end mt-6 sm:mt-8">
         <div className="text-center min-w-[160px] sm:min-w-[220px]">
           <p className="text-[11px] sm:text-sm mb-1 sm:mb-2">{getCityName(institution.city)}, {formatDate(createdAt)}</p>
           <p className="text-[11px] sm:text-sm mb-4 sm:mb-6">Dokter Pemeriksa,</p>
 
           <div className="relative inline-flex items-end justify-center mb-1">
-            {/* Signature */}
             {signatureUrl && (
               <div className="relative z-0">
                 <img src={signatureUrl} alt="TTD" className="h-10 sm:h-14 object-contain" />
               </div>
             )}
-            {/* Stamp — positioned overlapping the right portion of signature */}
             {stampUrl && (
               <div className="relative z-10 -ml-6 sm:-ml-8 -mb-2 sm:-mb-3">
                 <img src={stampUrl} alt="Stempel" className="w-16 h-16 sm:w-[72px] sm:h-[72px] object-contain" />

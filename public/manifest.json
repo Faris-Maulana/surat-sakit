@@ -1,0 +1,17 @@
+{
+  "name": "Generator Surat Sakit",
+  "short_name": "Surat Sakit",
+  "description": "Buat surat keterangan sakit, sehat, dan rujukan resmi dari berbagai fasilitas kesehatan",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2563eb",
+  "icons": [
+    {
+      "src": "/vite.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
