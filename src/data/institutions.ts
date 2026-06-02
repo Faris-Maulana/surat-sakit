@@ -18,6 +18,21 @@ export const cities = [
   { id: 'semarang', name: 'Kota Semarang' },
   { id: 'yogyakarta', name: 'Kota Yogyakarta' },
   { id: 'malang', name: 'Kota Malang' },
+  { id: 'makassar', name: 'Kota Makassar' },
+  { id: 'medan', name: 'Kota Medan' },
+  { id: 'palembang', name: 'Kota Palembang' },
+  { id: 'batam', name: 'Kota Batam' },
+  { id: 'denpasar', name: 'Kota Denpasar' },
+  { id: 'manado', name: 'Kota Manado' },
+  { id: 'pontianak', name: 'Kota Pontianak' },
+  { id: 'banjarmasin', name: 'Kota Banjarmasin' },
+  { id: 'pekanbaru', name: 'Kota Pekanbaru' },
+  { id: 'lampung', name: 'Kota Bandar Lampung' },
+  { id: 'padang', name: 'Kota Padang' },
+  { id: 'samarinda', name: 'Kota Samarinda' },
+  { id: 'solo', name: 'Kota Solo / Surakarta' },
+  { id: 'balikpapan', name: 'Kota Balikpapan' },
+  { id: 'cirebon', name: 'Kota Cirebon' },
 ]
 
 export const institutionTypes: { value: InstitutionType; label: string; icon: string }[] = [

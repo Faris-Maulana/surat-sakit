@@ -95,4 +95,127 @@ export const klinikList: Institution[] = [
   { id: 'kl-65', type: 'klinik', city: 'malang', name: 'Klinik 24 Jam Dieng', address: 'Jl. Raya Dieng No.44, Pisang Candi, Sukun 65146', mapsUrl: 'https://maps.google.com/?q=Klinik+24+Jam+Dieng+Malang', logoUrl: '', phone: '(0341) 573456' },
   { id: 'kl-66', type: 'klinik', city: 'malang', name: 'Klinik 24 Jam Sawojajar', address: 'Jl. Sawojajar Raya No.33, Sawojajar, Kedungkandang 65138', mapsUrl: 'https://maps.google.com/?q=Klinik+24+Jam+Sawojajar', logoUrl: '', phone: '(0341) 712345' },
   { id: 'kl-67', type: 'klinik', city: 'malang', name: 'Klinik 24 Jam Tlogomas', address: 'Jl. Tlogomas No.55, Tlogomas, Lowokwaru 65144', mapsUrl: 'https://maps.google.com/?q=Klinik+24+Jam+Tlogomas', logoUrl: '', phone: '(0341) 570123' },
+
+  // ─── Bogor (tambahan) ───
+  { id: 'kl-68', type: 'klinik', city: 'bogor', name: 'Klinik 24 Jam Botani Square', address: 'Jl. Raya Pajajaran No.10, Bantarjati, Bogor Utara 16153', mapsUrl: 'https://maps.google.com/?q=Klinik+24+Jam+Botani+Square', logoUrl: '', phone: '(0251) 8323456' },
+  { id: 'kl-69', type: 'klinik', city: 'bogor', name: 'Klinik 24 Jam Cibinong', address: 'Jl. Raya Cibinong Km.3, Cibinong 16912', mapsUrl: 'https://maps.google.com/?q=Klinik+24+Jam+Cibinong', logoUrl: '', phone: '(021) 87912345' },
+
+  // ─── Jakarta Selatan (tambahan) ───
+  { id: 'kl-70', type: 'klinik', city: 'jakarta-selatan', name: 'Klinik 24 Jam Fatmawati', address: 'Jl. Fatmawati Raya No.12, Cilandak 12430', mapsUrl: 'https://maps.google.com/?q=Klinik+24+Jam+Fatmawati', logoUrl: '', phone: '(021) 7505678' },
+  { id: 'kl-71', type: 'klinik', city: 'jakarta-selatan', name: 'Klinik 24 Jam Kemang', address: 'Jl. Kemang Raya No.88, Bangka, Mampang 12730', mapsUrl: 'https://maps.google.com/?q=Klinik+24+Jam+Kemang', logoUrl: '', phone: '(021) 7195678' },
+
+  // ─── Jakarta Pusat (tambahan) ───
+  { id: 'kl-72', type: 'klinik', city: 'jakarta-pusat', name: 'Klinik 24 Jam Thamrin', address: 'Jl. MH Thamrin No.11, Kebon Sirih, Menteng 10340', mapsUrl: 'https://maps.google.com/?q=Klinik+24+Jam+Thamrin', logoUrl: '', phone: '(021) 3856789' },
+  { id: 'kl-73', type: 'klinik', city: 'jakarta-pusat', name: 'Klinik 24 Jam Cempaka Putih', address: 'Jl. Cempaka Putih Tengah No.33, Cempaka Putih 10510', mapsUrl: 'https://maps.google.com/?q=Klinik+24+Jam+Cempaka+Putih', logoUrl: '', phone: '(021) 4245678' },
+
+  // ─── Bandung (tambahan) ───
+  { id: 'kl-74', type: 'klinik', city: 'bandung', name: 'Klinik 24 Jam Pasteur', address: 'Jl. Pasteur No.55, Sukajadi 40161', mapsUrl: 'https://maps.google.com/?q=Klinik+24+Jam+Pasteur+Bandung', logoUrl: '', phone: '(022) 607890' },
+  { id: 'kl-75', type: 'klinik', city: 'bandung', name: 'Klinik 24 Jam Buah Batu', address: 'Jl. Buah Batu No.11, Cijagra, Lengkong 40265', mapsUrl: 'https://maps.google.com/?q=Klinik+24+Jam+Buah+Batu', logoUrl: '', phone: '(022) 678901' },
+
+  // ─── Depok (tambahan) ───
+  { id: 'kl-76', type: 'klinik', city: 'depok', name: 'Klinik 24 Jam Margonda', address: 'Jl. Margonda Raya No.111, Kemiri Muka, Beji 16423', mapsUrl: 'https://maps.google.com/?q=Klinik+24+Jam+Margonda', logoUrl: '', phone: '(021) 78845678' },
+  { id: 'kl-77', type: 'klinik', city: 'depok', name: 'Klinik 24 Jam Cinere', address: 'Jl. Cinere Raya No.22, Cinere 16514', mapsUrl: 'https://maps.google.com/?q=Klinik+24+Jam+Cinere', logoUrl: '', phone: '(021) 7545678' },
+
+  // ─── Tangerang (tambahan) ───
+  { id: 'kl-78', type: 'klinik', city: 'tangerang', name: 'Klinik 24 Jam Alam Sutera', address: 'Jl. Alam Sutera Boulevard No.7, Panunggangan, Pinang 15143', mapsUrl: 'https://maps.google.com/?q=Klinik+24+Jam+Alam+Sutera', logoUrl: '', phone: '(021) 53856789' },
+  { id: 'kl-79', type: 'klinik', city: 'tangerang', name: 'Klinik 24 Jam BSD', address: 'Jl. Letnan Sutopo No.6, BSD, Serpong 15310', mapsUrl: 'https://maps.google.com/?q=Klinik+24+Jam+BSD+Tangerang', logoUrl: '', phone: '(021) 5396789' },
+
+  // ─── Bekasi (tambahan) ───
+  { id: 'kl-80', type: 'klinik', city: 'bekasi', name: 'Klinik 24 Jam Bekasi Cyber Park', address: 'Jl. Ahmad Yani No.1, Marga Jaya, Bekasi Selatan 17141', mapsUrl: 'https://maps.google.com/?q=Klinik+24+Jam+Bekasi+Cyber+Park', logoUrl: '', phone: '(021) 8855678' },
+  { id: 'kl-81', type: 'klinik', city: 'bekasi', name: 'Klinik 24 Jam Grand Galaxy', address: 'Jl. Grand Galaxy Boulevard No.11, Jaka Setia, Bekasi Selatan 17147', mapsUrl: 'https://maps.google.com/?q=Klinik+24+Jam+Grand+Galaxy', logoUrl: '', phone: '(021) 8456789' },
+
+  // ─── Surabaya (tambahan) ───
+  { id: 'kl-82', type: 'klinik', city: 'surabaya', name: 'Klinik 24 Jam Darmahusada', address: 'Jl. Raya Darmahusada No.77, Gunung Anyar 60294', mapsUrl: 'https://maps.google.com/?q=Klinik+24+Jam+Darmahusada', logoUrl: '', phone: '(031) 5345678' },
+  { id: 'kl-83', type: 'klinik', city: 'surabaya', name: 'Klinik 24 Jam Kertajaya', address: 'Jl. Kertajaya Indah No.22, Manyar Sabrangan, Mulyorejo 60118', mapsUrl: 'https://maps.google.com/?q=Klinik+24+Jam+Kertajaya', logoUrl: '', phone: '(031) 5996789' },
+
+  // ─── Semarang (tambahan) ───
+  { id: 'kl-84', type: 'klinik', city: 'semarang', name: 'Klinik 24 Jam Pandanaran', address: 'Jl. Pandanaran No.141, Pekunden, Semarang Tengah 50131', mapsUrl: 'https://maps.google.com/?q=Klinik+24+Jam+Pandanaran', logoUrl: '', phone: '(024) 8467890' },
+  { id: 'kl-85', type: 'klinik', city: 'semarang', name: 'Klinik 24 Jam Pahlawan', address: 'Jl. Pahlawan No.55, Gemah, Semarang Selatan 50249', mapsUrl: 'https://maps.google.com/?q=Klinik+24+Jam+Pahlawan+Semarang', logoUrl: '', phone: '(024) 6734567' },
+
+  // ─── Yogyakarta (tambahan) ───
+  { id: 'kl-86', type: 'klinik', city: 'yogyakarta', name: 'Klinik 24 Jam Jogja City Mall', address: 'Jl. Magelang Km.5, Jombor, Sleman 55284', mapsUrl: 'https://maps.google.com/?q=Klinik+24+Jam+JCM', logoUrl: '', phone: '(0274) 641234' },
+  { id: 'kl-87', type: 'klinik', city: 'yogyakarta', name: 'Klinik 24 Jam Monjali', address: 'Jl. Monumen Yogya Kembali No.22, Sariharjo, Ngaglik, Sleman 55581', mapsUrl: 'https://maps.google.com/?q=Klinik+24+Jam+Monjali', logoUrl: '', phone: '(0274) 515678' },
+
+  // ─── Malang (tambahan) ───
+  { id: 'kl-88', type: 'klinik', city: 'malang', name: 'Klinik 24 Jam Araya', address: 'Jl. Araya Boulevard No.5, Madyopuro, Kedungkandang 65139', mapsUrl: 'https://maps.google.com/?q=Klinik+24+Jam+Araya+Malang', logoUrl: '', phone: '(0341) 581234' },
+  { id: 'kl-89', type: 'klinik', city: 'malang', name: 'Klinik 24 Jam Soekarno Hatta', address: 'Jl. Soekarno Hatta No.111, Bumi Ayu, Sukun 65149', mapsUrl: 'https://maps.google.com/?q=Klinik+24+Jam+Soekarno+Hatta+Malang', logoUrl: '', phone: '(0341) 575678' },
+
+  // ═══════════════════════════════════════════
+  //  KOTA BARU
+  // ═══════════════════════════════════════════
+
+  // ─── Makassar ───
+  { id: 'kl-90', type: 'klinik', city: 'makassar', name: 'Klinik 24 Jam Somba Opu', address: 'Jl. Somba Opu No.77, Baraya, Makassar 90111', mapsUrl: 'https://maps.google.com/?q=Klinik+24+Jam+Somba+Opu', logoUrl: '', phone: '(0411) 312345' },
+  { id: 'kl-91', type: 'klinik', city: 'makassar', name: 'Klinik 24 Jam Antang', address: 'Jl. Antang Raya No.33, Antang, Manggala 90235', mapsUrl: 'https://maps.google.com/?q=Klinik+24+Jam+Antang', logoUrl: '', phone: '(0411) 456789' },
+  { id: 'kl-92', type: 'klinik', city: 'makassar', name: 'Klinik 24 Jam Panakkukang', address: 'Jl. Boulevard No.55, Panaikang, Panakkukang 90231', mapsUrl: 'https://maps.google.com/?q=Klinik+24+Jam+Panakkukang', logoUrl: '', phone: '(0411) 588789' },
+
+  // ─── Medan ───
+  { id: 'kl-93', type: 'klinik', city: 'medan', name: 'Klinik 24 Jam Ringroad', address: 'Jl. Ringroad No.11, Medan Tuntungan 20136', mapsUrl: 'https://maps.google.com/?q=Klinik+24+Jam+Ringroad+Medan', logoUrl: '', phone: '(061) 8367890' },
+  { id: 'kl-94', type: 'klinik', city: 'medan', name: 'Klinik 24 Jam Marelan', address: 'Jl. Marelan Raya No.33, Mabar, Medan Deli 20243', mapsUrl: 'https://maps.google.com/?q=Klinik+24+Jam+Marelan', logoUrl: '', phone: '(061) 8456789' },
+  { id: 'kl-95', type: 'klinik', city: 'medan', name: 'Klinik 24 Jam SM Raja', address: 'Jl. Sisingamangaraja No.88, Sari Rejo, Medan Polonia 20152', mapsUrl: 'https://maps.google.com/?q=Klinik+24+Jam+SM+Raja+Medan', logoUrl: '', phone: '(061) 8332345' },
+
+  // ─── Palembang ───
+  { id: 'kl-96', type: 'klinik', city: 'palembang', name: 'Klinik 24 Jam Sudirman', address: 'Jl. Jenderal Sudirman No.555, 20 Ilir 30111', mapsUrl: 'https://maps.google.com/?q=Klinik+24+Jam+Sudirman+Palembang', logoUrl: '', phone: '(0711) 356234' },
+  { id: 'kl-97', type: 'klinik', city: 'palembang', name: 'Klinik 24 Jam Ahmad Yani', address: 'Jl. Ahmad Yani No.88, Plaju 30266', mapsUrl: 'https://maps.google.com/?q=Klinik+24+Jam+Ahmad+Yani+Palembang', logoUrl: '', phone: '(0711) 512345' },
+  { id: 'kl-98', type: 'klinik', city: 'palembang', name: 'Klinik 24 Jam Demang Lebar', address: 'Jl. Demang Lebar Daun No.11, Demang Lebar Daun, Ilir Barat I 30137', mapsUrl: 'https://maps.google.com/?q=Klinik+24+Jam+Demang+Lebar', logoUrl: '', phone: '(0711) 411234' },
+
+  // ─── Batam ───
+  { id: 'kl-99', type: 'klinik', city: 'batam', name: 'Klinik 24 Jam Nagoya', address: 'Jl. Nagoya No.44, Lubuk Baja 29445', mapsUrl: 'https://maps.google.com/?q=Klinik+24+Jam+Nagoya+Batam', logoUrl: '', phone: '(0778) 432567' },
+  { id: 'kl-100', type: 'klinik', city: 'batam', name: 'Klinik 24 Jam Batu Aji', address: 'Jl. Raya Batu Aji No.55, Batu Aji 29422', mapsUrl: 'https://maps.google.com/?q=Klinik+24+Jam+Batu+Aji+Batam', logoUrl: '', phone: '(0778) 4355678' },
+  { id: 'kl-101', type: 'klinik', city: 'batam', name: 'Klinik 24 Jam Bengkong', address: 'Jl. Bengkong Indah No.22, Bengkong 29458', mapsUrl: 'https://maps.google.com/?q=Klinik+24+Jam+Bengkong', logoUrl: '', phone: '(0778) 456123' },
+
+  // ─── Denpasar ───
+  { id: 'kl-102', type: 'klinik', city: 'denpasar', name: 'Klinik 24 Jam Renon', address: 'Jl. Raya Renon No.77, Renon, Denpasar Selatan 80225', mapsUrl: 'https://maps.google.com/?q=Klinik+24+Jam+Renon', logoUrl: '', phone: '(0361) 281234' },
+  { id: 'kl-103', type: 'klinik', city: 'denpasar', name: 'Klinik 24 Jam Gatot Subroto', address: 'Jl. Gatot Subroto Barat No.77, Pemecutan Kaja, Denpasar Utara 80118', mapsUrl: 'https://maps.google.com/?q=Klinik+24+Jam+Gatot+Subroto+Denpasar', logoUrl: '', phone: '(0361) 426789' },
+  { id: 'kl-104', type: 'klinik', city: 'denpasar', name: 'Klinik 24 Jam Sunset Road', address: 'Jl. Sunset Road No.99, Kuta 80361', mapsUrl: 'https://maps.google.com/?q=Klinik+24+Jam+Sunset+Road', logoUrl: '', phone: '(0361) 300800' },
+
+  // ─── Manado ───
+  { id: 'kl-105', type: 'klinik', city: 'manado', name: 'Klinik 24 Jam Sam Ratulangi', address: 'Jl. Sam Ratulangi No.99, Wenang 95111', mapsUrl: 'https://maps.google.com/?q=Klinik+24+Jam+Sam+Ratulangi', logoUrl: '', phone: '(0431) 845678' },
+  { id: 'kl-106', type: 'klinik', city: 'manado', name: 'Klinik 24 Jam Manado Town Square', address: 'Jl. Piere Tendean No.22, Wenang 95111', mapsUrl: 'https://maps.google.com/?q=Klinik+24+Jam+Mantos', logoUrl: '', phone: '(0431) 861234' },
+  { id: 'kl-107', type: 'klinik', city: 'manado', name: 'Klinik 24 Jam Bahu', address: 'Jl. Raya Bahu No.55, Malalayang 95162', mapsUrl: 'https://maps.google.com/?q=Klinik+24+Jam+Bahu+Manado', logoUrl: '', phone: '(0431) 854321' },
+
+  // ─── Pontianak ───
+  { id: 'kl-108', type: 'klinik', city: 'pontianak', name: 'Klinik 24 Jam Gajah Mada', address: 'Jl. Gajah Mada No.55, Benua Melayu Darat, Pontianak Selatan 78123', mapsUrl: 'https://maps.google.com/?q=Klinik+24+Jam+Gajah+Mada+Pontianak', logoUrl: '', phone: '(0561) 732456' },
+  { id: 'kl-109', type: 'klinik', city: 'pontianak', name: 'Klinik 24 Jam Ahmad Yani', address: 'Jl. Ahmad Yani No.88, Bangka Belitung Darat, Pontianak Tenggara 78121', mapsUrl: 'https://maps.google.com/?q=Klinik+24+Jam+Ahmad+Yani+Pontianak', logoUrl: '', phone: '(0561) 812345' },
+  { id: 'kl-110', type: 'klinik', city: 'pontianak', name: 'Klinik 24 Jam Siantan', address: 'Jl. Pahlawan No.77, Siantan Hulu, Pontianak Utara 78111', mapsUrl: 'https://maps.google.com/?q=Klinik+24+Jam+Siantan', logoUrl: '', phone: '(0561) 584567' },
+
+  // ─── Banjarmasin ───
+  { id: 'kl-111', type: 'klinik', city: 'banjarmasin', name: 'Klinik 24 Jam Kayutangi', address: 'Jl. Kayutangi No.11, Banjarmasin Utara 70121', mapsUrl: 'https://maps.google.com/?q=Klinik+24+Jam+Kayutangi', logoUrl: '', phone: '(0511) 3305678' },
+  { id: 'kl-112', type: 'klinik', city: 'banjarmasin', name: 'Klinik 24 Jam Ahmad Yani', address: 'Jl. Ahmad Yani Km.3, Kebun Bunga, Banjarmasin Timur 70238', mapsUrl: 'https://maps.google.com/?q=Klinik+24+Jam+Ahmad+Yani+Banjarmasin', logoUrl: '', phone: '(0511) 3256789' },
+  { id: 'kl-113', type: 'klinik', city: 'banjarmasin', name: 'Klinik 24 Jam Veteran', address: 'Jl. Veteran No.33, Banjarmasin Tengah 70114', mapsUrl: 'https://maps.google.com/?q=Klinik+24+Jam+Veteran+Banjarmasin', logoUrl: '', phone: '(0511) 3302345' },
+
+  // ─── Pekanbaru ───
+  { id: 'kl-114', type: 'klinik', city: 'pekanbaru', name: 'Klinik 24 Jam SKA', address: 'Jl. Soekarno Hatta No.1, Simpang Baru, Tampan 28293', mapsUrl: 'https://maps.google.com/?q=Klinik+24+Jam+SKA+Pekanbaru', logoUrl: '', phone: '(0761) 631234' },
+  { id: 'kl-115', type: 'klinik', city: 'pekanbaru', name: 'Klinik 24 Jam Nangka', address: 'Jl. Nangka No.55, Tangkerang Baru, Bukit Raya 28128', mapsUrl: 'https://maps.google.com/?q=Klinik+24+Jam+Nangka+Pekanbaru', logoUrl: '', phone: '(0761) 234567' },
+  { id: 'kl-116', type: 'klinik', city: 'pekanbaru', name: 'Klinik 24 Jam Harapan Raya', address: 'Jl. HR Soebrantas Km.5, Rejosari, Sukajadi 28129', mapsUrl: 'https://maps.google.com/?q=Klinik+24+Jam+Harapan+Raya', logoUrl: '', phone: '(0761) 567890' },
+
+  // ─── Bandar Lampung ───
+  { id: 'kl-117', type: 'klinik', city: 'lampung', name: 'Klinik 24 Jam Kartini', address: 'Jl. Kartini No.44, Gulak Galik, Teluk Betung Utara 35214', mapsUrl: 'https://maps.google.com/?q=Klinik+24+Jam+Kartini+Lampung', logoUrl: '', phone: '(0721) 481234' },
+  { id: 'kl-118', type: 'klinik', city: 'lampung', name: 'Klinik 24 Jam Raden Intan', address: 'Jl. Raden Intan No.33, Tanjung Karang 35121', mapsUrl: 'https://maps.google.com/?q=Klinik+24+Jam+Raden+Intan+Lampung', logoUrl: '', phone: '(0721) 234567' },
+  { id: 'kl-119', type: 'klinik', city: 'lampung', name: 'Klinik 24 Jam Way Halim', address: 'Jl. Way Halim Permai No.11, Way Halim 35132', mapsUrl: 'https://maps.google.com/?q=Klinik+24+Jam+Way+Halim', logoUrl: '', phone: '(0721) 801234' },
+
+  // ─── Padang ───
+  { id: 'kl-120', type: 'klinik', city: 'padang', name: 'Klinik 24 Jam Pemuda', address: 'Jl. Pemuda No.33, Padang Barat 25114', mapsUrl: 'https://maps.google.com/?q=Klinik+24+Jam+Pemuda+Padang', logoUrl: '', phone: '(0751) 345678' },
+  { id: 'kl-121', type: 'klinik', city: 'padang', name: 'Klinik 24 Jam Lubuk Begalung', address: 'Jl. Raya Lubuk Begalung No.44, Lubuk Begalung 25155', mapsUrl: 'https://maps.google.com/?q=Klinik+24+Jam+Lubuk+Begalung', logoUrl: '', phone: '(0751) 56789' },
+  { id: 'kl-122', type: 'klinik', city: 'padang', name: 'Klinik 24 Jam Air Tawar', address: 'Jl. Raya Air Tawar No.12, Padang Utara 25136', mapsUrl: 'https://maps.google.com/?q=Klinik+24+Jam+Air+Tawar+Padang', logoUrl: '', phone: '(0751) 23456' },
+
+  // ─── Samarinda ───
+  { id: 'kl-123', type: 'klinik', city: 'samarinda', name: 'Klinik 24 Jam Samarinda Central', address: 'Jl. Pahlawan No.33, Bugis, Samarinda Kota 75121', mapsUrl: 'https://maps.google.com/?q=Klinik+24+Jam+Samarinda+Central', logoUrl: '', phone: '(0541) 748888' },
+  { id: 'kl-124', type: 'klinik', city: 'samarinda', name: 'Klinik 24 Jam Segiri', address: 'Jl. Dr. Sutomo No.55, Sidodadi, Samarinda Ulu 75123', mapsUrl: 'https://maps.google.com/?q=Klinik+24+Jam+Segiri', logoUrl: '', phone: '(0541) 731234' },
+  { id: 'kl-125', type: 'klinik', city: 'samarinda', name: 'Klinik 24 Jam Bantuas', address: 'Jl. Bantuas No.22, Palaran 75242', mapsUrl: 'https://maps.google.com/?q=Klinik+24+Jam+Bantuas', logoUrl: '', phone: '(0541) 737654' },
+
+  // ─── Solo / Surakarta ───
+  { id: 'kl-126', type: 'klinik', city: 'solo', name: 'Klinik 24 Jam Solo Baru', address: 'Jl. Raya Solo Baru No.77, Grogol, Sukoharjo 57552', mapsUrl: 'https://maps.google.com/?q=Klinik+24+Jam+Solo+Baru', logoUrl: '', phone: '(0271) 789123' },
+  { id: 'kl-127', type: 'klinik', city: 'solo', name: 'Klinik 24 Jam Slamet Riyadi', address: 'Jl. Slamet Riyadi No.456, Purwosari, Laweyan 57147', mapsUrl: 'https://maps.google.com/?q=Klinik+24+Jam+Slamet+Riyadi', logoUrl: '', phone: '(0271) 638567' },
+  { id: 'kl-128', type: 'klinik', city: 'solo', name: 'Klinik 24 Jam Manahan', address: 'Jl. Manahan No.11, Manahan, Banjarsari 57139', mapsUrl: 'https://maps.google.com/?q=Klinik+24+Jam+Manahan', logoUrl: '', phone: '(0271) 634567' },
+
+  // ─── Balikpapan ───
+  { id: 'kl-129', type: 'klinik', city: 'balikpapan', name: 'Klinik 24 Jam Pasar Baru', address: 'Jl. Pasar Baru No.12, Klandasan Ilir, Balikpapan Kota 76114', mapsUrl: 'https://maps.google.com/?q=Klinik+24+Jam+Pasar+Baru+Balikpapan', logoUrl: '', phone: '(0542) 876543' },
+  { id: 'kl-130', type: 'klinik', city: 'balikpapan', name: 'Klinik 24 Jam Gunung Guntur', address: 'Jl. Gunung Guntur No.55, Gn Sari Ulu, Balikpapan Tengah 76121', mapsUrl: 'https://maps.google.com/?q=Klinik+24+Jam+Gunung+Guntur', logoUrl: '', phone: '(0542) 412345' },
+  { id: 'kl-131', type: 'klinik', city: 'balikpapan', name: 'Klinik 24 Jam Damai', address: 'Jl. Damai No.33, Damai, Balikpapan Selatan 76115', mapsUrl: 'https://maps.google.com/?q=Klinik+24+Jam+Damai+Balikpapan', logoUrl: '', phone: '(0542) 878787' },
+
+  // ─── Cirebon ───
+  { id: 'kl-132', type: 'klinik', city: 'cirebon', name: 'Klinik 24 Jam Pekiringan', address: 'Jl. Pekiringan No.55, Pekalipan 45116', mapsUrl: 'https://maps.google.com/?q=Klinik+24+Jam+Pekiringan', logoUrl: '', phone: '(0231) 345678' },
+  { id: 'kl-133', type: 'klinik', city: 'cirebon', name: 'Klinik 24 Jam Kanoman', address: 'Jl. Kanoman No.22, Kejaksan 45121', mapsUrl: 'https://maps.google.com/?q=Klinik+24+Jam+Kanoman', logoUrl: '', phone: '(0231) 234567' },
+  { id: 'kl-134', type: 'klinik', city: 'cirebon', name: 'Klinik 24 Jam Cirebon Super Block', address: 'Jl. Dr. Cipto Mangunkusumo No.99, Kebonbaru, Kejaksan 45121', mapsUrl: 'https://maps.google.com/?q=Klinik+24+Jam+CSB', logoUrl: '', phone: '(0231) 567890' },
 ]

@@ -104,4 +104,142 @@ export const puskesmasList: Institution[] = [
   { id: 'pkm-74', type: 'puskesmas', city: 'malang', name: 'Puskesmas Kec. Blimbing', address: 'Jl. A.Yani No.99, Blimbing 65126', mapsUrl: 'https://maps.google.com/?q=Puskesmas+Blimbing', logoUrl: '', phone: '(0341) 481234' },
   { id: 'pkm-75', type: 'puskesmas', city: 'malang', name: 'Puskesmas Kec. Lowokwaru', address: 'Jl. Sunandar Priyo Sudarmo No.12, Lowokwaru 65141', mapsUrl: 'https://maps.google.com/?q=Puskesmas+Lowokwaru', logoUrl: '', phone: '(0341) 573456' },
   { id: 'pkm-76', type: 'puskesmas', city: 'malang', name: 'Puskesmas Kec. Kedungkandang', address: 'Jl. Raya Kedungkandang No.22, Kedungkandang 65136', mapsUrl: 'https://maps.google.com/?q=Puskesmas+Kedungkandang', logoUrl: '', phone: '(0341) 771234' },
+
+  // ─── Bogor (tambahan) ───
+  { id: 'pkm-77', type: 'puskesmas', city: 'bogor', name: 'Puskesmas Kec. Cibinong', address: 'Jl. Raya Cibinong Km.2, Cibinong 16912', mapsUrl: 'https://maps.google.com/?q=Puskesmas+Cibinong', logoUrl: '', phone: '(021) 87912345' },
+  { id: 'pkm-78', type: 'puskesmas', city: 'bogor', name: 'Puskesmas Kec. Bogor Timur', address: 'Jl. Raya Puncak No.11, Bogor Timur 16141', mapsUrl: 'https://maps.google.com/?q=Puskesmas+Bogor+Timur', logoUrl: '', phone: '(0251) 8323456' },
+
+  // ─── Jakarta Selatan (tambahan) ───
+  { id: 'pkm-79', type: 'puskesmas', city: 'jakarta-selatan', name: 'Puskesmas Kec. Pasar Minggu', address: 'Jl. Raya Pasar Minggu No.77, Pasar Minggu 12720', mapsUrl: 'https://maps.google.com/?q=Puskesmas+Pasar+Minggu', logoUrl: '', phone: '(021) 7805678' },
+  { id: 'pkm-80', type: 'puskesmas', city: 'jakarta-selatan', name: 'Puskesmas Kec. Mampang', address: 'Jl. Kemang Selatan XII No.8, Mampang 12730', mapsUrl: 'https://maps.google.com/?q=Puskesmas+Mampang', logoUrl: '', phone: '(021) 7195678' },
+
+  // ─── Jakarta Pusat (tambahan) ───
+  { id: 'pkm-81', type: 'puskesmas', city: 'jakarta-pusat', name: 'Puskesmas Kec. Gambir', address: 'Jl. Pejambon II No.5, Gambir 10110', mapsUrl: 'https://maps.google.com/?q=Puskesmas+Gambir', logoUrl: '', phone: '(021) 3856789' },
+  { id: 'pkm-82', type: 'puskesmas', city: 'jakarta-pusat', name: 'Puskesmas Kec. Cempaka Putih', address: 'Jl. Cempaka Putih Tengah I No.1, Cempaka Putih 10510', mapsUrl: 'https://maps.google.com/?q=Puskesmas+Cempaka+Putih', logoUrl: '', phone: '(021) 4245678' },
+
+  // ─── Bandung (tambahan) ───
+  { id: 'pkm-83', type: 'puskesmas', city: 'bandung', name: 'Puskesmas Kec. Cicendo', address: 'Jl. Pasirkaliki No.172, Cicendo 40171', mapsUrl: 'https://maps.google.com/?q=Puskesmas+Cicendo', logoUrl: '', phone: '(022) 607890' },
+  { id: 'pkm-84', type: 'puskesmas', city: 'bandung', name: 'Puskesmas Kec. Bojongloa Kidul', address: 'Jl. Babakan Tarogong No.33, Bojongloa Kidul 40237', mapsUrl: 'https://maps.google.com/?q=Puskesmas+Bojongloa+Kidul', logoUrl: '', phone: '(022) 678901' },
+
+  // ─── Depok (tambahan) ───
+  { id: 'pkm-85', type: 'puskesmas', city: 'depok', name: 'Puskesmas Kec. Pancoran Mas', address: 'Jl. Raya Bogor Km.35, Pancoran Mas 16431', mapsUrl: 'https://maps.google.com/?q=Puskesmas+Pancoran+Mas', logoUrl: '', phone: '(021) 8745678' },
+  { id: 'pkm-86', type: 'puskesmas', city: 'depok', name: 'Puskesmas Kec. Cimanggis', address: 'Jl. Raya Cimanggis No.2, Cimanggis 16452', mapsUrl: 'https://maps.google.com/?q=Puskesmas+Cimanggis', logoUrl: '', phone: '(021) 8712345' },
+
+  // ─── Tangerang (tambahan) ───
+  { id: 'pkm-87', type: 'puskesmas', city: 'tangerang', name: 'Puskesmas Kec. Ciledug', address: 'Jl. Hos Cokroaminoto No.33, Ciledug 15151', mapsUrl: 'https://maps.google.com/?q=Puskesmas+Ciledug', logoUrl: '', phone: '(021) 7345678' },
+  { id: 'pkm-88', type: 'puskesmas', city: 'tangerang', name: 'Puskesmas Kec. Serpong', address: 'Jl. Raya Serpong No.22, Serpong 15310', mapsUrl: 'https://maps.google.com/?q=Puskesmas+Serpong', logoUrl: '', phone: '(021) 53856789' },
+
+  // ─── Bekasi (tambahan) ───
+  { id: 'pkm-89', type: 'puskesmas', city: 'bekasi', name: 'Puskesmas Kec. Bekasi Timur', address: 'Jl. Bantar Gebang No.44, Bekasi Timur 17113', mapsUrl: 'https://maps.google.com/?q=Puskesmas+Bekasi+Timur', logoUrl: '', phone: '(021) 8855678' },
+  { id: 'pkm-90', type: 'puskesmas', city: 'bekasi', name: 'Puskesmas Kec. Jatiasih', address: 'Jl. Raya Jatiasih No.55, Jatiasih 17423', mapsUrl: 'https://maps.google.com/?q=Puskesmas+Jatiasih', logoUrl: '', phone: '(021) 8456789' },
+
+  // ─── Surabaya (tambahan) ───
+  { id: 'pkm-91', type: 'puskesmas', city: 'surabaya', name: 'Puskesmas Kec. Tambaksari', address: 'Jl. Banyu Urip Kidul No.27, Sawahan 60251', mapsUrl: 'https://maps.google.com/?q=Puskesmas+Tambaksari', logoUrl: '', phone: '(031) 5345678' },
+  { id: 'pkm-92', type: 'puskesmas', city: 'surabaya', name: 'Puskesmas Kec. Rungkut', address: 'Jl. Raya Rungkut No.11, Rungkut 60297', mapsUrl: 'https://maps.google.com/?q=Puskesmas+Rungkut', logoUrl: '', phone: '(031) 5996789' },
+
+  // ─── Semarang (tambahan) ───
+  { id: 'pkm-93', type: 'puskesmas', city: 'semarang', name: 'Puskesmas Kec. Semarang Timur', address: 'Jl. Pamularsih No.126, Semarang Timur 50126', mapsUrl: 'https://maps.google.com/?q=Puskesmas+Semarang+Timur', logoUrl: '', phone: '(024) 6734567' },
+  { id: 'pkm-94', type: 'puskesmas', city: 'semarang', name: 'Puskesmas Kec. Pedurungan', address: 'Jl. Brigjen Sudiarto No.188, Pedurungan 50197', mapsUrl: 'https://maps.google.com/?q=Puskesmas+Pedurungan', logoUrl: '', phone: '(024) 8467890' },
+
+  // ─── Yogyakarta (tambahan) ───
+  { id: 'pkm-95', type: 'puskesmas', city: 'yogyakarta', name: 'Puskesmas Kec. Tegalrejo', address: 'Jl. Magelang Km.4, Tegalrejo 55244', mapsUrl: 'https://maps.google.com/?q=Puskesmas+Tegalrejo', logoUrl: '', phone: '(0274) 641234' },
+  { id: 'pkm-96', type: 'puskesmas', city: 'yogyakarta', name: 'Puskesmas Kec. Jetis', address: 'Jl. Keparakan No.55, Mergangsan 55153', mapsUrl: 'https://maps.google.com/?q=Puskesmas+Jetis+Yogyakarta', logoUrl: '', phone: '(0274) 515678' },
+
+  // ─── Malang (tambahan) ───
+  { id: 'pkm-97', type: 'puskesmas', city: 'malang', name: 'Puskesmas Kec. Sukun', address: 'Jl. Raya Sukun No.15, Sukun 65149', mapsUrl: 'https://maps.google.com/?q=Puskesmas+Sukun', logoUrl: '', phone: '(0341) 581234' },
+  { id: 'pkm-98', type: 'puskesmas', city: 'malang', name: 'Puskesmas Kec. Bareng', address: 'Jl. Raya Bareng No.7, Bareng, Klojen 65115', mapsUrl: 'https://maps.google.com/?q=Puskesmas+Bareng', logoUrl: '', phone: '(0341) 575678' },
+
+  // ═══════════════════════════════════════════
+  //  KOTA BARU
+  // ═══════════════════════════════════════════
+
+  // ─── Makassar ───
+  { id: 'pkm-99', type: 'puskesmas', city: 'makassar', name: 'Puskesmas Kec. Makassar', address: 'Jl. Cenderawasih No.99, Bara-Baraya, Makassar 90245', mapsUrl: 'https://maps.google.com/?q=Puskesmas+Kec+Makassar', logoUrl: '', phone: '(0411) 873456' },
+  { id: 'pkm-100', type: 'puskesmas', city: 'makassar', name: 'Puskesmas Kec. Tamalanrea', address: 'Jl. Perintis Kemerdekaan Km.13, Tamalanrea 90245', mapsUrl: 'https://maps.google.com/?q=Puskesmas+Tamalanrea', logoUrl: '', phone: '(0411) 588789' },
+  { id: 'pkm-101', type: 'puskesmas', city: 'makassar', name: 'Puskesmas Kec. Panakkukang', address: 'Jl. Urip Sumoharjo No.55, Pandang, Panakkukang 90231', mapsUrl: 'https://maps.google.com/?q=Puskesmas+Panakkukang', logoUrl: '', phone: '(0411) 456789' },
+  { id: 'pkm-102', type: 'puskesmas', city: 'makassar', name: 'Puskesmas Kec. Tallo', address: 'Jl. Sabutung No.15, Tallo 90113', mapsUrl: 'https://maps.google.com/?q=Puskesmas+Tallo', logoUrl: '', phone: '(0411) 312345' },
+
+  // ─── Medan ───
+  { id: 'pkm-103', type: 'puskesmas', city: 'medan', name: 'Puskesmas Kec. Medan Denai', address: 'Jl. Denai No.158, Tegal Sari II, Medan Denai 20227', mapsUrl: 'https://maps.google.com/?q=Puskesmas+Medan+Denai', logoUrl: '', phone: '(061) 7034567' },
+  { id: 'pkm-104', type: 'puskesmas', city: 'medan', name: 'Puskesmas Kec. Medan Tuntungan', address: 'Jl. Bunga Sedap Malam No.22, Medan Tuntungan 20136', mapsUrl: 'https://maps.google.com/?q=Puskesmas+Medan+Tuntungan', logoUrl: '', phone: '(061) 8367890' },
+  { id: 'pkm-105', type: 'puskesmas', city: 'medan', name: 'Puskesmas Kec. Medan Johor', address: 'Jl. Jamin Ginting No.100, Kwala Bekala, Medan Johor 20143', mapsUrl: 'https://maps.google.com/?q=Puskesmas+Medan+Johor', logoUrl: '', phone: '(061) 8332345' },
+  { id: 'pkm-106', type: 'puskesmas', city: 'medan', name: 'Puskesmas Kec. Medan Deli', address: 'Jl. Marelan Raya No.55, Mabar, Medan Deli 20243', mapsUrl: 'https://maps.google.com/?q=Puskesmas+Medan+Deli', logoUrl: '', phone: '(061) 8456789' },
+
+  // ─── Palembang ───
+  { id: 'pkm-107', type: 'puskesmas', city: 'palembang', name: 'Puskesmas Kec. Ilir Barat I', address: 'Jl. Mayor Ruslan No.33, Ilir Barat I 30111', mapsUrl: 'https://maps.google.com/?q=Puskesmas+Ilir+Barat+I', logoUrl: '', phone: '(0711) 356234' },
+  { id: 'pkm-108', type: 'puskesmas', city: 'palembang', name: 'Puskesmas Kec. Seberang Ulu I', address: 'Jl. KH Azhari No.77, Seberang Ulu I 30256', mapsUrl: 'https://maps.google.com/?q=Puskesmas+Seberang+Ulu+I', logoUrl: '', phone: '(0711) 512345' },
+  { id: 'pkm-109', type: 'puskesmas', city: 'palembang', name: 'Puskesmas Kec. Plaju', address: 'Jl. Plaju No.88, Plaju 30266', mapsUrl: 'https://maps.google.com/?q=Puskesmas+Plaju', logoUrl: '', phone: '(0711) 351234' },
+  { id: 'pkm-110', type: 'puskesmas', city: 'palembang', name: 'Puskesmas Kec. Sukarame', address: 'Jl. Raya Sukarame No.28, Sukarame 30151', mapsUrl: 'https://maps.google.com/?q=Puskesmas+Sukarame+Palembang', logoUrl: '', phone: '(0711) 411234' },
+
+  // ─── Batam ───
+  { id: 'pkm-111', type: 'puskesmas', city: 'batam', name: 'Puskesmas Kec. Batu Aji', address: 'Jl. Raya Batu Aji No.8, Batu Aji 29422', mapsUrl: 'https://maps.google.com/?q=Puskesmas+Batu+Aji', logoUrl: '', phone: '(0778) 4355678' },
+  { id: 'pkm-112', type: 'puskesmas', city: 'batam', name: 'Puskesmas Kec. Lubuk Baja', address: 'Jl. Hang Jebat No.7, Lubuk Baja 29445', mapsUrl: 'https://maps.google.com/?q=Puskesmas+Lubuk+Baja', logoUrl: '', phone: '(0778) 432567' },
+  { id: 'pkm-113', type: 'puskesmas', city: 'batam', name: 'Puskesmas Kec. Batam Kota', address: 'Jl. Engku Putri No.33, Batam Kota 29444', mapsUrl: 'https://maps.google.com/?q=Puskesmas+Batam+Kota', logoUrl: '', phone: '(0778) 456123' },
+  { id: 'pkm-114', type: 'puskesmas', city: 'batam', name: 'Puskesmas Kec. Nongsa', address: 'Jl. Hang Lekiu Km.7, Nongsa 29465', mapsUrl: 'https://maps.google.com/?q=Puskesmas+Nongsa', logoUrl: '', phone: '(0778) 765432' },
+
+  // ─── Denpasar ───
+  { id: 'pkm-115', type: 'puskesmas', city: 'denpasar', name: 'Puskesmas Kec. Denpasar Barat', address: 'Jl. Teuku Umar No.21, Dauh Puri, Denpasar Barat 80114', mapsUrl: 'https://maps.google.com/?q=Puskesmas+Denpasar+Barat', logoUrl: '', phone: '(0361) 423456' },
+  { id: 'pkm-116', type: 'puskesmas', city: 'denpasar', name: 'Puskesmas Kec. Denpasar Timur', address: 'Jl. Nangka Selatan No.11, Kesiman, Denpasar Timur 80234', mapsUrl: 'https://maps.google.com/?q=Puskesmas+Denpasar+Timur', logoUrl: '', phone: '(0361) 224567' },
+  { id: 'pkm-117', type: 'puskesmas', city: 'denpasar', name: 'Puskesmas Kec. Denpasar Selatan', address: 'Jl. Raya Sanur No.3, Sanur, Denpasar Selatan 80227', mapsUrl: 'https://maps.google.com/?q=Puskesmas+Denpasar+Selatan', logoUrl: '', phone: '(0361) 281234' },
+  { id: 'pkm-118', type: 'puskesmas', city: 'denpasar', name: 'Puskesmas Kec. Denpasar Utara', address: 'Jl. Gatot Subroto Barat No.99, Peguyangan, Denpasar Utara 80118', mapsUrl: 'https://maps.google.com/?q=Puskesmas+Denpasar+Utara', logoUrl: '', phone: '(0361) 426789' },
+
+  // ─── Manado ───
+  { id: 'pkm-119', type: 'puskesmas', city: 'manado', name: 'Puskesmas Kec. Wenang', address: 'Jl. Sam Ratulangi No.33, Wenang 95111', mapsUrl: 'https://maps.google.com/?q=Puskesmas+Wenang', logoUrl: '', phone: '(0431) 845678' },
+  { id: 'pkm-120', type: 'puskesmas', city: 'manado', name: 'Puskesmas Kec. Malalayang', address: 'Jl. Raya Malalayang No.44, Malalayang 95162', mapsUrl: 'https://maps.google.com/?q=Puskesmas+Malalayang', logoUrl: '', phone: '(0431) 861234' },
+  { id: 'pkm-121', type: 'puskesmas', city: 'manado', name: 'Puskesmas Kec. Tikala', address: 'Jl. Raya Tikala No.12, Tikala 95124', mapsUrl: 'https://maps.google.com/?q=Puskesmas+Tikala', logoUrl: '', phone: '(0431) 854321' },
+  { id: 'pkm-122', type: 'puskesmas', city: 'manado', name: 'Puskesmas Kec. Mapanget', address: 'Jl. Raya Mapanget Km.7, Mapanget 95134', mapsUrl: 'https://maps.google.com/?q=Puskesmas+Mapanget', logoUrl: '', phone: '(0431) 876543' },
+
+  // ─── Pontianak ───
+  { id: 'pkm-123', type: 'puskesmas', city: 'pontianak', name: 'Puskesmas Kec. Pontianak Kota', address: 'Jl. Dr. Soedarso No.11, Sungai Bangkong, Pontianak Kota 78122', mapsUrl: 'https://maps.google.com/?q=Puskesmas+Pontianak+Kota', logoUrl: '', phone: '(0561) 583456' },
+  { id: 'pkm-124', type: 'puskesmas', city: 'pontianak', name: 'Puskesmas Kec. Pontianak Timur', address: 'Jl. Tanjung Raya II No.33, Parit Mayor, Pontianak Timur 78121', mapsUrl: 'https://maps.google.com/?q=Puskesmas+Pontianak+Timur', logoUrl: '', phone: '(0561) 714567' },
+  { id: 'pkm-125', type: 'puskesmas', city: 'pontianak', name: 'Puskesmas Kec. Pontianak Utara', address: 'Jl. Pahlawan No.55, Siantan Hulu, Pontianak Utara 78111', mapsUrl: 'https://maps.google.com/?q=Puskesmas+Pontianak+Utara', logoUrl: '', phone: '(0561) 584567' },
+  { id: 'pkm-126', type: 'puskesmas', city: 'pontianak', name: 'Puskesmas Kec. Pontianak Selatan', address: 'Jl. Surya Perdana No.8, Benua Melayu Darat, Pontianak Selatan 78123', mapsUrl: 'https://maps.google.com/?q=Puskesmas+Pontianak+Selatan', logoUrl: '', phone: '(0561) 732456' },
+
+  // ─── Banjarmasin ───
+  { id: 'pkm-127', type: 'puskesmas', city: 'banjarmasin', name: 'Puskesmas Kec. Banjarmasin Tengah', address: 'Jl. Pangeran Samudera No.7, Kertak Baru Ilir, Banjarmasin Tengah 70114', mapsUrl: 'https://maps.google.com/?q=Puskesmas+Banjarmasin+Tengah', logoUrl: '', phone: '(0511) 3305678' },
+  { id: 'pkm-128', type: 'puskesmas', city: 'banjarmasin', name: 'Puskesmas Kec. Banjarmasin Timur', address: 'Jl. Ahmad Yani Km.4,5, Kebun Bunga, Banjarmasin Timur 70238', mapsUrl: 'https://maps.google.com/?q=Puskesmas+Banjarmasin+Timur', logoUrl: '', phone: '(0511) 3256789' },
+  { id: 'pkm-129', type: 'puskesmas', city: 'banjarmasin', name: 'Puskesmas Kec. Banjarmasin Utara', address: 'Jl. Komplek Yuka No.2, Alalak Utara, Banjarmasin Utara 70121', mapsUrl: 'https://maps.google.com/?q=Puskesmas+Banjarmasin+Utara', logoUrl: '', phone: '(0511) 3302345' },
+  { id: 'pkm-130', type: 'puskesmas', city: 'banjarmasin', name: 'Puskesmas Kec. Banjarmasin Selatan', address: 'Jl. Kelayan A No.44, Kelayan Selatan, Banjarmasin Selatan 70241', mapsUrl: 'https://maps.google.com/?q=Puskesmas+Banjarmasin+Selatan', logoUrl: '', phone: '(0511) 3251234' },
+
+  // ─── Pekanbaru ───
+  { id: 'pkm-131', type: 'puskesmas', city: 'pekanbaru', name: 'Puskesmas Kec. Pekanbaru Kota', address: 'Jl. Diponegoro No.55, Sumahilang, Pekanbaru Kota 28156', mapsUrl: 'https://maps.google.com/?q=Puskesmas+Pekanbaru+Kota', logoUrl: '', phone: '(0761) 21615' },
+  { id: 'pkm-132', type: 'puskesmas', city: 'pekanbaru', name: 'Puskesmas Kec. Tampan', address: 'Jl. HR Soebrantas Km.8, Simpang Baru, Tampan 28293', mapsUrl: 'https://maps.google.com/?q=Puskesmas+Tampan', logoUrl: '', phone: '(0761) 631234' },
+  { id: 'pkm-133', type: 'puskesmas', city: 'pekanbaru', name: 'Puskesmas Kec. Bukit Raya', address: 'Jl. KH Ahmad Dahlan No.45, Tangkerang Baru, Bukit Raya 28128', mapsUrl: 'https://maps.google.com/?q=Puskesmas+Bukit+Raya', logoUrl: '', phone: '(0761) 234567' },
+  { id: 'pkm-134', type: 'puskesmas', city: 'pekanbaru', name: 'Puskesmas Kec. Rumbai', address: 'Jl. Lembah Baru No.29, Rumbai 28265', mapsUrl: 'https://maps.google.com/?q=Puskesmas+Rumbai', logoUrl: '', phone: '(0761) 567890' },
+
+  // ─── Bandar Lampung ───
+  { id: 'pkm-135', type: 'puskesmas', city: 'lampung', name: 'Puskesmas Kec. Kedaton', address: 'Jl. Ki Warsino No.7, Kedaton 35142', mapsUrl: 'https://maps.google.com/?q=Puskesmas+Kedaton', logoUrl: '', phone: '(0721) 801234' },
+  { id: 'pkm-136', type: 'puskesmas', city: 'lampung', name: 'Puskesmas Kec. Kemiling', address: 'Jl. Pramuka No.20, Kemiling 35214', mapsUrl: 'https://maps.google.com/?q=Puskesmas+Kemiling', logoUrl: '', phone: '(0721) 271234' },
+  { id: 'pkm-137', type: 'puskesmas', city: 'lampung', name: 'Puskesmas Kec. Teluk Betung', address: 'Jl. Ikan Mas No.33, Gulak Galik, Teluk Betung Utara 35214', mapsUrl: 'https://maps.google.com/?q=Puskesmas+Teluk+Betung', logoUrl: '', phone: '(0721) 481234' },
+  { id: 'pkm-138', type: 'puskesmas', city: 'lampung', name: 'Puskesmas Kec. Tanjung Karang', address: 'Jl. Raden Intan No.11, Tanjung Karang 35121', mapsUrl: 'https://maps.google.com/?q=Puskesmas+Tanjung+Karang', logoUrl: '', phone: '(0721) 234567' },
+
+  // ─── Padang ───
+  { id: 'pkm-139', type: 'puskesmas', city: 'padang', name: 'Puskesmas Kec. Padang Barat', address: 'Jl. Pemuda No.12, Padang Barat 25114', mapsUrl: 'https://maps.google.com/?q=Puskesmas+Padang+Barat', logoUrl: '', phone: '(0751) 345678' },
+  { id: 'pkm-140', type: 'puskesmas', city: 'padang', name: 'Puskesmas Kec. Padang Utara', address: 'Jl. Gajah Mada No.3, Gunung Pangilun, Padang Utara 25136', mapsUrl: 'https://maps.google.com/?q=Puskesmas+Padang+Utara', logoUrl: '', phone: '(0751) 56789' },
+  { id: 'pkm-141', type: 'puskesmas', city: 'padang', name: 'Puskesmas Kec. Koto Tangah', address: 'Jl. By Pass No.55, Koto Tangah 25156', mapsUrl: 'https://maps.google.com/?q=Puskesmas+Koto+Tangah', logoUrl: '', phone: '(0751) 23456' },
+  { id: 'pkm-142', type: 'puskesmas', city: 'padang', name: 'Puskesmas Kec. Pauh', address: 'Jl. Raya Pauh No.22, Kapalo Koto, Pauh 25157', mapsUrl: 'https://maps.google.com/?q=Puskesmas+Pauh+Padang', logoUrl: '', phone: '(0751) 78901' },
+
+  // ─── Samarinda ───
+  { id: 'pkm-143', type: 'puskesmas', city: 'samarinda', name: 'Puskesmas Kec. Samarinda Ilir', address: 'Jl. M Yamin No.12, Sidomulyo, Samarinda Ilir 75118', mapsUrl: 'https://maps.google.com/?q=Puskesmas+Samarinda+Ilir', logoUrl: '', phone: '(0541) 731234' },
+  { id: 'pkm-144', type: 'puskesmas', city: 'samarinda', name: 'Puskesmas Kec. Sungai Pinang', address: 'Jl. KH Wahid Hasyim No.55, Sungai Pinang 75117', mapsUrl: 'https://maps.google.com/?q=Puskesmas+Sungai+Pinang', logoUrl: '', phone: '(0541) 734567' },
+  { id: 'pkm-145', type: 'puskesmas', city: 'samarinda', name: 'Puskesmas Kec. Loa Janan Ilir', address: 'Jl. Poros No.33, Loa Janan Ilir 75391', mapsUrl: 'https://maps.google.com/?q=Puskesmas+Loa+Janan+Ilir', logoUrl: '', phone: '(0541) 738888' },
+  { id: 'pkm-146', type: 'puskesmas', city: 'samarinda', name: 'Puskesmas Kec. Palaran', address: 'Jl. Palaran No.17, Palaran 75242', mapsUrl: 'https://maps.google.com/?q=Puskesmas+Palaran', logoUrl: '', phone: '(0541) 737654' },
+
+  // ─── Solo / Surakarta ───
+  { id: 'pkm-147', type: 'puskesmas', city: 'solo', name: 'Puskesmas Kec. Banjarsari', address: 'Jl. Kartini No.55, Ketelan, Banjarsari 57131', mapsUrl: 'https://maps.google.com/?q=Puskesmas+Banjarsari', logoUrl: '', phone: '(0271) 638567' },
+  { id: 'pkm-148', type: 'puskesmas', city: 'solo', name: 'Puskesmas Kec. Laweyan', address: 'Jl. Slamet Riyadi No.378, Panularan, Laweyan 57147', mapsUrl: 'https://maps.google.com/?q=Puskesmas+Laweyan', logoUrl: '', phone: '(0271) 789123' },
+  { id: 'pkm-149', type: 'puskesmas', city: 'solo', name: 'Puskesmas Kec. Jebres', address: 'Jl. Kolonel Sutarto No.50, Jebres 57126', mapsUrl: 'https://maps.google.com/?q=Puskesmas+Jebres', logoUrl: '', phone: '(0271) 644456' },
+  { id: 'pkm-150', type: 'puskesmas', city: 'solo', name: 'Puskesmas Kec. Serengan', address: 'Jl. Veteran No.22, Serengan 57153', mapsUrl: 'https://maps.google.com/?q=Puskesmas+Serengan', logoUrl: '', phone: '(0271) 634567' },
+
+  // ─── Balikpapan ───
+  { id: 'pkm-151', type: 'puskesmas', city: 'balikpapan', name: 'Puskesmas Kec. Balikpapan Kota', address: 'Jl. Jenderal Sudirman No.99, Klandasan Ilir, Balikpapan Kota 76114', mapsUrl: 'https://maps.google.com/?q=Puskesmas+Balikpapan+Kota', logoUrl: '', phone: '(0542) 876543' },
+  { id: 'pkm-152', type: 'puskesmas', city: 'balikpapan', name: 'Puskesmas Kec. Balikpapan Timur', address: 'Jl. Soekarno Hatta Km.5, Manggar, Balikpapan Timur 76171', mapsUrl: 'https://maps.google.com/?q=Puskesmas+Balikpapan+Timur', logoUrl: '', phone: '(0542) 421234' },
+  { id: 'pkm-153', type: 'puskesmas', city: 'balikpapan', name: 'Puskesmas Kec. Balikpapan Utara', address: 'Jl. Raya Batu Ampar No.44, Batu Ampar, Balikpapan Utara 76131', mapsUrl: 'https://maps.google.com/?q=Puskesmas+Balikpapan+Utara', logoUrl: '', phone: '(0542) 412345' },
+  { id: 'pkm-154', type: 'puskesmas', city: 'balikpapan', name: 'Puskesmas Kec. Balikpapan Selatan', address: 'Jl. Mulawarman No.12, Damai, Balikpapan Selatan 76115', mapsUrl: 'https://maps.google.com/?q=Puskesmas+Balikpapan+Selatan', logoUrl: '', phone: '(0542) 878787' },
+
+  // ─── Cirebon ───
+  { id: 'pkm-155', type: 'puskesmas', city: 'cirebon', name: 'Puskesmas Kec. Kejaksan', address: 'Jl. Dr. Cipto Mangunkusumo No.26, Kebonbaru, Kejaksan 45121', mapsUrl: 'https://maps.google.com/?q=Puskesmas+Kejaksan', logoUrl: '', phone: '(0231) 234567' },
+  { id: 'pkm-156', type: 'puskesmas', city: 'cirebon', name: 'Puskesmas Kec. Harjamukti', address: 'Jl. Pangeran Cakrabuana No.55, Harjamukti 45144', mapsUrl: 'https://maps.google.com/?q=Puskesmas+Harjamukti', logoUrl: '', phone: '(0231) 567890' },
+  { id: 'pkm-157', type: 'puskesmas', city: 'cirebon', name: 'Puskesmas Kec. Kesambi', address: 'Jl. RA Kartini No.33, Kesambi 45133', mapsUrl: 'https://maps.google.com/?q=Puskesmas+Kesambi', logoUrl: '', phone: '(0231) 456789' },
+  { id: 'pkm-158', type: 'puskesmas', city: 'cirebon', name: 'Puskesmas Kec. Pekalipan', address: 'Jl. Kalimana No.11, Pekalipan 45116', mapsUrl: 'https://maps.google.com/?q=Puskesmas+Pekalipan', logoUrl: '', phone: '(0231) 345678' },
 ]

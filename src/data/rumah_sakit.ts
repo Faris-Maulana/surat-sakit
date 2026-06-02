@@ -100,4 +100,144 @@ export const rsList: Institution[] = [
   { id: 'rs-70', type: 'rumah_sakit', city: 'malang', name: 'RS Lavalette Malang', address: 'Jl. Jenderal Basuki Rahmat No.6, Klojen 65111', mapsUrl: 'https://maps.google.com/?q=RS+Lavalette+Malang', logoUrl: '', phone: '(0341) 368000' },
   { id: 'rs-71', type: 'rumah_sakit', city: 'malang', name: 'RS Ubaya Malang', address: 'Jl. Simpang Sulfat No.65, Kotalama, Kedungkandang 65136', mapsUrl: 'https://maps.google.com/?q=RS+Ubaya+Malang', logoUrl: '', phone: '(0341) 771234' },
   { id: 'rs-72', type: 'rumah_sakit', city: 'malang', name: 'RS Permata Hati Malang', address: 'Jl. Raya Tlogomas No.17, Tlogomas, Lowokwaru 65144', mapsUrl: 'https://maps.google.com/?q=RS+Permata+Hati+Malang', logoUrl: '', phone: '(0341) 570678' },
+
+  // ─── Bogor (tambahan) ───
+  { id: 'rs-73', type: 'rumah_sakit', city: 'bogor', name: 'RS Mulia Bogor', address: 'Jl. Raya Cibinong Km.8, Nanggewer, Cibinong 16911', mapsUrl: 'https://maps.google.com/?q=RS+Mulia+Bogor', logoUrl: '', phone: '(021) 87912345' },
+  { id: 'rs-74', type: 'rumah_sakit', city: 'bogor', name: 'RS EMC Bogor', address: 'Jl. Raya Tajur No.128, Muara Sari, Bogor Selatan 16134', mapsUrl: 'https://maps.google.com/?q=RS+EMC+Bogor', logoUrl: '', phone: '(0251) 8388888' },
+
+  // ─── Jakarta Selatan (tambahan) ───
+  { id: 'rs-75', type: 'rumah_sakit', city: 'jakarta-selatan', name: 'RS Aulia Jakarta', address: 'Jl. Margasatwa No.1, Ragunan, Pasar Minggu 12550', mapsUrl: 'https://maps.google.com/?q=RS+Aulia+Jakarta', logoUrl: '', phone: '(021) 7804567' },
+  { id: 'rs-76', type: 'rumah_sakit', city: 'jakarta-selatan', name: 'RS Dr. Suyoto', address: 'Jl. RC Veteran No.178, Bintaro, Pesanggrahan 12330', mapsUrl: 'https://maps.google.com/?q=RS+Dr+Suyoto', logoUrl: '', phone: '(021) 7345678' },
+
+  // ─── Jakarta Pusat (tambahan) ───
+  { id: 'rs-77', type: 'rumah_sakit', city: 'jakarta-pusat', name: 'RS Dharma Jaya', address: 'Jl. Mangga Besar VIII No.32, Mangga Besar, Taman Sari 11150', mapsUrl: 'https://maps.google.com/?q=RS+Dharma+Jaya', logoUrl: '', phone: '(021) 6245678' },
+  { id: 'rs-78', type: 'rumah_sakit', city: 'jakarta-pusat', name: 'RS Yadika', address: 'Jl. Pangeran Jayakarta No.73, Mangga Dua Selatan, Sawah Besar 10730', mapsUrl: 'https://maps.google.com/?q=RS+Yadika', logoUrl: '', phone: '(021) 6012345' },
+
+  // ─── Bandung (tambahan) ───
+  { id: 'rs-79', type: 'rumah_sakit', city: 'bandung', name: 'RS Adhitya Husada', address: 'Jl. Dr. Cipto No.111, Cihapit, Bandung Wetan 40116', mapsUrl: 'https://maps.google.com/?q=RS+Adhitya+Husada', logoUrl: '', phone: '(022) 4267890' },
+  { id: 'rs-80', type: 'rumah_sakit', city: 'bandung', name: 'RS TNI AU Lanud Husein', address: 'Jl. Pajajaran No.100, Pasirkaliki, Cicendo 40174', mapsUrl: 'https://maps.google.com/?q=RS+TNI+AU+Husein', logoUrl: '', phone: '(022) 6076789' },
+
+  // ─── Depok (tambahan) ───
+  { id: 'rs-81', type: 'rumah_sakit', city: 'depok', name: 'RS Bunda Depok', address: 'Jl. Raya Bogor Km.33, Sukmajaya 16412', mapsUrl: 'https://maps.google.com/?q=RS+Bunda+Depok', logoUrl: '', phone: '(021) 8746789' },
+  { id: 'rs-82', type: 'rumah_sakit', city: 'depok', name: 'RS Hermina Depok', address: 'Jl. Margonda Raya No.88, Kemiri Muka, Beji 16423', mapsUrl: 'https://maps.google.com/?q=RS+Hermina+Depok', logoUrl: '', phone: '(021) 78845678' },
+
+  // ─── Tangerang (tambahan) ───
+  { id: 'rs-83', type: 'rumah_sakit', city: 'tangerang', name: 'RS Aria Gading', address: 'Jl. Boulevard Gading Serpong No.1, Kelapa Dua 15810', mapsUrl: 'https://maps.google.com/?q=RS+Aria+Gading', logoUrl: '', phone: '(021) 5396789' },
+  { id: 'rs-84', type: 'rumah_sakit', city: 'tangerang', name: 'RS Medika BSD', address: 'Jl. Letnan Sutopo No.2, BSD, Serpong 15310', mapsUrl: 'https://maps.google.com/?q=RS+Medika+BSD', logoUrl: '', phone: '(021) 53856789' },
+
+  // ─── Bekasi (tambahan) ───
+  { id: 'rs-85', type: 'rumah_sakit', city: 'bekasi', name: 'RS Sentosa Bekasi', address: 'Jl. Raya Kalimalang No.22, Bekasi Selatan 17146', mapsUrl: 'https://maps.google.com/?q=RS+Sentosa+Bekasi', logoUrl: '', phone: '(021) 8855678' },
+  { id: 'rs-86', type: 'rumah_sakit', city: 'bekasi', name: 'RS Bhakti Husada', address: 'Jl. Raya Kranggan No.33, Jatisampurna 17433', mapsUrl: 'https://maps.google.com/?q=RS+Bhakti+Husada', logoUrl: '', phone: '(021) 8456789' },
+
+  // ─── Surabaya (tambahan) ───
+  { id: 'rs-87', type: 'rumah_sakit', city: 'surabaya', name: 'RS Adi Husada Undaan Wetan', address: 'Jl. Undaan Wetan No.1, Ketabang, Genteng 60272', mapsUrl: 'https://maps.google.com/?q=RS+Adi+Husada+Undaan', logoUrl: '', phone: '(031) 5345678' },
+  { id: 'rs-88', type: 'rumah_sakit', city: 'surabaya', name: 'RS National Surabaya', address: 'Jl. Nginden Intan Barat No.27, Nginden, Sukolilo 60118', mapsUrl: 'https://maps.google.com/?q=RS+National+Surabaya', logoUrl: '', phone: '(031) 5996789' },
+
+  // ─── Semarang (tambahan) ───
+  { id: 'rs-89', type: 'rumah_sakit', city: 'semarang', name: 'RS Bhayangkara Semarang', address: 'Jl. Majapahit No.140, Gemah, Semarang Selatan 50249', mapsUrl: 'https://maps.google.com/?q=RS+Bhayangkara+Semarang', logoUrl: '', phone: '(024) 6734567' },
+  { id: 'rs-90', type: 'rumah_sakit', city: 'semarang', name: 'RS Hermina Pandanaran', address: 'Jl. Pandanaran No.140, Pekunden, Semarang Tengah 50131', mapsUrl: 'https://maps.google.com/?q=RS+Hermina+Pandanaran', logoUrl: '', phone: '(024) 8467890' },
+
+  // ─── Yogyakarta (tambahan) ───
+  { id: 'rs-91', type: 'rumah_sakit', city: 'yogyakarta', name: 'RS Permata Bunda Yogyakarta', address: 'Jl. Godean Km.5 No.77, Gamping, Sleman 55291', mapsUrl: 'https://maps.google.com/?q=RS+Permata+Bunda+Yogyakarta', logoUrl: '', phone: '(0274) 641234' },
+  { id: 'rs-92', type: 'rumah_sakit', city: 'yogyakarta', name: 'RS JIH Yogyakarta', address: 'Jl. Kaliurang Km.5,5 No.99, Demangan, Gondokusuman 55221', mapsUrl: 'https://maps.google.com/?q=RS+JIH+Yogyakarta', logoUrl: '', phone: '(0274) 515678' },
+
+  // ─── Malang (tambahan) ───
+  { id: 'rs-93', type: 'rumah_sakit', city: 'malang', name: 'RS Wijaya Husadi Malang', address: 'Jl. Raya Wagir No.55, Wagir 65158', mapsUrl: 'https://maps.google.com/?q=RS+Wijaya+Husadi+Malang', logoUrl: '', phone: '(0341) 581234' },
+  { id: 'rs-94', type: 'rumah_sakit', city: 'malang', name: 'RS PTPN X Malang', address: 'Jl. Raya Kebonsari No.12, Kebonsari, Sukun 65149', mapsUrl: 'https://maps.google.com/?q=RS+PTPN+X+Malang', logoUrl: '', phone: '(0341) 575678' },
+
+  // ═══════════════════════════════════════════
+  //  KOTA BARU
+  // ═══════════════════════════════════════════
+
+  // ─── Makassar ───
+  { id: 'rs-95', type: 'rumah_sakit', city: 'makassar', name: 'RSUP Dr. Wahidin Sudirohusodo', address: 'Jl. Perintis Kemerdekaan Km.11, Tamalanrea 90245', mapsUrl: 'https://maps.google.com/?q=RSUP+Wahidin+Sudirohusodo', logoUrl: '', phone: '(0411) 588888' },
+  { id: 'rs-96', type: 'rumah_sakit', city: 'makassar', name: 'RS Siloam Makassar', address: 'Jl. Baji Ateka No.3, Mamajang 90112', mapsUrl: 'https://maps.google.com/?q=RS+Siloam+Makassar', logoUrl: '', phone: '(0411) 811111' },
+  { id: 'rs-97', type: 'rumah_sakit', city: 'makassar', name: 'RS Ibnu Sina Makassar', address: 'Jl. Urip Sumoharjo Km.5, Panaikang, Panakkukang 90231', mapsUrl: 'https://maps.google.com/?q=RS+Ibnu+Sina+Makassar', logoUrl: '', phone: '(0411) 456789' },
+  { id: 'rs-98', type: 'rumah_sakit', city: 'makassar', name: 'RS Grestelina Makassar', address: 'Jl. Dr. Ratulangi No.12, Baraya, Makassar 90115', mapsUrl: 'https://maps.google.com/?q=RS+Grestelina+Makassar', logoUrl: '', phone: '(0411) 312345' },
+  { id: 'rs-99', type: 'rumah_sakit', city: 'makassar', name: 'RS Bhayangkara Makassar', address: 'Jl. Andi Mappanyukki No.73, Pandang, Panakkukang 90233', mapsUrl: 'https://maps.google.com/?q=RS+Bhayangkara+Makassar', logoUrl: '', phone: '(0411) 456123' },
+
+  // ─── Medan ───
+  { id: 'rs-100', type: 'rumah_sakit', city: 'medan', name: 'RSUP H. Adam Malik', address: 'Jl. Bunga Lau No.17, Kemenangan Tani, Medan Tuntungan 20136', mapsUrl: 'https://maps.google.com/?q=RSUP+H+Adam+Malik', logoUrl: '', phone: '(061) 8360143' },
+  { id: 'rs-101', type: 'rumah_sakit', city: 'medan', name: 'RS Haji Medan', address: 'Jl. Rumah Sakit Haji No.1, Kenangan Baru, Medan 20414', mapsUrl: 'https://maps.google.com/?q=RS+Haji+Medan', logoUrl: '', phone: '(061) 8365678' },
+  { id: 'rs-102', type: 'rumah_sakit', city: 'medan', name: 'RS St. Elisabeth Medan', address: 'Jl. H. Misbah No.10, PS Merah Timur, Medan 20233', mapsUrl: 'https://maps.google.com/?q=RS+St+Elisabeth+Medan', logoUrl: '', phone: '(061) 4556789' },
+  { id: 'rs-103', type: 'rumah_sakit', city: 'medan', name: 'RS Bunda Thamrin', address: 'Jl. Thamrin No.11, Petisah Tengah, Medan 20151', mapsUrl: 'https://maps.google.com/?q=RS+Bunda+Thamrin+Medan', logoUrl: '', phone: '(061) 4523456' },
+  { id: 'rs-104', type: 'rumah_sakit', city: 'medan', name: 'RS Mitra Medika Amplas', address: 'Jl. Pembangunan No.62, Amplas, Medan 20222', mapsUrl: 'https://maps.google.com/?q=RS+Mitra+Medika+Amplas', logoUrl: '', phone: '(061) 7865678' },
+
+  // ─── Palembang ───
+  { id: 'rs-105', type: 'rumah_sakit', city: 'palembang', name: 'RSUP Dr. Mohammad Hoesin', address: 'Jl. Jenderal Sudirman Km.3,5, Srijaya, Kemuning 30138', mapsUrl: 'https://maps.google.com/?q=RSUP+Dr+Mohammad+Hoesin', logoUrl: '', phone: '(0711) 356234' },
+  { id: 'rs-106', type: 'rumah_sakit', city: 'palembang', name: 'RS Siloam Palembang', address: 'Jl. Jenderal Sudirman No.1887, 20 Ilir 30111', mapsUrl: 'https://maps.google.com/?q=RS+Siloam+Palembang', logoUrl: '', phone: '(0711) 366666' },
+  { id: 'rs-107', type: 'rumah_sakit', city: 'palembang', name: 'RS Muhammadiyah Palembang', address: 'Jl. Jenderal A. Yani No.1278, Plaju 30266', mapsUrl: 'https://maps.google.com/?q=RS+Muhammadiyah+Palembang', logoUrl: '', phone: '(0711) 512345' },
+  { id: 'rs-108', type: 'rumah_sakit', city: 'palembang', name: 'RS Dr. Ir. Soekarno', address: 'Jl. Lingkar Barat I No.11, Bukit Kecil 30134', mapsUrl: 'https://maps.google.com/?q=RS+Dr+Ir+Soekarno+Palembang', logoUrl: '', phone: '(0711) 351234' },
+
+  // ─── Batam ───
+  { id: 'rs-109', type: 'rumah_sakit', city: 'batam', name: 'RS Awal Bros Batam', address: 'Jl. HM Soebrantas No.1, Batu Aji 29422', mapsUrl: 'https://maps.google.com/?q=RS+Awal+Bros+Batam', logoUrl: '', phone: '(0778) 4355678' },
+  { id: 'rs-110', type: 'rumah_sakit', city: 'batam', name: 'RSBP Batam', address: 'Jl. Brigjen Katamso No.11, Tlk Tering, Batam 29441', mapsUrl: 'https://maps.google.com/?q=RSBP+Batam', logoUrl: '', phone: '(0778) 461111' },
+  { id: 'rs-111', type: 'rumah_sakit', city: 'batam', name: 'RS Mayang Sari', address: 'Jl. Teuku Umar No.1, Lubuk Baja 29445', mapsUrl: 'https://maps.google.com/?q=RS+Mayang+Sari', logoUrl: '', phone: '(0778) 432567' },
+  { id: 'rs-112', type: 'rumah_sakit', city: 'batam', name: 'RS Elisabeth Batam', address: 'Jl. RE Martadinata No.31, Batu Ampar 29442', mapsUrl: 'https://maps.google.com/?q=RS+Elisabeth+Batam', logoUrl: '', phone: '(0778) 452345' },
+
+  // ─── Denpasar ───
+  { id: 'rs-113', type: 'rumah_sakit', city: 'denpasar', name: 'RSUP Prof. Dr. IGNG Ngoerah', address: 'Jl. Diponegoro No.87, Dauh Puri Klod, Denpasar Barat 80114', mapsUrl: 'https://maps.google.com/?q=RSUP+Sanglah', logoUrl: '', phone: '(0361) 227911' },
+  { id: 'rs-114', type: 'rumah_sakit', city: 'denpasar', name: 'RS BIMC Denpasar', address: 'Jl. Sunset Road No.92, Kuta 80361', mapsUrl: 'https://maps.google.com/?q=RS+BIMC+Denpasar', logoUrl: '', phone: '(0361) 300800' },
+  { id: 'rs-115', type: 'rumah_sakit', city: 'denpasar', name: 'RS Bali Royal', address: 'Jl. Benesari No.2, Legian, Kuta 80361', mapsUrl: 'https://maps.google.com/?q=RS+Bali+Royal', logoUrl: '', phone: '(0361) 750567' },
+  { id: 'rs-116', type: 'rumah_sakit', city: 'denpasar', name: 'RS Primasana', address: 'Jl. Gatot Subroto Barat No.59, Pemecutan Kaja, Denpasar Utara 80118', mapsUrl: 'https://maps.google.com/?q=RS+Primasana+Denpasar', logoUrl: '', phone: '(0361) 423456' },
+
+  // ─── Manado ───
+  { id: 'rs-117', type: 'rumah_sakit', city: 'manado', name: 'RSUP Prof. Dr. R. D. Kandou', address: 'Jl. Raya Tanawangko No.56, Malalayang 95162', mapsUrl: 'https://maps.google.com/?q=RSUP+Prof+Dr+RD+Kandou', logoUrl: '', phone: '(0431) 821234' },
+  { id: 'rs-118', type: 'rumah_sakit', city: 'manado', name: 'RS Siloam Manado', address: 'Jl. Sam Ratulangi No.69, Wenang 95111', mapsUrl: 'https://maps.google.com/?q=RS+Siloam+Manado', logoUrl: '', phone: '(0431) 857777' },
+  { id: 'rs-119', type: 'rumah_sakit', city: 'manado', name: 'RS Gunung Maria', address: 'Jl. Sam Ratulangi No.204, Kleak, Malalayang 95162', mapsUrl: 'https://maps.google.com/?q=RS+Gunung+Maria+Manado', logoUrl: '', phone: '(0431) 861234' },
+  { id: 'rs-120', type: 'rumah_sakit', city: 'manado', name: 'RS Hermina Manado', address: 'Jl. Arie Lasut No.18, Wenang 95111', mapsUrl: 'https://maps.google.com/?q=RS+Hermina+Manado', logoUrl: '', phone: '(0431) 845678' },
+
+  // ─── Pontianak ───
+  { id: 'rs-121', type: 'rumah_sakit', city: 'pontianak', name: 'RSUD Dr. Soedarso', address: 'Jl. Dr. Soedarso No.348, Sungai Bangkong, Pontianak Kota 78122', mapsUrl: 'https://maps.google.com/?q=RSUD+Dr+Soedarso', logoUrl: '', phone: '(0561) 738222' },
+  { id: 'rs-122', type: 'rumah_sakit', city: 'pontianak', name: 'RS Anton Soedjarwo', address: 'Jl. Dr. Wahidin No.1, Benua Melayu Darat, Pontianak Selatan 78123', mapsUrl: 'https://maps.google.com/?q=RS+Anton+Soedjarwo', logoUrl: '', phone: '(0561) 732456' },
+  { id: 'rs-123', type: 'rumah_sakit', city: 'pontianak', name: 'RS Mitra Medika Pontianak', address: 'Jl. Ahmad Yani No.2, Bangka Belitung Darat, Pontianak Tenggara 78121', mapsUrl: 'https://maps.google.com/?q=RS+Mitra+Medika+Pontianak', logoUrl: '', phone: '(0561) 812345' },
+  { id: 'rs-124', type: 'rumah_sakit', city: 'pontianak', name: 'RS Pro Medika', address: 'Jl. Pahlawan No.55, Siantan Hulu, Pontianak Utara 78111', mapsUrl: 'https://maps.google.com/?q=RS+Pro+Medika+Pontianak', logoUrl: '', phone: '(0561) 584567' },
+
+  // ─── Banjarmasin ───
+  { id: 'rs-125', type: 'rumah_sakit', city: 'banjarmasin', name: 'RSUD Dr. H. Moch. Ansari Saleh', address: 'Jl. Hasan Basri No.178, Komet, Banjarmasin Utara 70122', mapsUrl: 'https://maps.google.com/?q=RSUD+Ansari+Saleh', logoUrl: '', phone: '(0511) 3305678' },
+  { id: 'rs-126', type: 'rumah_sakit', city: 'banjarmasin', name: 'RS Suaka Insan', address: 'Jl. Ahmad Yani Km.2, Kebun Bunga, Banjarmasin Timur 70238', mapsUrl: 'https://maps.google.com/?q=RS+Suaka+Insan+Banjarmasin', logoUrl: '', phone: '(0511) 3256789' },
+  { id: 'rs-127', type: 'rumah_sakit', city: 'banjarmasin', name: 'RS Ulin Banjarmasin', address: 'Jl. A. Yani Km.2,5 No.43, Kebun Bunga, Banjarmasin Timur 70238', mapsUrl: 'https://maps.google.com/?q=RS+Ulin+Banjarmasin', logoUrl: '', phone: '(0511) 3251234' },
+  { id: 'rs-128', type: 'rumah_sakit', city: 'banjarmasin', name: 'RS Sari Mulia', address: 'Jl. Prona No.17, Sungai Miai, Banjarmasin Utara 70121', mapsUrl: 'https://maps.google.com/?q=RS+Sari+Mulia+Banjarmasin', logoUrl: '', phone: '(0511) 3302345' },
+
+  // ─── Pekanbaru ───
+  { id: 'rs-129', type: 'rumah_sakit', city: 'pekanbaru', name: 'RSUD Arifin Achmad', address: 'Jl. Diponegoro No.2, Sumahilang, Pekanbaru Kota 28156', mapsUrl: 'https://maps.google.com/?q=RSUD+Arifin+Achmad', logoUrl: '', phone: '(0761) 21615' },
+  { id: 'rs-130', type: 'rumah_sakit', city: 'pekanbaru', name: 'RS Awal Bros Pekanbaru', address: 'Jl. KH Ahmad Dahlan No.88, Tangkerang Baru, Bukit Raya 28128', mapsUrl: 'https://maps.google.com/?q=RS+Awal+Bros+Pekanbaru', logoUrl: '', phone: '(0761) 88888' },
+  { id: 'rs-131', type: 'rumah_sakit', city: 'pekanbaru', name: 'RS Jiwa Tampan', address: 'Jl. HR Soebrantas No.1, Simpang Baru, Tampan 28293', mapsUrl: 'https://maps.google.com/?q=RS+Jiwa+Tampan', logoUrl: '', phone: '(0761) 631234' },
+  { id: 'rs-132', type: 'rumah_sakit', city: 'pekanbaru', name: 'RS Syafira Pekanbaru', address: 'Jl. Jenderal Sudirman No.116, Pakan Baru, Pekanbaru 28116', mapsUrl: 'https://maps.google.com/?q=RS+Syafira+Pekanbaru', logoUrl: '', phone: '(0761) 234567' },
+
+  // ─── Bandar Lampung ───
+  { id: 'rs-133', type: 'rumah_sakit', city: 'lampung', name: 'RSUD Dr. H. Abdul Moeloek', address: 'Jl. Dr. Rivai No.6, Penengahan, Kedaton 35112', mapsUrl: 'https://maps.google.com/?q=RSUD+Abdul+Moeloek', logoUrl: '', phone: '(0721) 702222' },
+  { id: 'rs-134', type: 'rumah_sakit', city: 'lampung', name: 'RS Bumi Waras', address: 'Jl. Prof. Dr. Sumantri Brojonegoro No.1, Gedung Air, Kedaton 35142', mapsUrl: 'https://maps.google.com/?q=RS+Bumi+Waras', logoUrl: '', phone: '(0721) 801234' },
+  { id: 'rs-135', type: 'rumah_sakit', city: 'lampung', name: 'RS Urip Sumoharjo', address: 'Jl. Urip Sumoharjo No.150, Gulak Galik, Tlk Betung Utara 35214', mapsUrl: 'https://maps.google.com/?q=RS+Urip+Sumoharjo+Bandar+Lampung', logoUrl: '', phone: '(0721) 481234' },
+  { id: 'rs-136', type: 'rumah_sakit', city: 'lampung', name: 'RS Pertamina Bintang Amin', address: 'Jl. Pramuka No.20, Kemiling 35214', mapsUrl: 'https://maps.google.com/?q=RS+Pertamina+Bintang+Amin+Lampung', logoUrl: '', phone: '(0721) 271234' },
+
+  // ─── Padang ───
+  { id: 'rs-137', type: 'rumah_sakit', city: 'padang', name: 'RSUP Dr. M. Djamil', address: 'Jl. Perintis Kemerdekaan No.1, Padang Pasir, Padang Barat 25127', mapsUrl: 'https://maps.google.com/?q=RSUP+Dr+M+Djamil+Padang', logoUrl: '', phone: '(0751) 32345' },
+  { id: 'rs-138', type: 'rumah_sakit', city: 'padang', name: 'RS Yos Sudarso', address: 'Jl. Dr. Sutomo No.88, Pasar Ambacang, Padang Selatan 25114', mapsUrl: 'https://maps.google.com/?q=RS+Yos+Sudarso+Padang', logoUrl: '', phone: '(0751) 345678' },
+  { id: 'rs-139', type: 'rumah_sakit', city: 'padang', name: 'RS Islam Ibnu Sina', address: 'Jl. Gajah Mada No.2, Gunung Pangilun, Padang Utara 25136', mapsUrl: 'https://maps.google.com/?q=RS+Islam+Ibnu+Sina+Padang', logoUrl: '', phone: '(0751) 56789' },
+  { id: 'rs-140', type: 'rumah_sakit', city: 'padang', name: 'RS Selasih Padang', address: 'Jl. Laras No.11, Sawahan, Padang Timur 25128', mapsUrl: 'https://maps.google.com/?q=RS+Selasih+Padang', logoUrl: '', phone: '(0751) 23456' },
+
+  // ─── Samarinda ───
+  { id: 'rs-141', type: 'rumah_sakit', city: 'samarinda', name: 'RSUD Abdul Wahab Sjahranie', address: 'Jl. Palang Merah No.2, Pelabuhan, Samarinda Kota 75111', mapsUrl: 'https://maps.google.com/?q=RSUD+Abdul+Wahab+Sjahranie', logoUrl: '', phone: '(0541) 733888' },
+  { id: 'rs-142', type: 'rumah_sakit', city: 'samarinda', name: 'RS Siloam Samarinda', address: 'Jl. Pahlawan No.1, Bugis, Samarinda Kota 75121', mapsUrl: 'https://maps.google.com/?q=RS+Siloam+Samarinda', logoUrl: '', phone: '(0541) 748888' },
+  { id: 'rs-143', type: 'rumah_sakit', city: 'samarinda', name: 'RS Haji Darjad', address: 'Jl. M Yamin No.54, Sidomulyo, Samarinda Ilir 75118', mapsUrl: 'https://maps.google.com/?q=RS+Haji+Darjad+Samarinda', logoUrl: '', phone: '(0541) 731234' },
+  { id: 'rs-144', type: 'rumah_sakit', city: 'samarinda', name: 'RS Atma Husada', address: 'Jl. AW Sjahranie No.1, Sungai Pinang, Samarinda Ilir 75117', mapsUrl: 'https://maps.google.com/?q=RS+Atma+Husada+Samarinda', logoUrl: '', phone: '(0541) 734567' },
+
+  // ─── Solo / Surakarta ───
+  { id: 'rs-145', type: 'rumah_sakit', city: 'solo', name: 'RSUD Dr. Moewardi', address: 'Jl. Kolonel Sutarto No.132, Jebres 57126', mapsUrl: 'https://maps.google.com/?q=RSUD+Dr+Moewardi', logoUrl: '', phone: '(0271) 634567' },
+  { id: 'rs-146', type: 'rumah_sakit', city: 'solo', name: 'RS Kasih Ibu Solo', address: 'Jl. Slamet Riyadi No.378, Panularan, Laweyan 57147', mapsUrl: 'https://maps.google.com/?q=RS+Kasih+Ibu+Solo', logoUrl: '', phone: '(0271) 789123' },
+  { id: 'rs-147', type: 'rumah_sakit', city: 'solo', name: 'RS PKU Muhammadiyah Solo', address: 'Jl. Kartini No.1, Ketelan, Banjarsari 57131', mapsUrl: 'https://maps.google.com/?q=RS+PKU+Muhammadiyah+Solo', logoUrl: '', phone: '(0271) 638567' },
+  { id: 'rs-148', type: 'rumah_sakit', city: 'solo', name: 'RS Ortopedi Surakarta', address: 'Jl. Jenderal Ahmad Yani No.124, Kratonan, Serengan 57153', mapsUrl: 'https://maps.google.com/?q=RS+Ortopedi+Surakarta', logoUrl: '', phone: '(0271) 644456' },
+
+  // ─── Balikpapan ───
+  { id: 'rs-149', type: 'rumah_sakit', city: 'balikpapan', name: 'RSUD Dr. Kanujoso Djatiwibowo', address: 'Jl. MT Haryono No.688, Gn Sari Ulu, Balikpapan Tengah 76121', mapsUrl: 'https://maps.google.com/?q=RSUD+Kanujoso+Djatiwibowo', logoUrl: '', phone: '(0542) 421234' },
+  { id: 'rs-150', type: 'rumah_sakit', city: 'balikpapan', name: 'RS Siloam Balikpapan', address: 'Jl. Jenderal Sudirman No.1, Klandasan Ilir, Balikpapan Kota 76114', mapsUrl: 'https://maps.google.com/?q=RS+Siloam+Balikpapan', logoUrl: '', phone: '(0542) 876543' },
+  { id: 'rs-151', type: 'rumah_sakit', city: 'balikpapan', name: 'RS Beriman Balikpapan', address: 'Jl. Syarifuddin Yoes No.56, Gn Sari Ulu, Balikpapan Tengah 76121', mapsUrl: 'https://maps.google.com/?q=RS+Beriman+Balikpapan', logoUrl: '', phone: '(0542) 412345' },
+  { id: 'rs-152', type: 'rumah_sakit', city: 'balikpapan', name: 'RS Hermina Balikpapan', address: 'Jl. Jenderal Sudirman No.177, Klandasan Ilir, Balikpapan Selatan 76114', mapsUrl: 'https://maps.google.com/?q=RS+Hermina+Balikpapan', logoUrl: '', phone: '(0542) 878787' },
+
+  // ─── Cirebon ───
+  { id: 'rs-153', type: 'rumah_sakit', city: 'cirebon', name: 'RSUD Gunung Jati', address: 'Jl. Dr. Cipto Mangunkusumo No.26, Kebonbaru, Kejaksan 45121', mapsUrl: 'https://maps.google.com/?q=RSUD+Gunung+Jati+Cirebon', logoUrl: '', phone: '(0231) 234567' },
+  { id: 'rs-154', type: 'rumah_sakit', city: 'cirebon', name: 'RS Mitra Plumbon', address: 'Jl. Nasional No.88, Plumbon 45153', mapsUrl: 'https://maps.google.com/?q=RS+Mitra+Plumbon+Cirebon', logoUrl: '', phone: '(0231) 345678' },
+  { id: 'rs-155', type: 'rumah_sakit', city: 'cirebon', name: 'RS Sumber Waras', address: 'Jl. RA Kartini No.33, Kesambi 45133', mapsUrl: 'https://maps.google.com/?q=RS+Sumber+Waras+Cirebon', logoUrl: '', phone: '(0231) 456789' },
+  { id: 'rs-156', type: 'rumah_sakit', city: 'cirebon', name: 'RS Permata Cirebon', address: 'Jl. Pangeran Cakrabuana No.55, Harjamukti 45144', mapsUrl: 'https://maps.google.com/?q=RS+Permata+Cirebon', logoUrl: '', phone: '(0231) 567890' },
 ]
