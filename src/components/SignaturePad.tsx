@@ -1,5 +1,5 @@
-import { PenSquare } from 'lucide-react'
-import { useState, useCallback } from 'react'
+import { PenSquare, RefreshCw, Sparkles } from 'lucide-react'
+import { useState, useCallback, useEffect } from 'react'
 
 interface Props {
   doctorName: string
@@ -314,7 +314,7 @@ function textFallbackSignature(name: string): string {
   return `data:image/svg+xml;base64,${btoa(svg)}`
 }
 
-export default function SignaturePad({ doctorName, sip, onSignatureChange }: Props) {
+export default function SignaturePad({ doctorName, onSignatureChange }: Props) {
   const [signatureDataUrl, setSignatureDataUrl] = useState<string | null>(null)
   const [mode, setMode] = useState<SigMode>('realistic')
 
@@ -348,65 +348,59 @@ export default function SignaturePad({ doctorName, sip, onSignatureChange }: Pro
     }
   }, [doctorName, onSignatureChange, mode])
 
+  useEffect(() => {
+    generateSignature()
+  }, [generateSignature])
+
   return (
     <div className="space-y-4">
-      <div className="flex items-center gap-2 text-blue-600 mb-4">
+      <div className="flex items-center gap-2 text-halo-600 mb-1">
         <PenSquare className="w-5 h-5" />
         <h3 className="font-semibold">Tanda Tangan Dokter</h3>
       </div>
 
-      <div className="p-3 bg-gray-50 rounded-xl text-sm">
-        <p className="text-gray-700">
-          <strong>Dokter:</strong> {doctorName || '—'}
-        </p>
-        <p className="text-gray-500 text-xs mt-0.5">
-          <strong>SIP:</strong> {sip || '—'}
-        </p>
-      </div>
-
-      <div className="flex items-center gap-2 bg-gray-100 rounded-xl p-1 w-fit">
+      <div className="flex gap-2">
         <button
-          onClick={() => { setMode('realistic'); setSignatureDataUrl(null) }}
-          className={`px-4 py-1.5 rounded-lg text-sm font-medium transition-all ${
-            mode === 'realistic' ? 'bg-white shadow-sm text-blue-700' : 'text-gray-500 hover:text-gray-700'
+          onClick={() => setMode('realistic')}
+          role="radio"
+          aria-checked={mode === 'realistic'}
+          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-all border ${
+            mode === 'realistic' ? 'bg-white shadow-sm text-halo-700 border-halo-200' : 'text-gray-500 hover:text-gray-700 border-transparent'
           }`}
         >
-          Goresan Tangan
+          <PenSquare className="w-4 h-4" />
+          <span>Goresan Tangan</span>
         </button>
         <button
-          onClick={() => { setMode('text'); setSignatureDataUrl(null) }}
-          className={`px-4 py-1.5 rounded-lg text-sm font-medium transition-all ${
-            mode === 'text' ? 'bg-white shadow-sm text-blue-700' : 'text-gray-500 hover:text-gray-700'
+          onClick={() => setMode('text')}
+          role="radio"
+          aria-checked={mode === 'text'}
+          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-all border ${
+            mode === 'text' ? 'bg-white shadow-sm text-halo-700 border-halo-200' : 'text-gray-500 hover:text-gray-700 border-transparent'
           }`}
         >
-          Teks Nama
+          <PenSquare className="w-4 h-4" />
+          <span>Teks Nama</span>
         </button>
       </div>
 
-      <button
-        onClick={generateSignature}
-        className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-xl text-sm font-medium hover:bg-blue-700 transition-colors"
-      >
-        <PenSquare className="w-4 h-4" />
-        Generate Tanda Tangan
-      </button>
-
-      {signatureDataUrl && (
-        <div className="p-4 bg-gray-50 border border-gray-200 rounded-xl">
-          <div className="flex justify-center">
-            <img src={signatureDataUrl} alt="Tanda tangan dokter" className="h-24 object-contain" />
-          </div>
-          <div className="text-center mt-2">
-            <p className="text-xs text-gray-600 font-medium">{doctorName || 'dr. Andi Pratama'}</p>
-            <p className="text-xs text-gray-400">SIP. {sip || '12345/2026'}</p>
-          </div>
+      {signatureDataUrl ? (
+        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-4 flex flex-col items-center gap-2">
+          <img src={signatureDataUrl} alt="Tanda tangan" className="w-full max-w-xs h-16 object-contain" />
           <button
             onClick={generateSignature}
-            className="mt-2 w-full text-xs text-blue-600 hover:text-blue-800"
+            className="inline-flex items-center justify-center gap-2 px-3 py-2 text-gray-500 rounded-xl text-sm font-medium hover:bg-gray-100 hover:text-gray-700 transition-all duration-200 text-xs"
           >
-            ↻ Generate ulang{mode === 'realistic' ? ' (gaya berbeda)' : ''}
+            <RefreshCw className="w-3 h-3" /> Generate Ulang
           </button>
         </div>
+      ) : (
+        <button
+          onClick={generateSignature}
+          className="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-halo-500 text-white rounded-xl text-sm font-semibold hover:bg-halo-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 active:scale-[0.98]"
+        >
+          <Sparkles className="w-4 h-4" /> Generate Tanda Tangan
+        </button>
       )}
     </div>
   )

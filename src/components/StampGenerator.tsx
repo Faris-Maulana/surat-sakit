@@ -289,38 +289,35 @@ export default function StampGenerator({ institutionName, institutionType, docto
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center gap-2 text-blue-600 mb-4">
+      <div className="flex items-center gap-2 text-halo-600 mb-4">
         <Stamp className="w-5 h-5" />
         <h3 className="font-semibold">Cap Stempel Dokter</h3>
-        <span className="text-[10px] text-gray-400 italic">(Stempel dokter ~30mm, tinta biru)</span>
+        <span className="text-[10px] text-gray-400 italic">(~30mm, biru)</span>
       </div>
 
       <p className="text-xs text-gray-500 leading-relaxed">
-        Stempel akan menggunakan nama dan SIP dokter yang diisi di atas.
+        Stempel menggunakan nama dan SIP dokter yang diisi.
         {institutionType === 'puskesmas'
-          ? ' Menggunakan format stempel Puskesmas (hijau).'
+          ? ' Format stempel Puskesmas (hijau).'
           : institutionType === 'klinik'
-            ? ' Menggunakan format stempel Klinik (teal).'
-            : ' Menggunakan format stempel dokter RS (biru) dengan logo IDI.'}
+            ? ' Format stempel Klinik (teal).'
+            : ' Format stempel RS (biru) dengan logo IDI.'}
       </p>
 
       <button
         onClick={handleGenerate}
-        className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-xl text-sm font-medium hover:bg-blue-700 transition-colors"
+        className="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-halo-500 text-white rounded-xl text-sm font-semibold hover:bg-halo-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 active:scale-[0.98]"
       >
         <Stamp className="w-4 h-4" />
-        Generate Stempel Dokter
+        Generate Stempel
       </button>
 
       {stampDataUrl && (
-        <div className="p-4 bg-gray-50 border border-gray-200 rounded-xl flex flex-col items-center">
+        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-4 flex flex-col items-center gap-2">
           <img src={stampDataUrl} alt="Stempel dokter" className="w-28 h-28 object-contain" />
-          <p className="text-xs text-gray-500 mt-2">{doctorName || 'dr. Andi Pratama'}</p>
-          <p className="text-[10px] text-gray-400">{propSip || 'SIP. 12345/2026'}</p>
-          <button
-            onClick={handleGenerate}
-            className="mt-2 text-xs text-blue-600 hover:text-blue-800"
-          >
+          <p className="text-sm font-medium text-gray-700">{doctorName || 'dr. Andi Pratama'}</p>
+          <p className="text-xs text-gray-400">{propSip || 'SIP. 12345/2026'}</p>
+          <button onClick={handleGenerate} className="inline-flex items-center justify-center gap-2 px-3 py-2 text-gray-500 rounded-xl text-sm font-medium hover:bg-gray-100 hover:text-gray-700 transition-all duration-200 text-xs">
             ↻ Generate ulang
           </button>
         </div>

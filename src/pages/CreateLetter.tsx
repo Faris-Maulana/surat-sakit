@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { ArrowLeft, ArrowRight, Send, Stethoscope } from 'lucide-react'
+import { ArrowLeft, ArrowRight, Send, Stethoscope, Activity, HeartPulse, Cross } from 'lucide-react'
 import StepIndicator from '@/components/StepIndicator'
 import InstitutionSelector from '@/components/InstitutionSelector'
 import PatientForm from '@/components/PatientForm'
@@ -26,6 +26,12 @@ function getSteps(lt: LetterType): { label: string; icon: string }[] {
   if (lt === 'rujukan') return [...common, diag, { label: 'Rujukan', icon: '📋' }, { label: 'TTD & Cap', icon: '✍️' }]
   return [...common, diag, { label: 'Istirahat', icon: '📅' }, { label: 'TTD & Cap', icon: '✍️' }]
 }
+
+const letterTypes = [
+  { value: 'sakit' as LetterType, label: 'Surat Sakit', desc: 'Surat keterangan sakit untuk pasien rawat jalan', icon: Activity },
+  { value: 'sehat' as LetterType, label: 'Surat Sehat', desc: 'Surat keterangan sehat jasmani dan rohani', icon: HeartPulse },
+  { value: 'rujukan' as LetterType, label: 'Surat Rujukan', desc: 'Surat rujukan ke fasilitas kesehatan lain', icon: Cross },
+]
 
 const emptyPatient: PatientData = {
   name: '', nik: '', birthPlace: '', birthDate: '',
@@ -59,8 +65,8 @@ export default function CreateLetter() {
   const [signatureUrl, setSignatureUrl] = useState('')
   const [stampUrl, setStampUrl] = useState('')
   const [draftLoaded, setDraftLoaded] = useState(false)
+  const [showForm, setShowForm] = useState(false)
 
-  // Restore draft from localStorage on mount
   useEffect(() => {
     if (draftLoaded) return
     const draft = loadDraft()
@@ -84,12 +90,11 @@ export default function CreateLetter() {
     setDraftLoaded(true)
   }, [draftLoaded])
 
-  // Reset step when letter type changes
   useEffect(() => {
     setStep(0)
+    setShowForm(false)
   }, [letterType])
 
-  // Auto-save to localStorage on every state change
   useEffect(() => {
     if (!draftLoaded) return
     saveDraft({
@@ -138,219 +143,226 @@ export default function CreateLetter() {
     navigate('/preview', { state: { letterData, signatureUrl, stampUrl } })
   }
 
-  return (
-    <main className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-white py-6 sm:py-10 px-3 sm:px-4">
-      <div className="max-w-3xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-5 sm:mb-6">
-          <div className="flex items-center justify-center gap-2 mb-2">
-            <div className="p-2 sm:p-3 bg-blue-100 rounded-2xl">
-              <Stethoscope className="w-6 h-6 sm:w-8 sm:h-8 text-blue-600" />
-            </div>
+  // Letter type selection screen
+  if (!showForm) {
+    return (
+      <main className="max-w-2xl mx-auto px-4 pt-8 sm:pt-12 pb-12">
+        <div className="text-center mb-10">
+          <div className="w-16 h-16 bg-halo-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <Stethoscope className="w-8 h-8 text-halo-500" />
           </div>
-          <h1 className="text-xl sm:text-2xl font-bold text-gray-800">Generator Surat Keterangan Sakit</h1>
-          <p className="text-xs sm:text-sm text-gray-500 mt-1">Buat surat sakit resmi dari berbagai fasilitas kesehatan di Indonesia</p>
-          <a
-            href="/admin/doctors"
-            onClick={(e) => { e.preventDefault(); navigate('/admin/doctors') }}
-            className="inline-flex items-center gap-1 text-xs text-blue-500 hover:text-blue-700 mt-1 transition-colors"
-          >
-            Kelola Data Dokter →
-          </a>
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 tracking-tight">Buat Surat Keterangan</h1>
+          <p className="text-sm text-gray-400 mt-2 max-w-md mx-auto">
+            Pilih jenis surat yang ingin dibuat. Isi data pasien, diagnosis, dan dapatkan dokumen siap cetak.
+          </p>
         </div>
 
-        {/* Letter Type Selector */}
-        <div className="bg-white rounded-xl border border-gray-200 p-3 sm:p-4 mb-4">
-          <label className="block text-xs font-medium text-gray-500 mb-2">Jenis Surat</label>
-          <div className="flex gap-2" role="radiogroup" aria-label="Jenis surat">
-            {([
-              { value: 'sakit', label: 'Sakit', icon: '🤒' },
-              { value: 'sehat', label: 'Sehat', icon: '💪' },
-              { value: 'rujukan', label: 'Rujukan', icon: '📋' },
-            ] as const).map((opt) => (
+        <div className="grid gap-4">
+          {letterTypes.map(lt => {
+            const Icon = lt.icon
+            const selected = letterType === lt.value
+            return (
               <button
-                key={opt.value}
-                onClick={() => setLetterType(opt.value)}
-                role="radio"
-                aria-checked={letterType === opt.value}
-                aria-label={`${opt.label}${letterType === opt.value ? ' (terpilih)' : ''}`}
-                className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-all ${
-                  letterType === opt.value
-                    ? 'bg-blue-100 text-blue-700 border-2 border-blue-300'
-                    : 'bg-gray-50 text-gray-500 border-2 border-transparent hover:bg-gray-100'
+                key={lt.value}
+                onClick={() => { setLetterType(lt.value); setShowForm(true) }}
+                className={`bg-white rounded-2xl border border-gray-100 shadow-sm transition-all duration-200 hover:shadow-md hover:border-gray-200 flex items-start gap-4 sm:gap-5 p-5 sm:p-6 text-left ${
+                  selected ? 'bg-white rounded-2xl border border-halo-400 shadow-sm ring-2 ring-halo-200 bg-halo-50/30' : ''
                 }`}
               >
-                <span>{opt.icon}</span>
-                <span>{opt.label}</span>
-              </button>
-            ))}
-          </div>
-        </div>
-
-        <StepIndicator currentStep={step} steps={steps} />
-
-        {/* Step Content */}
-        <div role="form" aria-label={steps[step]?.label ? `Form: ${steps[step].label}` : 'Form surat'} className="bg-white rounded-xl sm:rounded-2xl shadow-sm border border-gray-200 p-4 sm:p-6 mb-4 sm:mb-6 transition-all duration-300">
-          {step === 0 && (
-            <InstitutionSelector
-              selectedType={institutionType}
-              selectedCity={city}
-              selectedInstitution={institution}
-              onTypeChange={setInstitutionType}
-              onCityChange={setCity}
-              onInstitutionChange={setInstitution}
-            />
-          )}
-
-          {step === 1 && <PatientForm data={patient} onChange={setPatient} />}
-
-          {/* Diagnosis step — for sakit & rujukan */}
-          {step === 2 && letterType !== 'sehat' && (
-            <ComplaintAnalyzer
-              keluhan={keluhan}
-              diagnosis={diagnosis}
-              icdCode={icdCode}
-              secondaryDiagnoses={secondaryDiagnoses}
-              onKeluhanChange={setKeluhan}
-              onDiagnosisChange={setDiagnosis}
-              onIcdCodeChange={setIcdCode}
-              onSecondaryChange={setSecondaryDiagnoses}
-            />
-          )}
-
-          {/* Rest period or Referral — step 3 */}
-          {step === 3 && (
-            <>
-              {letterType === 'sakit' && (
-                <DateRangePicker
-                  startDate={startDate}
-                  endDate={endDate}
-                  onStartChange={setStartDate}
-                  onEndChange={setEndDate}
-                />
-              )}
-              {letterType === 'rujukan' && (
-                <div className="space-y-4">
-                  <div className="flex items-center gap-2 text-blue-600 mb-4">
-                    <span className="text-xl">📋</span>
-                    <h3 className="font-semibold">Data Rujukan</h3>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Tujuan Rumah Sakit / Faskes</label>
-                    <input
-                      type="text"
-                      value={referral.destinationInstitution}
-                      onChange={(e) => setReferral({ ...referral, destinationInstitution: e.target.value })}
-                      className="w-full rounded-xl border-gray-300 border p-3 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                      placeholder="Nama RS / Puskesmas / Klinik tujuan"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Dokter Tujuan (opsional)</label>
-                    <input
-                      type="text"
-                      value={referral.destinationDoctor}
-                      onChange={(e) => setReferral({ ...referral, destinationDoctor: e.target.value })}
-                      className="w-full rounded-xl border-gray-300 border p-3 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                      placeholder="dr. ... Sp. ..."
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Alasan / Indikasi Rujukan</label>
-                    <textarea
-                      value={referral.reason}
-                      onChange={(e) => setReferral({ ...referral, reason: e.target.value })}
-                      className="w-full rounded-xl border-gray-300 border p-3 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                      rows={3}
-                      placeholder="Alasan merujuk pasien"
-                    />
-                  </div>
+                <div className={`w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 ${
+                  selected ? 'bg-halo-500 text-white' : 'bg-halo-50 text-halo-500'
+                }`}>
+                  <Icon className="w-6 h-6" />
                 </div>
-              )}
-            </>
-          )}
-
-          {/* TTD & Cap — last step */}
-          {step === lastStep && (
-            <div className="space-y-6">
-              <DoctorSelector
-                institutionType={institutionType}
-                doctorName={doctorName}
-                sip={sip}
-                onDoctorNameChange={setDoctorName}
-                onSipChange={setSip}
-              />
-
-              {doctorName && (
-                <>
-                  <SignaturePad
-                    doctorName={doctorName}
-                    sip={sip}
-                    onSignatureChange={setSignatureUrl}
-                  />
-
-                  {institution && (
-                    <StampGenerator
-                      institutionName={institution.name}
-                      institutionType={institutionType as InstitutionType}
-                      doctorName={doctorName}
-                      sip={sip}
-                      onStampChange={setStampUrl}
-                    />
-                  )}
-                </>
-              )}
-            </div>
-          )}
+                <div className="flex-1 min-w-0">
+                  <h3 className="font-semibold text-gray-800 text-base">{lt.label}</h3>
+                  <p className="text-sm text-gray-400 mt-0.5">{lt.desc}</p>
+                </div>
+                <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center flex-shrink-0 mt-2 ${
+                  selected ? 'border-halo-500 bg-halo-500' : 'border-gray-200'
+                }`}>
+                  {selected && <div className="w-2 h-2 rounded-full bg-white" />}
+                </div>
+              </button>
+            )
+          })}
         </div>
 
-        {/* Navigation */}
-        <div className="flex justify-between items-center">
+        <div className="mt-8 text-center">
           <button
-            onClick={() => step > 0 ? setStep(step - 1) : null}
-            disabled={step === 0}
-            aria-label={steps[step - 1]?.label ? `Kembali ke ${steps[step - 1].label}` : 'Sebelumnya'}
-            className="flex items-center gap-2 px-4 sm:px-5 py-2.5 border border-gray-300 rounded-xl text-sm font-medium hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors bg-white shadow-sm"
+            onClick={() => navigate('/admin/doctors')}
+            className="text-sm text-halo-500 hover:text-halo-600 transition-colors font-medium"
           >
-            <ArrowLeft className="w-4 h-4" aria-hidden="true" /> <span className="hidden sm:inline">Sebelumnya</span>
+            Kelola Data Dokter →
           </button>
-
-          <div className="flex items-center gap-2" role="navigation" aria-label="Navigasi langkah">
-            <span className="text-xs text-gray-400 hidden sm:inline" aria-live="polite">
-              Langkah {step + 1} dari {steps.length}
-            </span>
-
-            {step < lastStep ? (
-              <button
-                onClick={() => setStep(step + 1)}
-                disabled={!canProceed()}
-                aria-label={`Lanjut ke ${steps[step + 1]?.label || 'langkah berikutnya'}`}
-                className="flex items-center gap-2 px-4 sm:px-5 py-2.5 bg-blue-600 text-white rounded-xl text-sm font-medium hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors shadow-sm"
-              >
-                <span className="hidden sm:inline">Selanjutnya</span> <ArrowRight className="w-4 h-4" aria-hidden="true" />
-              </button>
-            ) : (
-              <button
-                onClick={handleSubmit}
-                disabled={!canProceed()}
-                aria-label="Preview dan export surat"
-                className="flex items-center gap-2 px-5 sm:px-6 py-2.5 bg-green-600 text-white rounded-xl text-sm font-medium hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors shadow-sm"
-              >
-                <Send className="w-4 h-4" aria-hidden="true" /> <span className="hidden sm:inline">Preview Surat</span>
-              </button>
-            )}
-          </div>
-        </div>
-
-        {/* Progress bar */}
-        <div className="mt-4 sm:mt-6 bg-gray-200 rounded-full h-1.5 overflow-hidden">
-          <div
-            className="bg-blue-600 h-full rounded-full transition-all duration-500 ease-out"
-            style={{ width: `${((step + 1) / steps.length) * 100}%` }}
-          />
         </div>
 
         <LetterHistory />
+      </main>
+    )
+  }
+
+  return (
+    <main className="max-w-3xl mx-auto px-4 pt-6 pb-12">
+      {/* Back button */}
+      <button
+        onClick={() => setShowForm(false)}
+        className="inline-flex items-center justify-center gap-2 px-3 py-2 text-gray-500 rounded-xl text-sm font-medium hover:bg-gray-100 hover:text-gray-700 transition-all duration-200 mb-4"
+      >
+        <ArrowLeft className="w-4 h-4" /> Ganti Jenis Surat
+      </button>
+
+      <StepIndicator currentStep={step} steps={steps} />
+
+      {/* Step Content */}
+      <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 sm:p-7 mb-5 transition-all duration-300">
+        {step === 0 && (
+          <InstitutionSelector
+            selectedType={institutionType}
+            selectedCity={city}
+            selectedInstitution={institution}
+            onTypeChange={setInstitutionType}
+            onCityChange={setCity}
+            onInstitutionChange={setInstitution}
+          />
+        )}
+
+        {step === 1 && <PatientForm data={patient} onChange={setPatient} />}
+
+        {step === 2 && letterType !== 'sehat' && (
+          <ComplaintAnalyzer
+            keluhan={keluhan}
+            diagnosis={diagnosis}
+            icdCode={icdCode}
+            secondaryDiagnoses={secondaryDiagnoses}
+            onKeluhanChange={setKeluhan}
+            onDiagnosisChange={setDiagnosis}
+            onIcdCodeChange={setIcdCode}
+            onSecondaryChange={setSecondaryDiagnoses}
+          />
+        )}
+
+        {step === 3 && (
+          <>
+            {letterType === 'sakit' && (
+              <DateRangePicker
+                startDate={startDate}
+                endDate={endDate}
+                onStartChange={setStartDate}
+                onEndChange={setEndDate}
+              />
+            )}
+            {letterType === 'rujukan' && (
+              <div className="space-y-5">
+                <div>
+                  <label className="block text-sm font-medium text-gray-600 mb-1.5">Tujuan Rumah Sakit / Faskes</label>
+                  <input
+                    type="text"
+                    value={referral.destinationInstitution}
+                    onChange={(e) => setReferral({ ...referral, destinationInstitution: e.target.value })}
+                    className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-halo-300 focus:border-halo-400 transition-all duration-200"
+                    placeholder="Nama RS / Puskesmas / Klinik tujuan"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-600 mb-1.5">Dokter Tujuan <span className="text-gray-400 font-normal">(opsional)</span></label>
+                  <input
+                    type="text"
+                    value={referral.destinationDoctor}
+                    onChange={(e) => setReferral({ ...referral, destinationDoctor: e.target.value })}
+                    className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-halo-300 focus:border-halo-400 transition-all duration-200"
+                    placeholder="dr. ... Sp. ..."
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-600 mb-1.5">Alasan / Indikasi Rujukan</label>
+                  <textarea
+                    value={referral.reason}
+                    onChange={(e) => setReferral({ ...referral, reason: e.target.value })}
+                    className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-halo-300 focus:border-halo-400 transition-all duration-200"
+                    rows={3}
+                    placeholder="Alasan merujuk pasien"
+                  />
+                </div>
+              </div>
+            )}
+          </>
+        )}
+
+        {step === lastStep && (
+          <div className="space-y-6">
+            <DoctorSelector
+              institutionType={institutionType}
+              doctorName={doctorName}
+              sip={sip}
+              onDoctorNameChange={setDoctorName}
+              onSipChange={setSip}
+            />
+
+            {doctorName && (
+              <>
+                <SignaturePad
+                  doctorName={doctorName}
+                  sip={sip}
+                  onSignatureChange={setSignatureUrl}
+                />
+
+                {institution && (
+                  <StampGenerator
+                    institutionName={institution.name}
+                    institutionType={institutionType as InstitutionType}
+                    doctorName={doctorName}
+                    sip={sip}
+                    onStampChange={setStampUrl}
+                  />
+                )}
+              </>
+            )}
+          </div>
+        )}
+      </div>
+
+      {/* Navigation */}
+      <div className="flex justify-between items-center">
+        <button
+          onClick={() => step > 0 ? setStep(step - 1) : null}
+          disabled={step === 0}
+          className="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-white text-gray-700 border border-gray-200 rounded-xl text-sm font-medium hover:bg-gray-50 hover:border-gray-300 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
+        >
+          <ArrowLeft className="w-4 h-4" /> <span className="hidden sm:inline">Sebelumnya</span>
+        </button>
+
+        <div className="flex items-center gap-3">
+          <span className="text-xs text-gray-400 hidden sm:inline">
+            Langkah {step + 1} dari {steps.length}
+          </span>
+
+          {step < lastStep ? (
+            <button
+              onClick={() => setStep(step + 1)}
+              disabled={!canProceed()}
+              className="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-halo-500 text-white rounded-xl text-sm font-semibold hover:bg-halo-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 active:scale-[0.98]"
+            >
+              <span className="hidden sm:inline">Selanjutnya</span> <ArrowRight className="w-4 h-4" />
+            </button>
+          ) : (
+            <button
+              onClick={handleSubmit}
+              disabled={!canProceed()}
+              className="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-halo-500 text-white rounded-xl text-sm font-semibold hover:bg-halo-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 active:scale-[0.98]"
+            >
+              <Send className="w-4 h-4" /> <span className="hidden sm:inline">Preview Surat</span>
+            </button>
+          )}
+        </div>
+      </div>
+
+      {/* Progress bar */}
+      <div className="mt-5 bg-gray-100 rounded-full h-1.5 overflow-hidden">
+        <div
+          className="bg-halo-500 h-full rounded-full transition-all duration-500 ease-out"
+          style={{ width: `${((step + 1) / steps.length) * 100}%` }}
+        />
       </div>
     </main>
   )

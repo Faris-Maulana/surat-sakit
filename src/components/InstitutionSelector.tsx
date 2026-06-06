@@ -105,37 +105,41 @@ export default function InstitutionSelector({
   return (
     <div className="space-y-6">
       <div role="radiogroup" aria-label="Jenis Fasilitas Kesehatan">
-        <label className="block text-sm font-medium text-gray-700 mb-3">Jenis Fasilitas Kesehatan</label>
+        <label className="label">Jenis Fasilitas Kesehatan</label>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-          {institutionTypes.map((t) => (
-            <button
-              key={t.value}
-              role="radio"
-              aria-checked={selectedType === t.value}
-              onClick={() => { onTypeChange(t.value); onInstitutionChange(null) }}
-              className={`flex items-center gap-3 p-4 rounded-xl border-2 transition-all text-left ${
-                selectedType === t.value
-                  ? 'border-blue-500 bg-blue-50 shadow-sm'
-                  : 'border-gray-200 hover:border-gray-300 bg-white'
-              }`}
-            >
-              <div className="w-10 h-10 flex items-center justify-center text-2xl bg-gray-50 rounded-lg" aria-hidden="true">
-                {t.icon}
-              </div>
-              <span className="font-medium text-sm">{t.label}</span>
-            </button>
-          ))}
+          {institutionTypes.map((t) => {
+            const sel = selectedType === t.value
+            return (
+              <button
+                key={t.value}
+                role="radio"
+                aria-checked={sel}
+                onClick={() => { onTypeChange(t.value); onInstitutionChange(null) }}
+                className={`flex items-center gap-3 p-4 rounded-xl border-2 transition-all text-left ${
+                  sel
+                    ? 'border-halo-400 bg-halo-50 shadow-sm'
+                    : 'border-gray-100 bg-white hover:border-gray-200 bg-white rounded-2xl border border-gray-100 shadow-sm transition-all duration-200 hover:shadow-md hover:border-gray-200'
+                }`}
+              >
+                <div className={`w-10 h-10 rounded-xl flex items-center justify-center text-xl ${
+                  sel ? 'bg-halo-500 text-white' : 'bg-halo-50 text-halo-500'
+                }`}>
+                  {t.icon}
+                </div>
+                <span className="font-medium text-sm text-gray-800">{t.label}</span>
+              </button>
+            )
+          })}
         </div>
       </div>
 
       {selectedType && (
         <div className="relative" ref={containerRef}>
-          <label htmlFor="city-search" className="block text-sm font-medium text-gray-700 mb-2">Pilih Kota</label>
+          <label className="label">Pilih Kota</label>
           <div className="relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" aria-hidden="true" />
             <input
               ref={inputRef}
-              id="city-search"
               type="text"
               role="combobox"
               aria-expanded={open}
@@ -147,7 +151,7 @@ export default function InstitutionSelector({
               onChange={(e) => { setQuery(e.target.value); setOpen(true); setActiveIndex(-1) }}
               onFocus={() => setOpen(true)}
               onKeyDown={handleKeyDown}
-              className="w-full rounded-xl border-gray-300 border p-3 pl-10 pr-10 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="input pl-10 pr-10"
             />
             {(query || selectedCity) && (
               <button
@@ -166,10 +170,10 @@ export default function InstitutionSelector({
               id="city-listbox"
               role="listbox"
               aria-label="Daftar kota"
-              className="absolute z-20 mt-1 w-full bg-white border border-gray-200 rounded-xl shadow-lg max-h-64 overflow-y-auto"
+              className="absolute z-20 mt-1.5 w-full bg-white border border-gray-100 rounded-xl shadow-lg max-h-64 overflow-y-auto"
             >
               {matchedCities.length === 0 ? (
-                <div className="p-3 text-sm text-gray-400 text-center" role="status">Kota tidak ditemukan</div>
+                <div className="p-4 text-sm text-gray-400 text-center" role="status">Kota tidak ditemukan</div>
               ) : (
                 matchedCities.map((c, i) => (
                   <button
@@ -179,9 +183,9 @@ export default function InstitutionSelector({
                     aria-selected={selectedCity === c.id}
                     onClick={() => handleSelect(c.id)}
                     onMouseEnter={() => setActiveIndex(i)}
-                    className={`w-full text-left px-4 py-2.5 text-sm transition-colors ${
-                      i === activeIndex ? 'bg-blue-50' : ''
-                    } ${selectedCity === c.id ? 'font-medium text-blue-700' : 'text-gray-700 hover:bg-gray-50'}`}
+                    className={`w-full text-left px-4 py-3 text-sm transition-colors border-b border-gray-50 last:border-0 ${
+                      i === activeIndex ? 'bg-halo-50' : ''
+                    } ${selectedCity === c.id ? 'font-medium text-halo-700' : 'text-gray-700 hover:bg-gray-50'}`}
                   >
                     {c.name}
                   </button>
@@ -194,7 +198,7 @@ export default function InstitutionSelector({
 
       {selectedCity && selectedType && (
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="label">
             Pilih {institutionTypes.find(t => t.value === selectedType)?.label}
           </label>
           {filtered.length === 0 ? (
@@ -203,55 +207,60 @@ export default function InstitutionSelector({
             </p>
           ) : (
             <div className="space-y-2 max-h-64 overflow-y-auto" role="listbox" aria-label="Daftar institusi">
-              {filtered.map((inst) => (
-                <button
-                  key={inst.id}
-                  role="option"
-                  aria-selected={selectedInstitution?.id === inst.id}
-                  onClick={() => onInstitutionChange(inst)}
-                  className={`w-full flex items-start gap-3 p-3 rounded-xl border-2 transition-all text-left ${
-                    selectedInstitution?.id === inst.id
-                      ? 'border-blue-500 bg-blue-50'
-                      : 'border-gray-200 hover:border-gray-300 bg-white'
-                  }`}
-                >
-                  <div
-                    className="w-12 h-12 flex-shrink-0 rounded-lg overflow-hidden bg-gray-50"
-                    aria-hidden="true"
-                    dangerouslySetInnerHTML={{ __html: getLogoById(inst.id, inst.type, inst.name) }}
-                  />
-                  <div className="flex-1 min-w-0">
-                    <p className="font-medium text-sm">{inst.name}</p>
-                    <div className="flex items-center gap-1 text-xs text-gray-500 mt-1">
-                      <MapPin className="w-3 h-3" aria-hidden="true" />
-                      <span className="truncate">{inst.address}</span>
+              {filtered.map((inst) => {
+                const sel = selectedInstitution?.id === inst.id
+                return (
+                  <button
+                    key={inst.id}
+                    role="option"
+                    aria-selected={sel}
+                    onClick={() => onInstitutionChange(inst)}
+                    className={`w-full flex items-start gap-3 p-4 rounded-xl border-2 transition-all text-left ${
+                      sel
+                        ? 'border-halo-400 bg-halo-50'
+                        : 'border-gray-100 hover:border-gray-200 bg-white'
+                    }`}
+                  >
+                    <div
+                      className="w-12 h-12 flex-shrink-0 rounded-xl overflow-hidden bg-gray-50 border border-gray-100"
+                      aria-hidden="true"
+                      dangerouslySetInnerHTML={{ __html: getLogoById(inst.id, inst.type, inst.name) }}
+                    />
+                    <div className="flex-1 min-w-0">
+                      <p className="font-medium text-sm text-gray-800">{inst.name}</p>
+                      <div className="flex items-center gap-1 text-xs text-gray-400 mt-1">
+                        <MapPin className="w-3 h-3" aria-hidden="true" />
+                        <span className="truncate">{inst.address}</span>
+                      </div>
+                      <a
+                        href={inst.mapsUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                        className="inline-flex items-center gap-1 text-xs text-halo-500 hover:text-halo-600 mt-1"
+                        aria-label={`Lihat ${inst.name} di Google Maps`}
+                      >
+                        <MapPin className="w-3 h-3" aria-hidden="true" /> Lihat di Google Maps
+                      </a>
                     </div>
-                    <a
-                      href={inst.mapsUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={(e) => e.stopPropagation()}
-                      className="inline-flex items-center gap-1 text-xs text-blue-600 hover:text-blue-800 mt-1"
-                      aria-label={`Lihat ${inst.name} di Google Maps`}
-                    >
-                      <MapPin className="w-3 h-3" aria-hidden="true" /> Lihat di Google Maps
-                    </a>
-                  </div>
-                  <ChevronRight className={`w-5 h-5 mt-2 ${selectedInstitution?.id === inst.id ? 'text-blue-500' : 'text-gray-300'}`} aria-hidden="true" />
-                </button>
-              ))}
+                    <ChevronRight className={`w-5 h-5 mt-2 ${sel ? 'text-halo-500' : 'text-gray-200'}`} aria-hidden="true" />
+                  </button>
+                )
+              })}
             </div>
           )}
         </div>
       )}
 
       {selectedInstitution && (
-        <div className="p-4 bg-green-50 border border-green-200 rounded-xl flex items-start gap-3" role="status" aria-live="polite">
-          <Building2 className="w-5 h-5 text-green-600 mt-0.5" aria-hidden="true" />
+        <div className="p-4 bg-halo-50 border border-halo-100 rounded-xl flex items-start gap-3" role="status" aria-live="polite">
+          <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center flex-shrink-0 border border-halo-100">
+            <Building2 className="w-5 h-5 text-halo-500" />
+          </div>
           <div>
-            <p className="font-medium text-green-800 text-sm">{selectedInstitution.name}</p>
-            <p className="text-xs text-green-600">{selectedInstitution.address}</p>
-            <p className="text-xs text-green-600">{selectedInstitution.phone}</p>
+            <p className="font-medium text-halo-800 text-sm">{selectedInstitution.name}</p>
+            <p className="text-xs text-halo-600 mt-0.5">{selectedInstitution.address}</p>
+            <p className="text-xs text-halo-500 mt-0.5">{selectedInstitution.phone}</p>
           </div>
         </div>
       )}

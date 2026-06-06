@@ -79,7 +79,7 @@ export default function ExportButtons({ data, letterNumber, templateId, signatur
         disabled={anyLoading}
         aria-busy={docxLoading}
         aria-label={docxLoading ? 'Mengexport DOCX...' : 'Export surat ke DOCX'}
-        className="flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-xl font-medium hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors shadow-sm"
+        className="flex items-center gap-2 px-6 py-3 bg-halo-500 text-white rounded-xl font-medium hover:bg-halo-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors shadow-sm"
       >
         {docxLoading ? (
           <Loader2 className="w-5 h-5 animate-spin" />

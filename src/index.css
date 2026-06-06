@@ -1,104 +1,95 @@
 @import "tailwindcss";
 
-@layer base {
-  body {
-    @apply bg-gray-50 text-gray-900 antialiased;
-  }
+@theme {
+  --color-halo-50: #eef9f8;
+  --color-halo-100: #d5f0ed;
+  --color-halo-200: #abe1da;
+  --color-halo-300: #6bc9bd;
+  --color-halo-400: #3daea0;
+  --color-halo-500: #1a8c7e;
+  --color-halo-600: #0d7568;
+  --color-halo-700: #0a5e54;
+  --color-halo-800: #0a4b43;
+  --color-halo-900: #093e38;
+
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
 }
 
-@layer components {
-  .surat-container {
-    @apply bg-white shadow-lg mx-auto;
-    width: 210mm;
-    min-height: 297mm;
-    padding: 15mm 20mm;
-    box-sizing: border-box;
-  }
+/*
+ * Custom component classes
+ * Note: Tailwind v4 @apply can only reference built-in utilities, not other custom classes.
+ * These classes should be used inline via className in JSX instead.
+ */
 
-  .surat-line {
-    @apply border-t-2 border-black my-3 sm:my-4;
-  }
-
-  .surat-header {
-    @apply text-center mb-4 sm:mb-6;
-  }
-
-  .surat-header h1 {
-    @apply text-base sm:text-xl font-bold uppercase;
-  }
-
-  .surat-header p {
-    @apply text-[10px] sm:text-sm;
-  }
-
-  /* Responsive scaling: on small viewports, shrink the A4 preview proportionally */
-  @media screen and (max-width: 800px) {
-    .surat-container {
-      width: 100%;
-      min-height: auto;
-      padding: 12px 16px;
-      font-size: 12px;
-    }
-
-    .surat-container table {
-      font-size: 12px;
-    }
-  }
-
-  @media screen and (max-width: 480px) {
-    .surat-container {
-      padding: 10px 12px;
-    }
-  }
+body {
+  background-color: #f5f7fa;
+  color: #1f2937;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Print styles — maintain A4 exactly */
-@page {
-  size: A4;
-  margin: 12mm 15mm;
+/* Surat letter styles are kept as CSS classes for the print template */
+.surat-container {
+  background-color: #fff;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+  margin-left: auto;
+  margin-right: auto;
+  width: 210mm;
+  min-height: 297mm;
+  padding: 15mm 20mm;
+  box-sizing: border-box;
 }
+
+.surat-line {
+  border-top: 2px solid #000;
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+@media (min-width: 640px) {
+  .surat-line { margin-top: 1rem; margin-bottom: 1rem; }
+}
+
+.surat-header {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+@media (min-width: 640px) {
+  .surat-header { margin-bottom: 1.5rem; }
+}
+
+.surat-header h1 {
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+@media (min-width: 640px) {
+  .surat-header h1 { font-size: 1.25rem; }
+}
+
+.surat-header p {
+  font-size: 10px;
+}
+@media (min-width: 640px) {
+  .surat-header p { font-size: 0.875rem; }
+}
+
+@media screen and (max-width: 800px) {
+  .surat-container { width: 100%; min-height: auto; padding: 12px 16px; font-size: 12px; }
+  .surat-container table { font-size: 12px; }
+}
+@media screen and (max-width: 480px) {
+  .surat-container { padding: 10px 12px; }
+}
+
+@page { size: A4; margin: 12mm 15mm; }
 
 @media print {
-  html, body {
-    width: 210mm;
-    height: 297mm;
-    margin: 0;
-    padding: 0;
-    -webkit-print-color-adjust: exact;
-    print-color-adjust: exact;
-  }
-
-  body {
-    background: white !important;
-  }
-
-  .surat-container {
-    width: 210mm;
-    min-height: auto;
-    padding: 0;
-    box-shadow: none;
-    margin: 0;
-    font-size: 11pt;
-    line-height: 1.4;
-  }
-
-  .surat-container table {
-    font-size: 11pt;
-  }
-
-  .surat-container .surat-header h1 {
-    font-size: 14pt;
-  }
-
-  .surat-container .surat-header p {
-    font-size: 9pt;
-  }
-
-  .surat-line {
-    margin: 6pt 0;
-  }
-
-  @page :first {
-    margin-top: 0;
-  }
+  html, body { width: 210mm; height: 297mm; margin: 0; padding: 0; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { background: white !important; }
+  .surat-container { width: 210mm; min-height: auto; padding: 0; box-shadow: none; margin: 0; font-size: 11pt; line-height: 1.4; }
+  .surat-container table { font-size: 11pt; }
+  .surat-container .surat-header h1 { font-size: 14pt; }
+  .surat-container .surat-header p { font-size: 9pt; }
+  .surat-line { margin: 6pt 0; }
+  @page :first { margin-top: 0; }
 }

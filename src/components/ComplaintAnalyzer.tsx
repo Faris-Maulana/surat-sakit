@@ -51,18 +51,18 @@ export default function ComplaintAnalyzer({
   }
 
   return (
-    <div className="space-y-4">
-      <div className="flex items-center gap-2 text-blue-600 mb-4">
+    <div className="space-y-5">
+      <div className="flex items-center gap-2 text-halo-600 mb-1">
         <Stethoscope className="w-5 h-5" />
         <h3 className="font-semibold">Keluhan & Diagnosis</h3>
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">Keluhan Pasien</label>
+        <label className="block text-sm font-medium text-gray-600 mb-1.5">Keluhan Pasien</label>
         <textarea
           value={keluhan}
           onChange={(e) => { onKeluhanChange(e.target.value); setAnalyzed(false) }}
-          className="w-full rounded-xl border-gray-300 border p-3 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-halo-300 focus:border-halo-400 transition-all duration-200"
           rows={3}
           placeholder="Contoh: Demam sejak 2 hari, batuk berdahak kuning, sakit kepala, dan badan lemas"
         />
@@ -71,10 +71,10 @@ export default function ComplaintAnalyzer({
       <button
         onClick={handleAnalyze}
         disabled={!keluhan.trim()}
-        className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-xl text-sm font-medium hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+        className="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-halo-500 text-white rounded-xl text-sm font-semibold hover:bg-halo-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 active:scale-[0.98]"
       >
         <Sparkles className="w-4 h-4" />
-        Analisa Keluhan & Generate Diagnosis
+        Analisa & Generate Diagnosis
       </button>
 
       {analyzed && (
@@ -106,35 +106,34 @@ export default function ComplaintAnalyzer({
         </div>
       )}
 
-      <div className="grid grid-cols-1 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Diagnosis Utama</label>
+          <label className="block text-sm font-medium text-gray-600 mb-1.5">Diagnosis Utama</label>
           <input
             type="text"
             value={diagnosis}
             onChange={(e) => onDiagnosisChange(e.target.value)}
-            className="w-full rounded-xl border-gray-300 border p-3 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-halo-300 focus:border-halo-400 transition-all duration-200"
             placeholder="Diagnosis utama"
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Kode ICD-10 Utama</label>
+          <label className="block text-sm font-medium text-gray-600 mb-1.5">Kode ICD-10 Utama</label>
           <input
             type="text"
             value={icdCode}
             onChange={(e) => onIcdCodeChange(e.target.value)}
-            className="w-full rounded-xl border-gray-300 border p-3 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-halo-300 focus:border-halo-400 transition-all duration-200"
             placeholder="Kode ICD"
           />
         </div>
       </div>
 
-      {/* Secondary diagnoses */}
       {secondaryDiagnoses.map((sec, idx) => (
-        <div key={idx} className="p-4 bg-gray-50 border border-gray-200 rounded-xl relative">
+        <div key={idx} className="p-4 bg-gray-50 border border-gray-100 rounded-xl relative">
           <button
             onClick={() => removeSecondary(idx)}
-            className="absolute top-2 right-2 p-1 text-gray-400 hover:text-red-500 transition-colors"
+            className="absolute top-3 right-3 p-1 text-gray-400 hover:text-red-500 transition-colors"
           >
             <X className="w-4 h-4" />
           </button>
@@ -144,14 +143,14 @@ export default function ComplaintAnalyzer({
               type="text"
               value={sec.diagnosis}
               onChange={(e) => updateSecondary(idx, 'diagnosis', e.target.value)}
-              className="w-full rounded-xl border-gray-300 border p-2.5 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-halo-300 focus:border-halo-400 transition-all duration-200"
               placeholder="Diagnosis tambahan"
             />
             <input
               type="text"
               value={sec.icdCode}
               onChange={(e) => updateSecondary(idx, 'icdCode', e.target.value)}
-              className="w-full rounded-xl border-gray-300 border p-2.5 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-halo-300 focus:border-halo-400 transition-all duration-200"
               placeholder="Kode ICD"
             />
           </div>
@@ -160,7 +159,7 @@ export default function ComplaintAnalyzer({
 
       <button
         onClick={addSecondary}
-        className="flex items-center gap-2 px-4 py-2 border-2 border-dashed border-gray-300 text-gray-500 rounded-xl text-sm font-medium hover:border-blue-300 hover:text-blue-600 transition-colors w-full justify-center"
+        className="flex items-center justify-center gap-2 w-full py-3 border-2 border-dashed border-gray-200 text-gray-400 rounded-xl text-sm font-medium hover:border-halo-300 hover:text-halo-500 transition-colors"
       >
         <Plus className="w-4 h-4" />
         Tambah Diagnosis Lain

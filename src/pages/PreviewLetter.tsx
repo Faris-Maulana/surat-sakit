@@ -29,14 +29,11 @@ export default function PreviewLetter() {
 
   if (!letterData || !letterData.institution) {
     return (
-      <main className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-50 px-4">
-        <div className="text-center max-w-md">
+      <main className="max-w-lg mx-auto px-4 pt-20 pb-12">
+        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-8 text-center">
           <div className="text-6xl mb-4">📄</div>
-          <p className="text-gray-500 mb-4">Data surat tidak ditemukan.</p>
-          <button
-            onClick={() => navigate('/')}
-            className="px-6 py-3 bg-blue-600 text-white rounded-xl text-sm font-medium hover:bg-blue-700 transition-colors shadow-sm"
-          >
+          <p className="text-gray-500 mb-6">Data surat tidak ditemukan.</p>
+          <button onClick={() => navigate('/')} className="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-halo-500 text-white rounded-xl text-sm font-semibold hover:bg-halo-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 active:scale-[0.98]">
             Buat Surat Baru
           </button>
         </div>
@@ -51,52 +48,48 @@ export default function PreviewLetter() {
   const templateId = `surat-${lt}-template`
 
   return (
-    <main className="min-h-screen bg-gray-100 py-4 sm:py-8 px-2 sm:px-4">
-      <div className="max-w-4xl mx-auto">
-        {/* Actions */}
-        <div className="flex flex-wrap items-center justify-between gap-2 sm:gap-3 mb-4 sm:mb-6 hide-on-print">
+    <main className="max-w-4xl mx-auto px-4 pt-6 pb-12">
+      {/* Actions toolbar */}
+      <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-3 mb-6 flex flex-wrap items-center justify-between gap-3 hide-on-print">
+        <button
+          onClick={() => navigate('/')}
+          className="inline-flex items-center justify-center gap-2 px-3 py-2 text-gray-500 rounded-xl text-sm font-medium hover:bg-gray-100 hover:text-gray-700 transition-all duration-200"
+        >
+          <ArrowLeft className="w-4 h-4" /> <span className="hidden sm:inline">Kembali</span>
+        </button>
+        <div className="flex items-center gap-2">
+          <div className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-medium bg-halo-50 text-halo-700 flex items-center gap-1.5 px-3 py-1.5 text-xs">
+            <span>{templateLabels[lt]?.icon}</span>
+            <span className="font-medium">{templateLabels[lt]?.title}</span>
+          </div>
           <button
-            onClick={() => navigate('/')}
-            aria-label="Kembali ke form surat"
-            className="flex items-center gap-2 px-3 sm:px-4 py-2 bg-white border border-gray-300 rounded-xl text-xs sm:text-sm font-medium hover:bg-gray-50 transition-colors shadow-sm"
+            onClick={handlePrint}
+            className="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-white text-gray-700 border border-gray-200 rounded-xl text-sm font-medium hover:bg-gray-50 hover:border-gray-300 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 px-3 py-2"
           >
-            <ArrowLeft className="w-4 h-4" aria-hidden="true" /> <span className="hidden sm:inline">Kembali</span>
+            <Printer className="w-4 h-4" /> <span className="hidden sm:inline">Print</span>
           </button>
-          <div className="flex flex-wrap items-center gap-2 sm:gap-3">
-            <div className="flex items-center gap-2 px-3 py-1.5 bg-white border border-gray-200 rounded-lg text-xs text-gray-500" aria-label={`Jenis surat: ${templateLabels[lt]?.title}`}>
-              <span aria-hidden="true">{templateLabels[lt]?.icon}</span>
-              <span className="font-medium">{templateLabels[lt]?.title}</span>
-            </div>
-            <button
-              onClick={handlePrint}
-              aria-label="Cetak surat"
-              className="flex items-center gap-2 px-3 sm:px-4 py-2 bg-white border border-gray-300 rounded-xl text-xs sm:text-sm font-medium hover:bg-gray-50 transition-colors shadow-sm"
-            >
-              <Printer className="w-4 h-4" aria-hidden="true" /> <span className="hidden sm:inline">Print</span>
-            </button>
-            <ExportButtons data={letterData} letterNumber={letterData.letterNumber} templateId={templateId} signatureUrl={signatureUrl} stampUrl={stampUrl} />
-          </div>
+          <ExportButtons
+            data={letterData}
+            letterNumber={letterData.letterNumber}
+            templateId={templateId}
+            signatureUrl={signatureUrl}
+            stampUrl={stampUrl}
+          />
         </div>
-
-        {/* Surat Preview */}
-        <div className="flex justify-center">
-          <div className="w-full max-w-[210mm] overflow-x-auto">
-            {lt === 'sehat' && (
-              <SuratSehat data={letterData} signatureUrl={signatureUrl} stampUrl={stampUrl} />
-            )}
-            {lt === 'rujukan' && (
-              <SuratRujukan data={letterData} signatureUrl={signatureUrl} stampUrl={stampUrl} />
-            )}
-            {lt === 'sakit' && (
-              <SuratSakit data={letterData} signatureUrl={signatureUrl} stampUrl={stampUrl} />
-            )}
-          </div>
-        </div>
-
-        <p className="text-center text-xs text-gray-400 mt-4 hide-on-print">
-          Gunakan tombol Export PDF atau Export DOCX untuk menyimpan surat ini.
-        </p>
       </div>
+
+      {/* Surat Preview */}
+      <div className="flex justify-center">
+        <div className="w-full max-w-[210mm] overflow-x-auto">
+          {lt === 'sehat' && <SuratSehat data={letterData} signatureUrl={signatureUrl} stampUrl={stampUrl} />}
+          {lt === 'rujukan' && <SuratRujukan data={letterData} signatureUrl={signatureUrl} stampUrl={stampUrl} />}
+          {lt === 'sakit' && <SuratSakit data={letterData} signatureUrl={signatureUrl} stampUrl={stampUrl} />}
+        </div>
+      </div>
+
+      <p className="text-center text-xs text-gray-400 mt-4 hide-on-print">
+        Gunakan tombol Export PDF atau Export DOCX untuk menyimpan surat ini.
+      </p>
     </main>
   )
 }
