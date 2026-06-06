@@ -1,8 +1,4 @@
 /* Print utilities */
-.hide-on-print {
-  display: block;
-}
-
 @media print {
   .hide-on-print {
     display: none !important;

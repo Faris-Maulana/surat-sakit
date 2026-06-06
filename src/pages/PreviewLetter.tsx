@@ -42,7 +42,7 @@ export default function PreviewLetter() {
   }
 
   const handlePrint = () => {
-    window.print()
+    setTimeout(() => window.print(), 0)
   }
 
   const templateId = `surat-${lt}-template`
@@ -58,13 +58,13 @@ export default function PreviewLetter() {
           <ArrowLeft className="w-4 h-4" /> <span className="hidden sm:inline">Kembali</span>
         </button>
         <div className="flex items-center gap-2">
-          <div className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-medium bg-halo-50 text-halo-700 flex items-center gap-1.5 px-3 py-1.5 text-xs">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-halo-50 text-halo-700">
             <span>{templateLabels[lt]?.icon}</span>
             <span className="font-medium">{templateLabels[lt]?.title}</span>
           </div>
           <button
             onClick={handlePrint}
-            className="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-white text-gray-700 border border-gray-200 rounded-xl text-sm font-medium hover:bg-gray-50 hover:border-gray-300 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 px-3 py-2"
+            className="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-white text-gray-700 border border-gray-200 rounded-xl text-sm font-medium hover:bg-gray-50 hover:border-gray-300 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
           >
             <Printer className="w-4 h-4" /> <span className="hidden sm:inline">Print</span>
           </button>
