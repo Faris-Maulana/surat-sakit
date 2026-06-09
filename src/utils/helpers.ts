@@ -6,12 +6,11 @@ export function generateLetterNumber(): string {
   const year = now.getFullYear()
   const key = `${COUNTER_KEY}-${year}-${month}`
   let counter = 1
-  try { const stored = localStorage.getItem(key); if (stored) counter = parseInt(stored, 10) + 1 } catch { /* noop */ }
-  try { localStorage.setItem(key, String(counter)) } catch { /* noop */ }
+  try { const stored = localStorage.getItem(key); if (stored) counter = parseInt(stored, 10) + 1 } catch {}
+  try { localStorage.setItem(key, String(counter)) } catch {}
   return `440/${String(counter).padStart(4, '0')}/SKS/${month}/${year}`
 }
 
-// Auto-generated city name lookup
 const cityNames: Record<string, string> = {
   'kab-aceh-barat': 'Kab. Aceh Barat',
   'kab-aceh-barat-daya': 'Kab. Aceh Barat Daya',
