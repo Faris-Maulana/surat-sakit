@@ -1,5 +1,5 @@
 import type { Institution, InstitutionType } from '@/types'
-import { rsList } from './rumah_sakit'
+import { rumah_sakitList as rsList } from './rumah_sakit'
 import { puskesmasList } from './puskesmas'
 import { klinikList } from './klinik'
 
