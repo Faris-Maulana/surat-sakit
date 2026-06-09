@@ -20,13 +20,21 @@ export default function InstitutionSelector({
   const [query, setQuery] = useState('')
   const [open, setOpen] = useState(false)
   const [activeIndex, setActiveIndex] = useState(-1)
+  const [instQuery, setInstQuery] = useState('')
   const inputRef = useRef<HTMLInputElement>(null)
+  const instInputRef = useRef<HTMLInputElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
   const listRef = useRef<HTMLDivElement>(null)
 
   const filtered = selectedType && selectedCity
     ? getInstitutionsByCityAndType(selectedCity, selectedType)
     : []
+
+  const matchedInstitutions = useMemo(() => {
+    if (!instQuery) return filtered
+    const q = instQuery.toLowerCase()
+    return filtered.filter(i => i.name.toLowerCase().includes(q) || i.address.toLowerCase().includes(q))
+  }, [instQuery, filtered])
 
   const matchedCities = useMemo(() => {
     if (!query) return cities
@@ -64,6 +72,7 @@ export default function InstitutionSelector({
     onCityChange(cityId)
     onInstitutionChange(null)
     setQuery('')
+    setInstQuery('')
     setOpen(false)
   }
 
@@ -206,47 +215,78 @@ export default function InstitutionSelector({
               Tidak ada {selectedType === 'rumah_sakit' ? 'rumah sakit' : selectedType} di kota ini.
             </p>
           ) : (
-            <div className="space-y-2 max-h-64 overflow-y-auto" role="listbox" aria-label="Daftar institusi">
-              {filtered.map((inst) => {
-                const sel = selectedInstitution?.id === inst.id
-                return (
+            <div>
+              <div className="relative mb-2">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" aria-hidden="true" />
+                <input
+                  ref={instInputRef}
+                  type="text"
+                  placeholder={`Cari ${institutionTypes.find(t => t.value === selectedType)?.label.toLowerCase()}...`}
+                  value={instQuery}
+                  onChange={(e) => setInstQuery(e.target.value)}
+                  className="input pl-10 pr-10"
+                />
+                {instQuery && (
                   <button
-                    key={inst.id}
-                    role="option"
-                    aria-selected={sel}
-                    onClick={() => onInstitutionChange(inst)}
-                    className={`w-full flex items-start gap-3 p-4 rounded-xl border-2 transition-all text-left ${
-                      sel
-                        ? 'border-halo-400 bg-halo-50'
-                        : 'border-gray-100 hover:border-gray-200 bg-white'
-                    }`}
+                    onClick={() => setInstQuery('')}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                    aria-label="Hapus pencarian"
                   >
-                    <div
-                      className="w-12 h-12 flex-shrink-0 rounded-xl overflow-hidden bg-gray-50 border border-gray-100"
-                      aria-hidden="true"
-                      dangerouslySetInnerHTML={{ __html: getLogoById(inst.id, inst.type, inst.name) }}
-                    />
-                    <div className="flex-1 min-w-0">
-                      <p className="font-medium text-sm text-gray-800">{inst.name}</p>
-                      <div className="flex items-center gap-1 text-xs text-gray-400 mt-1">
-                        <MapPin className="w-3 h-3" aria-hidden="true" />
-                        <span className="truncate">{inst.address}</span>
-                      </div>
-                      <a
-                        href={inst.mapsUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={(e) => e.stopPropagation()}
-                        className="inline-flex items-center gap-1 text-xs text-halo-500 hover:text-halo-600 mt-1"
-                        aria-label={`Lihat ${inst.name} di Google Maps`}
-                      >
-                        <MapPin className="w-3 h-3" aria-hidden="true" /> Lihat di Google Maps
-                      </a>
-                    </div>
-                    <ChevronRight className={`w-5 h-5 mt-2 ${sel ? 'text-halo-500' : 'text-gray-200'}`} aria-hidden="true" />
+                    <X className="w-4 h-4" />
                   </button>
-                )
-              })}
+                )}
+              </div>
+              <p className="text-xs text-gray-400 mb-2">
+                {matchedInstitutions.length} dari {filtered.length} fasilitas
+              </p>
+              {matchedInstitutions.length === 0 ? (
+                <p className="text-sm text-gray-400 italic" role="status">
+                  Tidak ditemukan. Coba kata kunci lain.
+                </p>
+              ) : (
+                <div className="space-y-2 max-h-64 overflow-y-auto" role="listbox" aria-label="Daftar institusi">
+                  {matchedInstitutions.map((inst) => {
+                    const sel = selectedInstitution?.id === inst.id
+                    return (
+                      <button
+                        key={inst.id}
+                        role="option"
+                        aria-selected={sel}
+                        onClick={() => onInstitutionChange(inst)}
+                        className={`w-full flex items-start gap-3 p-4 rounded-xl border-2 transition-all text-left ${
+                          sel
+                            ? 'border-halo-400 bg-halo-50'
+                            : 'border-gray-100 hover:border-gray-200 bg-white'
+                        }`}
+                      >
+                        <div
+                          className="w-12 h-12 flex-shrink-0 rounded-xl overflow-hidden bg-gray-50 border border-gray-100"
+                          aria-hidden="true"
+                          dangerouslySetInnerHTML={{ __html: getLogoById(inst.id, inst.type, inst.name) }}
+                        />
+                        <div className="flex-1 min-w-0">
+                          <p className="font-medium text-sm text-gray-800">{inst.name}</p>
+                          <div className="flex items-center gap-1 text-xs text-gray-400 mt-1">
+                            <MapPin className="w-3 h-3" aria-hidden="true" />
+                            <span className="truncate">{inst.address}</span>
+                          </div>
+                          <a
+                            href={inst.mapsUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={(e) => e.stopPropagation()}
+                            className="inline-flex items-center gap-1 text-xs text-halo-500 hover:text-halo-600 mt-1"
+                            aria-label={`Lihat ${inst.name} di Google Maps`}
+                          >
+                            <MapPin className="w-3 h-3" aria-hidden="true" /> Lihat di Google Maps
+                          </a>
+                        </div>
+                        <ChevronRight className={`w-5 h-5 mt-2 ${sel ? 'text-halo-500' : 'text-gray-200'}`} aria-hidden="true" />
+                      </button>
+                    )
+                  })}
+                </div>
+              )}
             </div>
           )}
         </div>
